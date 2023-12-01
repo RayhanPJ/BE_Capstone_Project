@@ -1,4 +1,4 @@
-@extends('index');
+@extends('template');
 
 @section('sidebar')
     <!-- Menu -->
