@@ -4,8 +4,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
     <title>@yield('pageTitle')</title>
 
@@ -33,8 +32,7 @@
     <link rel="stylesheet" href="{{ asset('/template/assets/vendor/libs/select2/select2.css') }}" />
 
     <!-- Vendor Form Validation CSS -->
-    <link rel="stylesheet"
-        href="{{ asset('/template/assets/vendor/libs/formvalidation/dist/css/formValidation.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('/template/assets/vendor/libs/formvalidation/dist/css/formValidation.min.css') }}" />
 
     <!-- Page CSS -->
     <link rel="stylesheet" href="{{ asset('/template/assets/vendor/css/pages/page-auth.css') }}" />
@@ -100,6 +98,7 @@
                 }
             });
         });
+
     </script>
 </body>
 

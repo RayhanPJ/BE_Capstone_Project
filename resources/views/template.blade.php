@@ -4,8 +4,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
     <title>@yield('pageTitle')</title>
 
@@ -28,6 +27,8 @@
     <link rel="stylesheet" href="{{ asset('/template/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
     <link rel="stylesheet" href="{{ asset('/template/assets/vendor/libs/node-waves/node-waves.css') }}" />
     <link rel="stylesheet" href="{{ asset('/template/assets/vendor/libs/typeahead-js/typeahead.css') }}" />
+    <link rel="stylesheet" href="assets/vendor/libs/select2/select2.css " />
+
 
     <!-- Page CSS -->
 
@@ -45,7 +46,7 @@
         <div class="layout-container">
             <!-- Menu -->
             @yield('sidebar')
-            
+
             <!-- / Menu -->
 
             <!-- Layout container -->
@@ -62,13 +63,13 @@
 
                     <div class="container-xxl flex-grow-1 container-p-y">
                         <div class="row">
-                          <!-- Main Content -->
+                            <!-- Main Content -->
                             @yield('mainContent')
-                          <!-- /Main Content -->
+                            <!-- /Main Content -->
 
-                          <!-- Footer -->
+                            <!-- Footer -->
                             @yield('footer')
-                          <!-- / Footer -->
+                            <!-- / Footer -->
 
                             <div class="content-backdrop fade"></div>
                         </div>
@@ -105,6 +106,46 @@
 
             <!-- Main JS -->
             <script src="{{ asset('/template/assets/js/main.js') }}"></script>
+
+            <script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    let inputNumeric = document.querySelectorAll('.numeric-input');
+                    let inputNPM = document.querySelectorAll('.npm');
+                    let inputAlphabet = document.querySelectorAll('.alphabet-input');
+
+                    inputNumeric.forEach(function(input) {
+                        input.addEventListener("input", function() {
+                            // Hapus karakter selain angka
+                            this.value = this.value.replace(/\D/g, '');
+                        });
+                    });
+
+                    inputAlphabet.forEach(function(input) {
+                        input.addEventListener("input", function() {
+                            this.value = this.value.replace(/[^a-zA-Z\s]/g, '');
+                        });
+                    });
+
+                    inputNPM.forEach(function(input) {
+                        input.addEventListener("input", function() {
+                            let inputValue = input.value;
+
+                            // Hapus karakter yang tidak valid
+                            let validValue = inputValue.replace(/[^0-9]/g, '');
+
+                            // Batasi panjang string menjadi 13 karakter
+                            if (validValue.length > 13) {
+                                validValue = validValue.slice(0, 13);
+                            }
+
+                            // Setel nilai input dengan string yang sudah valid
+                            input.value = validValue;
+
+                        });
+                    });
+                });
+
+            </script>
 </body>
 
 </html>
