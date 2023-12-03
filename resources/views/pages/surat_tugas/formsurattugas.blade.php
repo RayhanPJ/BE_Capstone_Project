@@ -92,22 +92,6 @@ Surat Tugas
                         <textarea id="basic-icon-default-message" name="judul_skripsi" class="form-control" placeholder=""></textarea>
                     </div>
                 </div>
-
-                <div class="mb-3">
-                    <label for="select2Icons" class="form-label">Icons</label>
-                    <select id="select2Icons" class="select2-icons form-select">
-                        <optgroup label="Services">
-                            <option value="bootstrap5" data-icon="ti ti-brand-bootstrap" selected>Bootstrap 5</option>
-                            <option value="codepen" data-icon="ti ti-brand-codepen">Codepen</option>
-                            <option value="php" data-icon="ti ti-brand-php">PHP</option>
-                            <option value="pinterest2" data-icon="ti ti-brand-css3">CSS3</option>
-                            <option value="html5" data-icon="ti ti-brand-html5">HTML5</option>
-                        </optgroup>
-                    </select>
-                </div>
-
-
-
                 <button type="submit" class="btn btn-primary">Send</button>
             </form>
         </div>
