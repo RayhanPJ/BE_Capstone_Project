@@ -27,7 +27,8 @@
     <link rel="stylesheet" href="{{ asset('/template/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
     <link rel="stylesheet" href="{{ asset('/template/assets/vendor/libs/node-waves/node-waves.css') }}" />
     <link rel="stylesheet" href="{{ asset('/template/assets/vendor/libs/typeahead-js/typeahead.css') }}" />
-    <link rel="stylesheet" href="assets/vendor/libs/select2/select2.css " />
+    <link rel="stylesheet" href="{{ asset('/template/assets/vendor/libs/select2/select2.css ') }}" />
+
 
 
     <!-- Page CSS -->
@@ -93,10 +94,11 @@
             <script src="{{ asset('/template/assets/vendor/js/bootstrap.js') }}"></script>
             <script src="{{ asset('/template/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
             <script src="{{ asset('/template/assets/vendor/libs/node-waves/node-waves.js') }}"></script>
-
             <script src="{{ asset('/template/assets/vendor/libs/hammer/hammer.js') }}"></script>
             <script src="{{ asset('/template/assets/vendor/libs/i18n/i18n.js') }}"></script>
             <script src="{{ asset('/template/assets/vendor/libs/typeahead-js/typeahead.js') }}"></script>
+            <script src="{{ asset('/template/assets/vendor/libs/select2/select2.js') }}"></script>
+
 
             <script src="{{ asset('/template/assets/vendor/js/menu.js') }}"></script>
             <!-- endbuild -->
@@ -106,6 +108,57 @@
 
             <!-- Main JS -->
             <script src="{{ asset('/template/assets/js/main.js') }}"></script>
+
+
+            {{-- select2 --}}
+            <script>
+                // select2 prodi
+                $(document).ready(function() {
+                    $('#select2IconsProdi').select2({
+                        templateResult: formatOption
+                        , templateSelection: formatOption
+                    , });
+
+                    // Fungsi untuk mengatur tampilan opsi dengan ikon
+                    function formatOption(option) {
+                        if (!option.id) {
+                            return option.text;
+                        }
+
+                        var iconClass = $(option.element).data('icon');
+                        if (iconClass) {
+                            // Jika opsi memiliki data-icon, tambahkan ikon ke dalam teks opsi
+                            return $('<span><i class="' + iconClass + '"></i> ' + option.text + '</span>');
+                        }
+
+                        return option.text;
+                    }
+                });
+
+                // select2 dospem
+                $(document).ready(function() {
+                    $('#select2IconsDospem').select2({
+                        templateResult: formatOption
+                        , templateSelection: formatOption
+                    , });
+
+                    // Fungsi untuk mengatur tampilan opsi dengan ikon
+                    function formatOption(option) {
+                        if (!option.id) {
+                            return option.text;
+                        }
+
+                        var iconClass = $(option.element).data('icon');
+                        if (iconClass) {
+                            // Jika opsi memiliki data-icon, tambahkan ikon ke dalam teks opsi
+                            return $('<span><i class="' + iconClass + '"></i> ' + option.text + '</span>');
+                        }
+
+                        return option.text;
+                    }
+                });
+
+            </script>
 
             <script>
                 document.addEventListener("DOMContentLoaded", function() {
