@@ -33,7 +33,7 @@ class AdminController extends Controller
             return $item;
         });
 
-        return view('admin.pages.surattugas', [
+        return view('admin.pages.listdata', [
             'data' => $formattedData,
             $navbarView,
             $sidebarView

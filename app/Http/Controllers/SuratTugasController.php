@@ -16,7 +16,7 @@ class SuratTugasController extends Controller
         return view('pages.formsurattugas', [$navbarView, $sidebarView]);
     }
 
-    public function store(Request $request){
+    public function store(Request $request){    
         $data = new SuratTugas();
         $data->id = $request->input('id');
         $data->nama_mhs = $request->input('nama_mhs');

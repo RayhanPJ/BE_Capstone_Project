@@ -109,15 +109,37 @@
             <script src="{{ asset('/template/assets/vendor/libs/masonry/masonry.js') }}"></script>
             <script src="{{ asset('/template/assets/vendor/libs/datatables/jquery.dataTables.js') }}"></script>
             <script src="{{ asset('/template/assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js') }}"></script>
-            <script src="{{ asset('/template/assets/vendor/libs/datatables-responsive/datatables.responsive.js') }}"></script>
-            <script src="{{ asset('/template/assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.js') }}"></script>
-            <script src="{{ asset('/template/assets/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.css') }}"></script>
-
+            <script src="{{ asset('/template/assets/vendor/libs/datatables-responsive/datatables.responsive.js') }}">
+            </script>
+            <script src="{{ asset('/template/assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.js') }}">
+            </script>
 
             <!-- Main JS -->
             <script src="{{ asset('/template/assets/js/main.js') }}"></script>
 
             <!-- Page Js -->
+
+            <!-- sweetalert2 -->
+            <script>
+                document.getElementById('formSuratTugas').addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    Swal.fire({
+                        title: 'Berhasil!'
+                        , text: 'Data berhasil ditambahkan, file pdf siap untuk diunduh'
+                        , icon: 'success'
+                        , customClass: {
+                            confirmButton: 'btn btn-primary'
+                        }
+                        , buttonsStyling: false
+                    }).then(() => {
+                        this.submit();
+                        setTimeout(function() {
+                            window.location.href = '/';
+                        }, 2000);
+                    });
+                });
+
+            </script>
 
             <!-- dataTable -->
             <script>

@@ -11,7 +11,7 @@ Surat Tugas
             <h5 class="mb-0">Form Surat Tugas</h5>
         </div>
         <div class="card-body">
-            <form method="post" action="{{ route('surattugas.store') }}">
+            <form method="post" action="{{ route('surattugas.store') }}" id="formSuratTugas">
                 @csrf
                 <div class="mb-3">
                     <label class="form-label" for="basic-icon-default-fullname">Nama Mahasiswa</label>
