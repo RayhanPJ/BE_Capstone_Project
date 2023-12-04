@@ -27,7 +27,17 @@
     <link rel="stylesheet" href="{{ asset('/template/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
     <link rel="stylesheet" href="{{ asset('/template/assets/vendor/libs/node-waves/node-waves.css') }}" />
     <link rel="stylesheet" href="{{ asset('/template/assets/vendor/libs/typeahead-js/typeahead.css') }}" />
-    <link rel="stylesheet" href="{{ asset('/template/assets/vendor/libs/select2/select2.css ') }}" />
+    <link rel="stylesheet" href="{{ asset('/template/assets/vendor/libs/select2/select2.css') }}" />
+    <link rel="stylesheet" href="{{ asset('/template/assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css') }}" />
+    <link rel="stylesheet" href="{{ asset('/template/assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css') }}" />
+    {{-- <link rel="stylesheet" href="{{ asset('/template/assets/vendor/libs/datatables-fixedcolumns-bs5/fixedcolumns.bootstrap5.css') }}" />
+    <link rel="stylesheet" href="{{ asset('/template/assets/vendor/libs/datatables-fixedheader-bs5/fixedheader.bootstrap5.css') }}" />
+    <link rel="stylesheet" href="{{ asset('/template/assets/vendor/libs/datatables-rowgroup-bs5/rowgroup.bootstrap5.css') }}" />
+    <link rel="stylesheet" href="{{ asset('/template/assets/vendor/libs/datatables-select-bs5/select.bootstrap5.css') }}" /> --}}
+
+    <link rel="stylesheet" href="{{ asset('/template/assets/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.css') }}" />
+
+    <link rel="stylesheet" href="{{ asset('/template/assets/vendor/libs/flatpickr/flatpickr.css') }}" />
 
 
 
@@ -99,18 +109,29 @@
             <script src="{{ asset('/template/assets/vendor/libs/typeahead-js/typeahead.js') }}"></script>
             <script src="{{ asset('/template/assets/vendor/libs/select2/select2.js') }}"></script>
 
-
             <script src="{{ asset('/template/assets/vendor/js/menu.js') }}"></script>
             <!-- endbuild -->
 
             <!-- Vendors JS -->
             <script src="{{ asset('/template/assets/vendor/libs/masonry/masonry.js') }}"></script>
+            <script src="{{ asset('/template/assets/vendor/libs/datatables/jquery.dataTables.js') }}"></script>
+            <script src="{{ asset('/template/assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js') }}"></script>
+            <script src="{{ asset('/template/assets/vendor/libs/datatables-responsive/datatables.responsive.js') }}"></script>
+            <script src="{{ asset('/template/assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.js') }}"></script>
+            <script src="{{ asset('/template/assets/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.css') }}"></script>
+
 
             <!-- Main JS -->
             <script src="{{ asset('/template/assets/js/main.js') }}"></script>
 
+            <!-- Page Js -->
 
-            {{-- select2 --}}
+            <script>
+                $('#myTable').dataTable({});
+
+            </script>
+
+            <!-- select2 -->
             <script>
                 // select2 prodi
                 $(document).ready(function() {

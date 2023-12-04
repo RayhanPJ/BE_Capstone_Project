@@ -13,9 +13,13 @@ class SuratTugasController extends Controller
         $navbarView = view('layouts/navbar');
         $sidebarView = view('layouts/sidebar');
 
-        $contentView = view('pages.surat_tugas.surattugas')->with('navbar', $navbarView)->with('sidebar', $sidebarView);
-
-        return $contentView;
+        $data = SuratTugas::orderBy('created_at', 'desc')->get();
+        return view('pages.surat_tugas.surattugas', [
+            'data' => $data,
+            $navbarView, 
+            $sidebarView
+        ]);
+        
     }
 
     public function create(){
