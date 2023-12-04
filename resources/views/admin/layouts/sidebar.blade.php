@@ -1,10 +1,10 @@
-@extends('template');
+@extends('admin.template');
 
-@section('sidebar')
+@section('sidebarAdmin')
 <!-- Menu -->
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
     <div class="app-brand demo">
-        <a href="/" class="app-brand-link">
+        <a href="/admin" class="app-brand-link">
             <span class="app-brand-logo demo">
                 <svg width="32" height="22" viewBox="0 0 32 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M0.00172773 0V6.85398C0.00172773 6.85398 -0.133178 9.01207 1.98092 10.8388L13.6912 21.9964L19.7809 21.9181L18.8042 9.88248L16.4951 7.17289L9.23799 0H0.00172773Z" fill="#7367F0" />
@@ -26,25 +26,20 @@
 
     <ul class="menu-inner py-1">
         <!-- Dashboards -->
-        <li class="menu-item {{ request()->is('/') ? 'active' : '' }} open">
+        <li class="menu-item {{ request()->is('admin') ? 'active' : '' }} open">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons ti ti-smart-home"></i>
                 <div data-i18n="Dashboards">Dashboards</div>
             </a>
             <ul class="menu-sub">
-                <li class="menu-item {{ request()->is('/') ? 'active' : '' }}">
-                    <a href="/" class="menu-link">
-                        <div data-i18n="Pembuatan Surat">Pembuatan Surat</div>
-                    </a>
-                </li>
-                <li class="menu-item {{ request()->is('/riwayatsurat') ? 'active' : '' }}">
-                    <a href="#" class="menu-link">
-                        <div data-i18n="Riwayat Surat">Riwayat Surat</div>
-                    </a>
-                </li>
-                <li class="menu-item">
+                <li class="menu-item {{ request()->is('admin') ? 'active' : '' }}">
                     <a href="{{ route('home.admin') }}" class="menu-link">
-                        <div data-i18n="Admin">Admin</div>
+                        <div data-i18n="Home">Home</div>
+                    </a>
+                </li>
+                <li class="menu-item {{ request()->is('admin/listdata') ? 'active' : '' }}">
+                    <a href="{{ route('listdata') }}" class="menu-link">
+                        <div data-i18n="List Data">List Data</div>
                     </a>
                 </li>
             </ul>

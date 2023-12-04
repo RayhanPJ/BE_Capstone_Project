@@ -9,24 +9,11 @@ use Illuminate\Http\Request;
 
 class SuratTugasController extends Controller
 {
-    public function index(){
-        $navbarView = view('layouts/navbar');
-        $sidebarView = view('layouts/sidebar');
-
-        $data = SuratTugas::orderBy('created_at', 'desc')->get();
-        return view('pages.surat_tugas.surattugas', [
-            'data' => $data,
-            $navbarView, 
-            $sidebarView
-        ]);
-        
-    }
-
     public function create(){
         $navbarView = view('layouts/navbar');
         $sidebarView = view('layouts/sidebar');
 
-        return view('pages.surat_tugas.formsurattugas', [$navbarView, $sidebarView]);
+        return view('pages.formsurattugas', [$navbarView, $sidebarView]);
     }
 
     public function store(Request $request){

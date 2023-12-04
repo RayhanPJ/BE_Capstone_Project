@@ -48,7 +48,7 @@
     <div class="layout-wrapper layout-content-navbar">
         <div class="layout-container">
             <!-- Menu -->
-            @yield('sidebar')
+            @yield('sidebarAdmin')
 
             <!-- / Menu -->
 
@@ -56,7 +56,7 @@
             <div class="layout-page">
                 <!-- Navbar -->
 
-                @yield('navbar')
+                @yield('navbarAdmin')
 
                 <!-- / Navbar -->
 
@@ -67,11 +67,11 @@
                     <div class="container-xxl flex-grow-1 container-p-y">
                         <div class="row">
                             <!-- Main Content -->
-                            @yield('mainContent')
+                            @yield('mainContentAdmin')
                             <!-- /Main Content -->
 
                             <!-- Footer -->
-                            @yield('footer')
+                            @yield('footerAdmin')
                             <!-- / Footer -->
 
                             <div class="content-backdrop fade"></div>
@@ -122,96 +122,6 @@
             <!-- dataTable -->
             <script>
                 $('#myTable').dataTable({});
-
-            </script>
-
-            <!-- select2 -->
-            <script>
-                // select2 prodi
-                $(document).ready(function() {
-                    $('#select2IconsProdi').select2({
-                        templateResult: formatOption
-                        , templateSelection: formatOption
-                    , });
-
-                    // Fungsi untuk mengatur tampilan opsi dengan ikon
-                    function formatOption(option) {
-                        if (!option.id) {
-                            return option.text;
-                        }
-
-                        var iconClass = $(option.element).data('icon');
-                        if (iconClass) {
-                            // Jika opsi memiliki data-icon, tambahkan ikon ke dalam teks opsi
-                            return $('<span><i class="' + iconClass + '"></i> ' + option.text + '</span>');
-                        }
-
-                        return option.text;
-                    }
-                });
-
-                // select2 dospem
-                $(document).ready(function() {
-                    $('#select2IconsDospem').select2({
-                        templateResult: formatOption
-                        , templateSelection: formatOption
-                    , });
-
-                    // Fungsi untuk mengatur tampilan opsi dengan ikon
-                    function formatOption(option) {
-                        if (!option.id) {
-                            return option.text;
-                        }
-
-                        var iconClass = $(option.element).data('icon');
-                        if (iconClass) {
-                            // Jika opsi memiliki data-icon, tambahkan ikon ke dalam teks opsi
-                            return $('<span><i class="' + iconClass + '"></i> ' + option.text + '</span>');
-                        }
-
-                        return option.text;
-                    }
-                });
-
-            </script>
-
-            <script>
-                document.addEventListener("DOMContentLoaded", function() {
-                    let inputNumeric = document.querySelectorAll('.numeric-input');
-                    let inputNPM = document.querySelectorAll('.npm');
-                    let inputAlphabet = document.querySelectorAll('.alphabet-input');
-
-                    inputNumeric.forEach(function(input) {
-                        input.addEventListener("input", function() {
-                            // Hapus karakter selain angka
-                            this.value = this.value.replace(/\D/g, '');
-                        });
-                    });
-
-                    inputAlphabet.forEach(function(input) {
-                        input.addEventListener("input", function() {
-                            this.value = this.value.replace(/[^a-zA-Z\s]/g, '');
-                        });
-                    });
-
-                    inputNPM.forEach(function(input) {
-                        input.addEventListener("input", function() {
-                            let inputValue = input.value;
-
-                            // Hapus karakter yang tidak valid
-                            let validValue = inputValue.replace(/[^0-9]/g, '');
-
-                            // Batasi panjang string menjadi 13 karakter
-                            if (validValue.length > 13) {
-                                validValue = validValue.slice(0, 13);
-                            }
-
-                            // Setel nilai input dengan string yang sudah valid
-                            input.value = validValue;
-
-                        });
-                    });
-                });
 
             </script>
 </body>
