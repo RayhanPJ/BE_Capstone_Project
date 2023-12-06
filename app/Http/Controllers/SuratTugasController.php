@@ -79,4 +79,27 @@ class SuratTugasController extends Controller
 
         return response()->download($outputPath);
     }
+<<<<<<< HEAD
 }
+=======
+
+    public function setujuiSurat($id)
+    {
+        $SuratTugas = SuratTugas::findOrFail($id);
+        $SuratTugas->status = 'disetujui';
+        $SuratTugas->save();
+        
+        return redirect()->back();
+    }
+    
+    public function tidaksetujuSurat(Request $request, $id)
+    {
+        $SuratTugas = SuratTugas::findOrFail($id);
+        $SuratTugas->status = 'ditolak';
+        $SuratTugas->keterangan = $request->input('text_input');
+        $SuratTugas->save();
+
+        return redirect()->back();
+    }
+}
+>>>>>>> 3a4502415e3d48f8d1f8bb65660a10c11a4588b1

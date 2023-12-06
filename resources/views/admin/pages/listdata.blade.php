@@ -5,6 +5,7 @@ Surat Tugas
 @endsection
 
 @section('mainContentAdmin')
+
 <div class="col-xl">
     <!-- Column Search -->
     <div class="card">
@@ -44,7 +45,6 @@ Surat Tugas
     </div>
     <!--/ Column Search -->
 </div>
-
 
 <!-- Modal untuk menampilkan PDF -->
 <div class="modal fade" id="pdfPreviewModal" tabindex="-1" role="dialog" aria-labelledby="pdfPreviewModalLabel" aria-hidden="true">
