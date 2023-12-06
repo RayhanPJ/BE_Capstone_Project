@@ -125,7 +125,7 @@
 
             <!-- sweetalert2 -->
             <script>
-            document.getElementById('formSuratTugas').addEventListener('submit', function(e) {
+                document.getElementById('formSuratTugas').addEventListener('submit', function(e) {
                 e.preventDefault();
                 Swal.fire({
                     title: 'Berhasil!',
@@ -146,12 +146,12 @@
 
             <!-- dataTable -->
             <script>
-            $('#myTable').dataTable({});
+                $('#myTable').dataTable({});
             </script>
 
             <!-- select2 -->
             <script>
-            // select2 prodi
+                // select2 prodi
             $(document).ready(function() {
                 $('#select2IconsProdi').select2({
                     templateResult: formatOption,
@@ -199,7 +199,7 @@
             </script>
 
             <script>
-            document.addEventListener("DOMContentLoaded", function() {
+                document.addEventListener("DOMContentLoaded", function() {
                 let inputNumeric = document.querySelectorAll('.numeric-input');
                 let inputNPM = document.querySelectorAll('.npm');
                 let inputAlphabet = document.querySelectorAll('.alphabet-input');

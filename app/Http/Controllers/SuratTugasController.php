@@ -68,7 +68,7 @@ class SuratTugasController extends Controller
         $SuratTugas->status = 'disetujui';
         $SuratTugas->save();
         
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Surat Tugas telah disetujui!');
     }
     
     public function tidaksetujuSurat(Request $request, $id)
@@ -78,6 +78,6 @@ class SuratTugasController extends Controller
         $SuratTugas->keterangan = $request->input('text_input');
         $SuratTugas->save();
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Surat Tugas telah ditolak!');
     }
 }
