@@ -89,7 +89,6 @@
             </div>
             <!-- / Layout wrapper -->
 
-
             <!-- Core JS -->
             <!-- build:js assets/vendor/js/core.js -->
             <script src="{{ asset('/template/assets/vendor/libs/jquery/jquery.js') }}"></script>
@@ -114,7 +113,6 @@
             <script src="{{ asset('/template/assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.js') }}"></script>
             <script src="{{ asset('/template/assets/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.css') }}"></script>
 
-
             <!-- Main JS -->
             <script src="{{ asset('/template/assets/js/main.js') }}"></script>
 
@@ -124,13 +122,11 @@
                 function openPdfPreview(pdfUrl) {
                     // Setel atribut 'src' iframe dengan URL PDF
                     document.getElementById('pdfPreviewFrame').src = pdfUrl;
-
                     // Tampilkan modal
                     $('#pdfPreviewModal').modal('show');
                 }
 
             </script>
-
 
             <!-- dataTable -->
             <script>

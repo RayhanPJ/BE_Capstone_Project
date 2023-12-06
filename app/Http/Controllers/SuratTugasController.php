@@ -29,12 +29,12 @@ class SuratTugasController extends Controller
         // Simpan file path ke dalam database
         $hash = md5('Surat Tugas TU Fasilkom');
         $fileName = 'Surat Tugas' . '_' . Str::title($data['nama_mhs']) . '_' . $data['npm'] .'_'. $hash .'.pdf';
-        $filePath =  'surat-tugas\\' . $fileName; 
+        $filePath =  $fileName; 
 
         $data->file_path = $filePath;
         $data->save();
 
-        $outputPath = storage_path('app\\' . $filePath);
+        $outputPath = storage_path('app\\public\\surat-tugas\\' . $filePath);
         $pdf = PDF::loadView('template_surat.surat_tugas', compact('data'));
         $pdf->save($outputPath);
 
