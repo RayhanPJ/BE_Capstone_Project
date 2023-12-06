@@ -31,3 +31,5 @@ Route::get('/surattugas-pdf', [SuratTugasController::class, 'generateSuratTugasP
 // ======== admin ============
 Route::get('/admin', [AdminController::class, 'home'])->name('home.admin');
 Route::get('/admin/listdata', [AdminController::class, 'listdata'])->name('listdata');
+
+Route::get('/storage/surat-tugas/{file_path}', [AdminController::class, 'surattugasPreview'])->name('surattugas-preview');

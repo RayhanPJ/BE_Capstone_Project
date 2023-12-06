@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\SuratTugas;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Response;
 
 class AdminController extends Controller
 {
@@ -38,5 +40,11 @@ class AdminController extends Controller
             $navbarView,
             $sidebarView
         ]);
+    }
+
+    public function surattugasPreview($file_path)
+    {
+        $path = Storage::url('surat-tugas/' . $file_path);
+        return '<iframe src="' . asset($path) . '" width="100%" height="600px">';
     }
 }

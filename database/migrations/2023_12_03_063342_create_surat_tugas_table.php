@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('prodi');
             $table->string('nama_dospem');
             $table->string('judul_skripsi');
+            $table->string('jenis_surat')->default('Surat Tugas');
+            $table->string('file_path')->nullable();
             $table->timestamps();
         });
     }
