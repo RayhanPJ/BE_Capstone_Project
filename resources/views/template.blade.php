@@ -125,24 +125,6 @@
 
             <!-- sweetalert2 -->
             <script>
-<<<<<<< HEAD
-                document.getElementById('formSuratTugas').addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    Swal.fire({
-                        title: 'Berhasil!'
-                        , text: 'Data berhasil ditambahkan, silahkan tunggu dan periksa halaman riwayat mahasiswa terkait disetujui/ditolak surat yang diajukan.'
-                        , icon: 'success'
-                        , customClass: {
-                            confirmButton: 'btn btn-primary'
-                        }
-                        , buttonsStyling: false
-                    }).then(() => {
-                        this.submit();
-                        setTimeout(function() {
-                            window.location.href = '/';
-                        }, 2000);
-                    });
-=======
             document.getElementById('formSuratTugas').addEventListener('submit', function(e) {
                 e.preventDefault();
                 Swal.fire({
@@ -158,19 +140,18 @@
                     setTimeout(function() {
                         window.location.href = '/';
                     }, 2000);
->>>>>>> 3a4502415e3d48f8d1f8bb65660a10c11a4588b1
                 });
             });
             </script>
 
             <!-- dataTable -->
             <script>
-            $('#myTable').dataTable({});
+                $('#myTable').dataTable({});
             </script>
 
             <!-- select2 -->
             <script>
-            // select2 prodi
+                // select2 prodi
             $(document).ready(function() {
                 $('#select2IconsProdi').select2({
                     templateResult: formatOption,
@@ -218,7 +199,7 @@
             </script>
 
             <script>
-            document.addEventListener("DOMContentLoaded", function() {
+                document.addEventListener("DOMContentLoaded", function() {
                 let inputNumeric = document.querySelectorAll('.numeric-input');
                 let inputNPM = document.querySelectorAll('.npm');
                 let inputAlphabet = document.querySelectorAll('.alphabet-input');

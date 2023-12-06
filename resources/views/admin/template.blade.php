@@ -4,7 +4,8 @@
 
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
     <title>@yield('pageTitle')</title>
 
@@ -28,8 +29,10 @@
     <link rel="stylesheet" href="{{ asset('/template/assets/vendor/libs/node-waves/node-waves.css') }}" />
     <link rel="stylesheet" href="{{ asset('/template/assets/vendor/libs/typeahead-js/typeahead.css') }}" />
     <link rel="stylesheet" href="{{ asset('/template/assets/vendor/libs/select2/select2.css') }}" />
-    <link rel="stylesheet" href="{{ asset('/template/assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css') }}" />
-    <link rel="stylesheet" href="{{ asset('/template/assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css') }}" />
+    <link rel="stylesheet"
+        href="{{ asset('/template/assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css') }}" />
+    <link rel="stylesheet"
+        href="{{ asset('/template/assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css') }}" />
     <link rel="stylesheet" href="{{ asset('/template/assets/vendor/libs/animate-css/animate.css') }}" />
     <link rel="stylesheet" href="{{ asset('/template/assets/vendor/libs/sweetalert2/sweetalert2.css') }}" />
 
@@ -109,9 +112,13 @@
             <script src="{{ asset('/template/assets/vendor/libs/masonry/masonry.js') }}"></script>
             <script src="{{ asset('/template/assets/vendor/libs/datatables/jquery.dataTables.js') }}"></script>
             <script src="{{ asset('/template/assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js') }}"></script>
-            <script src="{{ asset('/template/assets/vendor/libs/datatables-responsive/datatables.responsive.js') }}"></script>
-            <script src="{{ asset('/template/assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.js') }}"></script>
-            <script src="{{ asset('/template/assets/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.css') }}"></script>
+            <script src="{{ asset('/template/assets/vendor/libs/datatables-responsive/datatables.responsive.js') }}">
+            </script>
+            <script
+                src="{{ asset('/template/assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.js') }}">
+            </script>
+            <script src="{{ asset('/template/assets/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.css') }}">
+            </script>
 
             <!-- Main JS -->
             <script src="{{ asset('/template/assets/js/main.js') }}"></script>
@@ -131,8 +138,25 @@
             <!-- dataTable -->
             <script>
                 $('#myTable').dataTable({});
-
             </script>
+
+            @if (session()->has('success'))
+            <script>
+            //     Swal.fire({
+            //     title: "Succes",
+            //     text: "{{ session('success') }}",
+            //     icon: "success",
+            // });
+            Swal.fire({
+            icon: "success",
+            text: "{{ session('success') }}",
+            showConfirmButton: false,
+            timer: 2000
+            });
+            </script>
+            @endif
+
+
 </body>
 
 </html>
