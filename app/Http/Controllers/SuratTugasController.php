@@ -79,9 +79,6 @@ class SuratTugasController extends Controller
 
         return response()->download($outputPath);
     }
-<<<<<<< HEAD
-}
-=======
 
     public function setujuiSurat($id)
     {
@@ -102,4 +99,3 @@ class SuratTugasController extends Controller
         return redirect()->back()->with('success', 'Surat Tugas telah ditolak!');
     }
 }
->>>>>>> 3a4502415e3d48f8d1f8bb65660a10c11a4588b1
