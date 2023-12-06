@@ -45,8 +45,8 @@
             <form
               id="formAuthentication"
               class="mb-3"
-              action="auth-login-cover.html"
-              method="GET"
+              action="{{route('password.update')}}"
+              method="POST"
             >
               <div class="mb-3 form-password-toggle">
                 <label class="form-label" for="password">New Password</label>
@@ -88,7 +88,7 @@
                   </span>
                 </div>
               </div>
-              <button class="btn btn-primary d-grid w-100 mb-3">
+              <button type="submit" class="btn btn-primary d-grid w-100 mb-3">
                 Set new password
               </button>
               <div class="text-center">

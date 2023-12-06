@@ -27,4 +27,7 @@ Route::get('/home', [Home::class, 'index'])->name('home')->middleware('auth');
 Route::get('/register', [RegistController::class, 'index'])->name('regist');
 Route::post('/register', [RegistController::class, 'create'])->name('post_regist');
 
-Route::get('/forgotpw', [ForgotPWController::class, 'index'])->name('forgot-pw');
+Route::get('forgotpw', [ForgotPWController::class, 'index'])->name('forgot-pw');
+Route::post('forgotpw', [ForgotPWController::class, 'sendResetLinkEmail'])->name('password.email');
+Route::get('reset-password/{token}', [ForgotPWController::class, 'showResetForm'])->name('password.reset');
+Route::post('reset-password', [ForgotPWController::class, 'reset'])->name('password.update');

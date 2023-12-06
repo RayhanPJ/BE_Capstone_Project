@@ -21,6 +21,11 @@
           <div class="w-px-400 mx-auto">
             <h3 class="mb-1 fw-bold">Sign up your account here 🚀</h3>
             <p class="mb-4">Make your profile easy!</p>
+            @if(session('error'))
+              <div class="alert alert-danger">
+                  {{ session('error') }}
+              </div>
+            @endif
 
             <form
               id="formAuthentication"

@@ -46,9 +46,10 @@
             <form
               id="formAuthentication"
               class="mb-3"
-              action="auth-reset-password-cover.html"
-              method="GET"
+              action="{{route('password.email')}}"
+              method="POST"
             >
+            @csrf
               <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
                 <input
@@ -60,7 +61,7 @@
                   autofocus
                 />
               </div>
-              <button class="btn btn-primary d-grid w-100">
+              <button type="submit" class="btn btn-primary d-grid w-100">
                 Send Reset Link
               </button>
             </form>
