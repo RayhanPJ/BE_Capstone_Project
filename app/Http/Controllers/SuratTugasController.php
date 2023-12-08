@@ -80,4 +80,13 @@ class SuratTugasController extends Controller
 
         return redirect()->back()->with('success', 'Surat Tugas telah ditolak!');
     }
+    
+    public function cancelsurattugas($id)
+    {
+        $suratTugas = SuratTugas::find($id);
+        $suratTugas->status = null;
+        $suratTugas->keterangan = null;
+        $suratTugas->save();
+        return redirect()->back();
+    }
 }

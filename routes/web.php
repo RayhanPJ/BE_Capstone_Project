@@ -29,6 +29,8 @@ Route::get('/surattugas-pdf', [SuratTugasController::class, 'generateSuratTugasP
 Route::post('/setujui-surat/{id}', [SuratTugasController::class,'setujuiSurat']);
 Route::post('/tidaksetuju-surat/{id}', [SuratTugasController::class,'tidaksetujuSurat']);
 
+Route::delete('/cancelsurattugas/{id}', [SuratTugasController::class,'cancelsurattugas']);
+
 
 // ======== admin ============
 Route::get('/admin', [AdminController::class, 'home'])->name('home.admin');
