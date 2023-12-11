@@ -155,7 +155,7 @@
             <tr>
                 <td width="340"></td>
                 <td align="left">
-                    <font size="3">Karawang, 20 Oktober 2023</font> <br>
+                    <font size="3">Karawang, {{ \Carbon\Carbon::parse($data['created_at'])->locale('id_ID')->isoFormat('D MMMM Y') }}</font> <br>
                     <font size="3">Dekan,</font>
                     <br><br>
                     <div class="container">
