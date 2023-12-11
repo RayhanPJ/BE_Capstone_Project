@@ -125,7 +125,7 @@
                     e.preventDefault();
                     Swal.fire({
                         title: 'Berhasil!'
-                        , text: 'Data berhasil ditambahkan, silahkan tunggu dan periksa halaman riwayat mahasiswa terkait disetujui/ditolak surat yang diajukan.'
+                        , text: 'Data berhasil ditambahkan, silahkan tunggu dan periksa halaman riwayat surat terkait disetujui/ditolak surat yang diajukan.'
                         , icon: 'success'
                         , customClass: {
                             confirmButton: 'btn btn-primary'

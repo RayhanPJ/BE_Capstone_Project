@@ -42,9 +42,10 @@ class AdminController extends Controller
         ]);
     }
 
-    public function surattugasPreview($file_path)
+     public function surattugasPreview($file_path)
     {
         $path = Storage::url('surat-tugas/' . $file_path);
-        return '<iframe src="' . asset($path) . '" width="100%" height="600px">';
+        $iframe = asset($path);
+        return $iframe;
     }
 }
