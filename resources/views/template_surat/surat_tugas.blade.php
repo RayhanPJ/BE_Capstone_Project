@@ -79,7 +79,7 @@
         <table border="0" align="center">
             <tr>
                 <td>
-                    <font size="3"><strong>{{ $pdfData['nama_dospem'] }}</strong></font>
+                    <font size="3"><strong>{{ $data['nama_dospem'] }}</strong></font>
                 </td>
             </tr>
         </table>
@@ -103,7 +103,7 @@
                     <font size="3">Nama</font>
                 </td>
                 <td>
-                    <font size="3">: {{ $pdfData['nama_mhs'] }}</font>
+                    <font size="3">: {{ $data['nama_mhs'] }}</font>
                 </td>
             </tr>
             <tr>
@@ -111,7 +111,7 @@
                     <font size="3">NPM</font>
                 </td>
                 <td>
-                    <font size="3">: {{ $pdfData['npm'] }}</font>
+                    <font size="3">: {{ $data['npm'] }}</font>
                 </td>
             </tr>
             <tr>
@@ -119,7 +119,7 @@
                     <font size="3">Program Studi</font>
                 </td>
                 <td>
-                    <font size="3">: {{ $pdfData['prodi'] }}</font>
+                    <font size="3">: {{ $data['prodi'] }}</font>
                 </td>
             </tr>
             <tr>
@@ -127,7 +127,7 @@
                     <font size="3">Topik Utama</font>
                 </td>
                 <td>
-                    <font size="3">: {{ $pdfData['judul_skripsi'] }}</font>
+                    <font size="3">: {{ $data['judul_skripsi'] }}</font>
                 </td>
             </tr>
         </table>
@@ -155,7 +155,7 @@
             <tr>
                 <td width="340"></td>
                 <td align="left">
-                    <font size="3">Karawang, 20 Oktober 2023</font> <br>
+                    <font size="3">Karawang, {{ \Carbon\Carbon::parse($data['created_at'])->locale('id_ID')->isoFormat('D MMMM Y') }}</font> <br>
                     <font size="3">Dekan,</font>
                     <br><br>
                     <div class="container">
