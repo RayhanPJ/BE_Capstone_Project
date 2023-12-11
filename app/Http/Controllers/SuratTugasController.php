@@ -3,20 +3,23 @@
 namespace App\Http\Controllers;
 
 use PDF;
+use Mpdf\Mpdf;
 use App\Models\SuratTugas;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class SuratTugasController extends Controller
 {
-    public function create(){
+    public function create()
+    {
         $navbarView = view('layouts/navbar');
         $sidebarView = view('layouts/sidebar');
 
         return view('pages.formsurattugas', [$navbarView, $sidebarView]);
     }
 
-    public function store(Request $request){    
+    public function store(Request $request)
+    {
         $data = new SuratTugas();
         $data->id = $request->input('id');
         $data->nama_mhs = $request->input('nama_mhs');
@@ -33,7 +36,7 @@ class SuratTugasController extends Controller
         return redirect()->route('surattugas-pdf');
     }
 
-     public function generateSuratTugasPDF(Request $request)
+    public function generateSuratTugasPDF(Request $request)
     {
         // Ambil data dari sesi
         $data = session('pdf_data');
@@ -67,10 +70,10 @@ class SuratTugasController extends Controller
         $SuratTugas = SuratTugas::findOrFail($id);
         $SuratTugas->status = 'disetujui';
         $SuratTugas->save();
-        
+
         return redirect()->back()->with('success', 'Surat Tugas telah disetujui!');
     }
-    
+
     public function tidaksetujuSurat(Request $request, $id)
     {
         $SuratTugas = SuratTugas::findOrFail($id);
@@ -80,7 +83,7 @@ class SuratTugasController extends Controller
 
         return redirect()->back()->with('success', 'Surat Tugas telah ditolak!');
     }
-    
+
     public function cancelsurattugas($id)
     {
         $suratTugas = SuratTugas::find($id);
@@ -88,5 +91,21 @@ class SuratTugasController extends Controller
         $suratTugas->keterangan = null;
         $suratTugas->save();
         return redirect()->back();
+    }
+
+
+    // previewsurat
+    public function previewsurat($id)
+    {
+
+        $pdfData = SuratTugas::find($id);
+
+        $pdf = new Mpdf();
+        $html = view('template_surat.surat_tugas', compact('pdfData'))->render();
+
+        $pdf->WriteHTML($html);
+
+        // Metode Output dengan mode 'I' (inline)
+        return $pdf->Output('surat-pdf.pdf', 'I');
     }
 }

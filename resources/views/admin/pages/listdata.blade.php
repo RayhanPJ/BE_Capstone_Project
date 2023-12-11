@@ -31,10 +31,12 @@ Surat Tugas
                         <td>{{ $d->npm }}</td>
                         <td>{{ $d->prodi }}</td>
                         <td>
-                            {{-- button di field status --}}
+                            
+                            <form action="/previewsurattugas/{{ $d->id }}" method="GET" class="d-inline ps-5">
+                                @csrf
                             <button type="submit" class="btn btn-outline-primary btn-sm"><i
                                     class="fa-solid fa-eye"></i></button>
-
+                            </form>
 
                             {{-- indikator surat telah disetujui --}}
                             @if($d->status == 'disetujui')

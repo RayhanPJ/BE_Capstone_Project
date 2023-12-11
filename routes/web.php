@@ -23,6 +23,8 @@ Route::get('/login',[Auth::class, 'index']);
 // ======== user =============
 
 // surat
+Route::get('/previewsurattugas/{id}', [SuratTugasController::class, 'previewsurat']);
+
 Route::get('/surattugas/create', [SuratTugasController::class, 'create'])->name('surattugas.create');
 Route::post('/surattugas', [SuratTugasController::class, 'store'])->name('surattugas.store');
 Route::get('/surattugas-pdf', [SuratTugasController::class, 'generateSuratTugasPDF'])->name('surattugas-pdf');
