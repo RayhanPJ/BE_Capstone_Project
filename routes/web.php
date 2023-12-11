@@ -1,8 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Home;
 use App\Http\Controllers\Auth;
+use App\Http\Controllers\Home;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\SuratTugasController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +19,17 @@ use App\Http\Controllers\Auth;
 
 Route::get('/',[Home::class, 'index']);
 Route::get('/login',[Auth::class, 'index']);
+
+// ======== user =============
+
+// surat
+Route::get('/surattugas/create', [SuratTugasController::class, 'create'])->name('surattugas.create');
+Route::post('/surattugas', [SuratTugasController::class, 'store'])->name('surattugas.store');
+Route::get('/surattugas-pdf', [SuratTugasController::class, 'generateSuratTugasPDF'])->name('surattugas-pdf');
+
+
+// ======== admin ============
+Route::get('/admin', [AdminController::class, 'home'])->name('home.admin');
+Route::get('/admin/listdata', [AdminController::class, 'listdata'])->name('listdata');
+
+Route::get('/storage/surat-tugas/{file_path}', [AdminController::class, 'surattugasPreview'])->name('surattugas-preview');
