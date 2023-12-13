@@ -31,11 +31,50 @@ Surat Tugas
                         <td>{{ $d->npm }}</td>
                         <td>{{ $d->prodi }}</td>
                         <td>
-                            <a href="#" class="btn btn-outline-primary btn-sm" onclick="openPdfPreview('{{ asset(route('surattugas-preview', ['file_path' => $d->file_path])) }}')">
+<<<<<<<<< Temporary merge branch 1
+                            <a href="#" class="btn btn-outline-primary btn-sm" onclick="openPdfPreview('{{ route('surattugas-preview', ['file_path' => $d->file_path]) }}')">
                                 <i class="fa-solid fa-eye"></i>
                             </a>
                             <button type="button" class="btn btn-outline-success btn-sm"><i class="fa-solid fa-circle-check"></i></button>
                             <button type="button" class="btn btn-outline-danger btn-sm"><i class="fa-solid fa-circle-xmark"></i></button>
+=========
+                            <button type="submit" class="btn btn-outline-primary btn-sm"><i
+                                    class="fa-solid fa-eye"></i></button>
+
+                            {{-- button disetujui --}}
+                            <form action="/setujui-surat/{{$d->id}}" method="POST" class="d-inline">
+                                @csrf
+                                <button type="submit" class="btn btn-outline-success btn-sm"><i
+                                        class="fa-solid fa-circle-check"></i></button>
+                            </form>
+                            
+                            <button type="submit" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#myModal-{{$d->id}}">
+                                <i class="fa-solid fa-circle-xmark"></i>
+                            </button>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="myModal-{{$d->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Keterangan Reject</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <!-- Form inside the modal -->
+                                            <form action="/tidaksetuju-surat/{{$d->id}}" method="POST">
+                                                @csrf
+                                                <div class="mb-3">
+                                                    <label for="text-input" class="form-label">Masukkan Keterangan:</label>
+                                                    <input type="text" class="form-control" id="text-input" name="text_input" required>
+                                                </div>
+                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+>>>>>>>>> Temporary merge branch 2
                         </td>
                     </tr>
                     @endforeach
@@ -46,21 +85,30 @@ Surat Tugas
     <!--/ Column Search -->
 </div>
 
-<!-- Modal untuk menampilkan PDF -->
-<div class="modal fade" id="pdfPreviewModal" tabindex="-1" role="dialog" aria-labelledby="pdfPreviewModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="pdfPreviewModalLabel">PDF Preview</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <iframe id="pdfPreviewFrame" width="100%" height="500px"></iframe>
-            </div>
+                    <!-- Modal untuk menampilkan PDF -->
+                    <div class="modal fade" id="pdfPreviewModal" tabindex="-1" role="dialog" aria-labelledby="pdfPreviewModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="pdfPreviewModalLabel">PDF Preview</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <iframe id="pdfPreviewFrame" width="100%" height="500px"></iframe>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
+    <!--/ Column Search -->
 </div>
+
 
 @endsection

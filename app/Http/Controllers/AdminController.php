@@ -42,7 +42,7 @@ class AdminController extends Controller
         ]);
     }
 
-    public function surattugasPreview($file_path)
+     public function surattugasPreview($file_path)
     {
         $path = Storage::url('surat-tugas/' . $file_path);
         $iframe = asset($path);

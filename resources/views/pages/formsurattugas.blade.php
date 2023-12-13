@@ -48,7 +48,7 @@ Surat Tugas
                             <option value="Apriade Voutama, M.Kom." data-icon="ti ti-user">Apriade Voutama, M.Kom.</option>
                             <option value="Aries Suharso, S.Si., M.Kom." data-icon="ti ti-user">Aries Suharso, S.Si., M.Kom.</option>
                             <option value="Arip Solehudin, M.Kom." data-icon="ti ti-user">Arip Solehudin, M.Kom.</option>
-                            <option value="Asep Jamaludin, S.Si., M.Kom. ">Asep Jamaludin, S.Si., M.Kom. </option>
+                            <option value="Asep Jamaludin, S.Si., M.Kom." data-icon="ti ti-user">Asep Jamaludin, S.Si., M.Kom.</option>
                             <option value="Azhari Ali Ridha, S.Kom., MMSI." data-icon="ti ti-user">Azhari Ali Ridha, S.Kom., MMSI.</option>
                             <option value="Bambang Suteja, S.H., M.Si." data-icon="ti ti-user">Bambang Suteja, S.H., M.Si.</option>
                             <option value="Betha Nurina Sari, M.Kom." data-icon="ti ti-user">Betha Nurina Sari, M.Kom.</option>

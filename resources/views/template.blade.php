@@ -4,8 +4,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
     <title>@yield('pageTitle')</title>
 
@@ -29,10 +28,8 @@
     <link rel="stylesheet" href="{{ asset('/template/assets/vendor/libs/node-waves/node-waves.css') }}" />
     <link rel="stylesheet" href="{{ asset('/template/assets/vendor/libs/typeahead-js/typeahead.css') }}" />
     <link rel="stylesheet" href="{{ asset('/template/assets/vendor/libs/select2/select2.css') }}" />
-    <link rel="stylesheet"
-        href="{{ asset('/template/assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css') }}" />
-    <link rel="stylesheet"
-        href="{{ asset('/template/assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css') }}" />
+    <link rel="stylesheet" href="{{ asset('/template/assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css') }}" />
+    <link rel="stylesheet" href="{{ asset('/template/assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css') }}" />
     <link rel="stylesheet" href="{{ asset('/template/assets/vendor/libs/animate-css/animate.css') }}" />
     <link rel="stylesheet" href="{{ asset('/template/assets/vendor/libs/sweetalert2/sweetalert2.css') }}" />
 
@@ -114,8 +111,7 @@
             <script src="{{ asset('/template/assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js') }}"></script>
             <script src="{{ asset('/template/assets/vendor/libs/datatables-responsive/datatables.responsive.js') }}">
             </script>
-            <script
-                src="{{ asset('/template/assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.js') }}">
+            <script src="{{ asset('/template/assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.js') }}">
             </script>
 
             <!-- Main JS -->
@@ -125,7 +121,24 @@
 
             <!-- sweetalert2 -->
             <script>
-            document.getElementById('formSuratTugas').addEventListener('submit', function(e) {
+                document.getElementById('formSuratTugas').addEventListener('submit', function(e) {
+<<<<<<<<< Temporary merge branch 1
+                    e.preventDefault();
+                    Swal.fire({
+                        title: 'Berhasil!'
+                        , text: 'Data berhasil ditambahkan, silahkan tunggu dan periksa halaman riwayat mahasiswa terkait disetujui/ditolak surat yang diajukan.'
+                        , icon: 'success'
+                        , customClass: {
+                            confirmButton: 'btn btn-primary'
+                        }
+                        , buttonsStyling: false
+                    }).then(() => {
+                        this.submit();
+                        setTimeout(function() {
+                            window.location.href = '/';
+                        }, 2000);
+                    });
+=========
                 e.preventDefault();
                 Swal.fire({
                     title: 'Berhasil!',
@@ -140,6 +153,7 @@
                     setTimeout(function() {
                         window.location.href = '/';
                     }, 2000);
+>>>>>>>>> Temporary merge branch 2
                 });
             });
             </script>
@@ -147,94 +161,97 @@
             <!-- dataTable -->
             <script>
                 $('#myTable').dataTable({});
+
             </script>
 
             <!-- select2 -->
             <script>
                 // select2 prodi
-            $(document).ready(function() {
-                $('#select2IconsProdi').select2({
-                    templateResult: formatOption,
-                    templateSelection: formatOption,
-                });
+                $(document).ready(function() {
+                    $('#select2IconsProdi').select2({
+                        templateResult: formatOption
+                        , templateSelection: formatOption
+                    , });
 
-                // Fungsi untuk mengatur tampilan opsi dengan ikon
-                function formatOption(option) {
-                    if (!option.id) {
+                    // Fungsi untuk mengatur tampilan opsi dengan ikon
+                    function formatOption(option) {
+                        if (!option.id) {
+                            return option.text;
+                        }
+
+                        var iconClass = $(option.element).data('icon');
+                        if (iconClass) {
+                            // Jika opsi memiliki data-icon, tambahkan ikon ke dalam teks opsi
+                            return $('<span><i class="' + iconClass + '"></i> ' + option.text + '</span>');
+                        }
+
                         return option.text;
                     }
-
-                    var iconClass = $(option.element).data('icon');
-                    if (iconClass) {
-                        // Jika opsi memiliki data-icon, tambahkan ikon ke dalam teks opsi
-                        return $('<span><i class="' + iconClass + '"></i> ' + option.text + '</span>');
-                    }
-
-                    return option.text;
-                }
-            });
-
-            // select2 dospem
-            $(document).ready(function() {
-                $('#select2IconsDospem').select2({
-                    templateResult: formatOption,
-                    templateSelection: formatOption,
                 });
 
-                // Fungsi untuk mengatur tampilan opsi dengan ikon
-                function formatOption(option) {
-                    if (!option.id) {
+                // select2 dospem
+                $(document).ready(function() {
+                    $('#select2IconsDospem').select2({
+                        templateResult: formatOption
+                        , templateSelection: formatOption
+                    , });
+
+                    // Fungsi untuk mengatur tampilan opsi dengan ikon
+                    function formatOption(option) {
+                        if (!option.id) {
+                            return option.text;
+                        }
+
+                        var iconClass = $(option.element).data('icon');
+                        if (iconClass) {
+                            // Jika opsi memiliki data-icon, tambahkan ikon ke dalam teks opsi
+                            return $('<span><i class="' + iconClass + '"></i> ' + option.text + '</span>');
+                        }
+
                         return option.text;
                     }
+                });
 
-                    var iconClass = $(option.element).data('icon');
-                    if (iconClass) {
-                        // Jika opsi memiliki data-icon, tambahkan ikon ke dalam teks opsi
-                        return $('<span><i class="' + iconClass + '"></i> ' + option.text + '</span>');
-                    }
-
-                    return option.text;
-                }
-            });
             </script>
 
             <script>
                 document.addEventListener("DOMContentLoaded", function() {
-                let inputNumeric = document.querySelectorAll('.numeric-input');
-                let inputNPM = document.querySelectorAll('.npm');
-                let inputAlphabet = document.querySelectorAll('.alphabet-input');
+                    let inputNumeric = document.querySelectorAll('.numeric-input');
+                    let inputNPM = document.querySelectorAll('.npm');
+                    let inputAlphabet = document.querySelectorAll('.alphabet-input');
 
-                inputNumeric.forEach(function(input) {
-                    input.addEventListener("input", function() {
-                        // Hapus karakter selain angka
-                        this.value = this.value.replace(/\D/g, '');
+                    inputNumeric.forEach(function(input) {
+                        input.addEventListener("input", function() {
+                            // Hapus karakter selain angka
+                            this.value = this.value.replace(/\D/g, '');
+                        });
+                    });
+
+                    inputAlphabet.forEach(function(input) {
+                        input.addEventListener("input", function() {
+                            this.value = this.value.replace(/[^a-zA-Z\s]/g, '');
+                        });
+                    });
+
+                    inputNPM.forEach(function(input) {
+                        input.addEventListener("input", function() {
+                            let inputValue = input.value;
+
+                            // Hapus karakter yang tidak valid
+                            let validValue = inputValue.replace(/[^0-9]/g, '');
+
+                            // Batasi panjang string menjadi 13 karakter
+                            if (validValue.length > 13) {
+                                validValue = validValue.slice(0, 13);
+                            }
+
+                            // Setel nilai input dengan string yang sudah valid
+                            input.value = validValue;
+
+                        });
                     });
                 });
 
-                inputAlphabet.forEach(function(input) {
-                    input.addEventListener("input", function() {
-                        this.value = this.value.replace(/[^a-zA-Z\s]/g, '');
-                    });
-                });
-
-                inputNPM.forEach(function(input) {
-                    input.addEventListener("input", function() {
-                        let inputValue = input.value;
-
-                        // Hapus karakter yang tidak valid
-                        let validValue = inputValue.replace(/[^0-9]/g, '');
-
-                        // Batasi panjang string menjadi 13 karakter
-                        if (validValue.length > 13) {
-                            validValue = validValue.slice(0, 13);
-                        }
-
-                        // Setel nilai input dengan string yang sudah valid
-                        input.value = validValue;
-
-                    });
-                });
-            });
             </script>
 </body>
 

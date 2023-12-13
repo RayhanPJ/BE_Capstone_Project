@@ -139,18 +139,17 @@
 
             @if (session()->has('success'))
             <script>
-                //     Swal.fire({
-                //     title: "Succes",
-                //     text: "{{ session('success') }}",
-                //     icon: "success",
-                // });
-                Swal.fire({
-                    icon: "success"
-                    , text: "{{ session('success') }}"
-                    , showConfirmButton: false
-                    , timer: 2000
-                });
-
+            //     Swal.fire({
+            //     title: "Succes",
+            //     text: "{{ session('success') }}",
+            //     icon: "success",
+            // });
+            Swal.fire({
+            icon: "success",
+            text: "{{ session('success') }}",
+            showConfirmButton: false,
+            timer: 2000
+            });
             </script>
             @endif
 </body>
