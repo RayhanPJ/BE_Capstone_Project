@@ -39,14 +39,6 @@ class SuratTugasController extends Controller
         $outputPath = storage_path('app\\public\\surat-tugas\\' . $filePath);
         $pdf = PDF::loadView('template_surat.surat_tugas', compact('data'));
         $pdf->save($outputPath);
-
-        // Simpan data ke sesi sementara
-        // session()->put('pdf_data', $data);
-
-        // Redirect pengguna ke halaman "Generate PDF"
-        // return redirect()->route('surattugas-pdf');
-
-        // Redirect pengguna ke halaman utama
         return redirect('/');
     }
 
@@ -78,6 +70,38 @@ class SuratTugasController extends Controller
         return redirect()->back();
     }
 
+    public function riwayatSurat()
+    {
+        $navbarView = view('layouts/navbar');
+        $sidebarView = view('layouts/sidebar');
+
+        $data = SuratTugas::orderBy('created_at', 'desc')->get();
+
+        // Menggunakan ucfirst untuk mengubah huruf pertama menjadi besar
+        $formattedData = $data->map(function ($item) {
+            $item->nama_mhs = ucfirst($item->nama_mhs);
+            $item->judul_skripsi = ucfirst($item->judul_skripsi);
+            return $item;
+        });
+
+        return view('pages.riwayatsurat', [
+            'data' => $formattedData,
+            $navbarView,
+            $sidebarView
+        ]);
+    }
+
+    public function downloadSurat($file_path)
+    {
+        $file = storage_path('app/public/surat-tugas/' . $file_path);
+
+        if (file_exists($file)) {
+            return response()->download($file);
+        } else {
+            abort(404, 'File not found');
+        }
+    }
+
     // public function generateSuratTugasPDF(Request $request)
     // {
     //     // Ambil data dari sesi
@@ -106,35 +130,4 @@ class SuratTugasController extends Controller
 
     //     return response()->download($outputPath)->deleteFileAfterSend(true);
     // }
-
-    public function riwayatSurat()
-    {
-        $navbarView = view('layouts/navbar');
-        $sidebarView = view('layouts/sidebar');
-
-        $data = SuratTugas::orderBy('created_at', 'desc')->get();
-
-        // Menggunakan ucfirst untuk mengubah huruf pertama menjadi besar
-        $formattedData = $data->map(function ($item) {
-            $item->nama_mhs = ucfirst($item->nama_mhs);
-            $item->judul_skripsi = ucfirst($item->judul_skripsi);
-            return $item;
-        });
-
-        return view('pages.riwayatsurat', [
-            'data' => $formattedData,
-            $navbarView,
-            $sidebarView
-        ]);
-    }
-
-    public function downloadSurat($file_path){
-        $file = storage_path('app/public/surat-tugas/' . $file_path);
-
-        if (file_exists($file)) {
-            return response()->download($file);
-        } else {
-            abort(404, 'File not found');
-        }
-    }
 }

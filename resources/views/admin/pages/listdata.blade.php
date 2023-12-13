@@ -38,7 +38,6 @@ Surat Tugas
                             </a>
 
                             @if(!$d->status == 'disetujui' || !$d->status == 'ditolak')
-
                             {{-- button surat disetujui --}}
                             <form action="/setujui-surat/{{$d->id}}" method="POST" class="d-inline">
                                 @csrf
