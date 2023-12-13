@@ -38,7 +38,7 @@
                     </a>
                 </li>
                 <li class="menu-item {{ request()->is('/riwayatsurat') ? 'active' : '' }}">
-                    <a href="#" class="menu-link">
+                    <a href="{{ route('riwayat-surat') }}" class="menu-link">
                         <div data-i18n="Riwayat Surat">Riwayat Surat</div>
                     </a>
                 </li>

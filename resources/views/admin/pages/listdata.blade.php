@@ -38,27 +38,27 @@ Surat Tugas
 
                             {{-- indikator surat telah disetujui --}}
                             @if($d->status == 'disetujui')
-                            <span class="ps-2">
+                            <span class="p-3">
                                 <i class="fa-solid fa-circle-check btn-outline-success"></i>
                             </span>
                             <form action="/cancelsurattugas/{{ $d->id }}" method="POST" class="d-inline ps-5">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm text-danger">
-                                    Cancel
+                                <button type="submit" class="btn btn-sm text-secondary">
+                                    <span class="badge rounded-pill bg-label-dark">Cancel</span>
                                 </button>
                             </form>
 
                             {{-- indikator surat telah ditolak --}}
                             @elseif($d->status == 'ditolak')
-                            <span class="ps-2">
+                            <span class="p-3">
                                 <i class="fa-solid fa-circle-xmark btn-outline-danger"></i>
                             </span>
                             <form action="/cancelsurattugas/{{ $d->id }}" method="POST" class="d-inline ps-5">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm text-danger">
-                                    Cancel
+                                <button type="submit" class="btn btn-sm text-secondary">
+                                    <span class="badge rounded-pill bg-label-dark">Cancel</span>
                                 </button>
                             </form>
 

@@ -7,6 +7,7 @@ use Mpdf\Mpdf;
 use App\Models\SuratTugas;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class SuratTugasController extends Controller
 {
@@ -49,6 +50,33 @@ class SuratTugasController extends Controller
         return redirect('/');
     }
 
+    public function setujuiSurat($id)
+    {
+        $SuratTugas = SuratTugas::findOrFail($id);
+        $SuratTugas->status = 'disetujui';
+        $SuratTugas->save();
+
+        return redirect()->back()->with('success', 'Surat Tugas telah disetujui!');
+    }
+
+    public function tidaksetujuSurat(Request $request, $id)
+    {
+        $SuratTugas = SuratTugas::findOrFail($id);
+        $SuratTugas->status = 'ditolak';
+        $SuratTugas->keterangan = $request->input('text_input');
+        $SuratTugas->save();
+
+        return redirect()->back()->with('success', 'Surat Tugas telah ditolak!');
+    }
+
+    public function cancelsurattugas($id)
+    {
+        $suratTugas = SuratTugas::find($id);
+        $suratTugas->status = null;
+        $suratTugas->keterangan = null;
+        $suratTugas->save();
+        return redirect()->back();
+    }
 
     // public function generateSuratTugasPDF(Request $request)
     // {
@@ -79,51 +107,34 @@ class SuratTugasController extends Controller
     //     return response()->download($outputPath)->deleteFileAfterSend(true);
     // }
 
-    public function setujuiSurat($id)
+    public function riwayatSurat()
     {
-        $SuratTugas = SuratTugas::findOrFail($id);
-        $SuratTugas->status = 'disetujui';
-        $SuratTugas->save();
+        $navbarView = view('layouts/navbar');
+        $sidebarView = view('layouts/sidebar');
 
-        return redirect()->back()->with('success', 'Surat Tugas telah disetujui!');
+        $data = SuratTugas::orderBy('created_at', 'desc')->get();
+
+        // Menggunakan ucfirst untuk mengubah huruf pertama menjadi besar
+        $formattedData = $data->map(function ($item) {
+            $item->nama_mhs = ucfirst($item->nama_mhs);
+            $item->judul_skripsi = ucfirst($item->judul_skripsi);
+            return $item;
+        });
+
+        return view('pages.riwayatsurat', [
+            'data' => $formattedData,
+            $navbarView,
+            $sidebarView
+        ]);
     }
 
-    public function tidaksetujuSurat(Request $request, $id)
-    {
-        $SuratTugas = SuratTugas::findOrFail($id);
-        $SuratTugas->status = 'ditolak';
-        $SuratTugas->keterangan = $request->input('text_input');
-        $SuratTugas->save();
+    public function downloadSurat($file_path){
+        $file = storage_path('app/public/surat-tugas/' . $file_path);
 
-        return redirect()->back()->with('success', 'Surat Tugas telah ditolak!');
+        if (file_exists($file)) {
+            return response()->download($file);
+        } else {
+            abort(404, 'File not found');
+        }
     }
-
-    public function cancelsurattugas($id)
-    {
-        $suratTugas = SuratTugas::find($id);
-        $suratTugas->status = null;
-        $suratTugas->keterangan = null;
-        $suratTugas->save();
-        return redirect()->back();
-    }
-
-
-    // previewsurat
-    // public function previewsurat($id)
-    // {
-
-    //     $pdfData = SuratTugas::find($id);
-
-    //     $pdf = new Mpdf();
-    //     $html = view('template_surat.surat_tugas', compact('pdfData'))->render();
-
-    //     $pdf->WriteHTML($html);
-
-    //     // Metode Output dengan mode 'I' (inline)
-    //     return $pdf->Output('surat-pdf.pdf', 'I');
-    // }
 }
-
-    
-
-
