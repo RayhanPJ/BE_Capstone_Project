@@ -117,7 +117,6 @@ Surat Tugas
                             </div>
                         </div>
                     </div>
-
                     @endforeach
                 </tbody>
             </table>
