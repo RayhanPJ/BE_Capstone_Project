@@ -14,7 +14,6 @@ class LoginController extends Controller
      */
     public function index()
     {
-        // return view('auth/login');
         if (Auth::check()) {
             return redirect('home');
         } else {
@@ -32,7 +31,14 @@ class LoginController extends Controller
             'password' => $request->input('password'),
         ];
         if (Auth::attempt($data)) {
+
+            $user = Auth::user();
+
+            if ($user->role === 'admin') {
+                return redirect()->route('home.admin');
+            } else {
             return redirect('home');
+            }
         } else {
             Session::flash('error', 'Email atau Password Salah');
             return redirect('/');

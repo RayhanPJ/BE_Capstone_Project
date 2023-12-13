@@ -1,10 +1,14 @@
 <?php
 
-use App\Http\Controllers\Auth;
 use App\Http\Controllers\Home;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Home;
-use App\Http\Controllers\Auth;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RegistController;
+use App\Http\Controllers\ForgotPWController;
+use App\Http\Controllers\SuratTugasController;
+use App\Http\Controllers\AdminController;
+
+
 
 /*
 |--------------------------------------------------------------------------
