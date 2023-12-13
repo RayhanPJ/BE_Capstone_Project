@@ -31,23 +31,45 @@ Surat Tugas
                         <td>{{ $d->npm }}</td>
                         <td>{{ $d->prodi }}</td>
                         <td>
-<<<<<<<<< Temporary merge branch 1
+                            {{-- preview --}}
                             <a href="#" class="btn btn-outline-primary btn-sm" onclick="openPdfPreview('{{ route('surattugas-preview', ['file_path' => $d->file_path]) }}')">
                                 <i class="fa-solid fa-eye"></i>
                             </a>
-                            <button type="button" class="btn btn-outline-success btn-sm"><i class="fa-solid fa-circle-check"></i></button>
-                            <button type="button" class="btn btn-outline-danger btn-sm"><i class="fa-solid fa-circle-xmark"></i></button>
-=========
-                            <button type="submit" class="btn btn-outline-primary btn-sm"><i
-                                    class="fa-solid fa-eye"></i></button>
 
-                            {{-- button disetujui --}}
+                            {{-- indikator surat telah disetujui --}}
+                            @if($d->status == 'disetujui')
+                            <span class="ps-2">
+                                <i class="fa-solid fa-circle-check btn-outline-success"></i>
+                            </span>
+                            <form action="/cancelsurattugas/{{ $d->id }}" method="POST" class="d-inline ps-5">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm text-danger">
+                                    Cancel
+                                </button>
+                            </form>
+
+                            {{-- indikator surat telah ditolak --}}
+                            @elseif($d->status == 'ditolak')
+                            <span class="ps-2">
+                                <i class="fa-solid fa-circle-xmark btn-outline-danger"></i>
+                            </span>
+                            <form action="/cancelsurattugas/{{ $d->id }}" method="POST" class="d-inline ps-5">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm text-danger">
+                                    Cancel
+                                </button>
+                            </form>
+
+                            @else
+                            {{-- button surat disetujui --}}
                             <form action="/setujui-surat/{{$d->id}}" method="POST" class="d-inline">
                                 @csrf
-                                <button type="submit" class="btn btn-outline-success btn-sm"><i
-                                        class="fa-solid fa-circle-check"></i></button>
+                                <button type="submit" class="btn btn-outline-success btn-sm"><i class="fa-solid fa-circle-check"></i></button>
                             </form>
-                            
+
+                            {{-- button surat ditolak --}}
                             <button type="submit" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#myModal-{{$d->id}}">
                                 <i class="fa-solid fa-circle-xmark"></i>
                             </button>
@@ -65,7 +87,8 @@ Surat Tugas
                                             <form action="/tidaksetuju-surat/{{$d->id}}" method="POST">
                                                 @csrf
                                                 <div class="mb-3">
-                                                    <label for="text-input" class="form-label">Masukkan Keterangan:</label>
+                                                    <label for="text-input" class="form-label">Masukkan
+                                                        Keterangan:</label>
                                                     <input type="text" class="form-control" id="text-input" name="text_input" required>
                                                 </div>
                                                 <button type="submit" class="btn btn-primary">Submit</button>
@@ -74,16 +97,9 @@ Surat Tugas
                                     </div>
                                 </div>
                             </div>
->>>>>>>>> Temporary merge branch 2
+                            @endif
                         </td>
                     </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <!--/ Column Search -->
-</div>
 
                     <!-- Modal untuk menampilkan PDF -->
                     <div class="modal fade" id="pdfPreviewModal" tabindex="-1" role="dialog" aria-labelledby="pdfPreviewModalLabel" aria-hidden="true">
@@ -92,7 +108,7 @@ Surat Tugas
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="pdfPreviewModalLabel">PDF Preview</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        <span aria-hidden="true">&times;</span>
+                                    <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
                                 <div class="modal-body">
