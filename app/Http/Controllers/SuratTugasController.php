@@ -50,34 +50,34 @@ class SuratTugasController extends Controller
     }
 
 
-    public function generateSuratTugasPDF(Request $request)
-    {
-        // Ambil data dari sesi
-        $data = session('pdf_data');
+    // public function generateSuratTugasPDF(Request $request)
+    // {
+    //     // Ambil data dari sesi
+    //     $data = session('pdf_data');
 
-        // Buat data untuk PDF
-        $nama_mhs = Str::title($data['nama_mhs']);
-        $prodi = Str::title($data['prodi']);
-        $nama_dospem = Str::title($data['nama_dospem']);
-        $judul_skripsi = Str::title($data['judul_skripsi']);
+    //     // Buat data untuk PDF
+    //     $nama_mhs = Str::title($data['nama_mhs']);
+    //     $prodi = Str::title($data['prodi']);
+    //     $nama_dospem = Str::title($data['nama_dospem']);
+    //     $judul_skripsi = Str::title($data['judul_skripsi']);
 
-        $fileName = 'Surat Tugas_' . $data['id'] . '_' . $nama_mhs . '_' . $data['npm'] . '.pdf';
+    //     $fileName = 'Surat Tugas_' . $data['id'] . '_' . $nama_mhs . '_' . $data['npm'] . '.pdf';
 
-        $pdfData = [
-            'nama_mhs' => $nama_mhs,
-            'npm' => $data['npm'],
-            'prodi' => $prodi,
-            'nama_dospem' => $nama_dospem,
-            'judul_skripsi' => $judul_skripsi,
-        ];
+    //     $pdfData = [
+    //         'nama_mhs' => $nama_mhs,
+    //         'npm' => $data['npm'],
+    //         'prodi' => $prodi,
+    //         'nama_dospem' => $nama_dospem,
+    //         'judul_skripsi' => $judul_skripsi,
+    //     ];
 
-        // Buat dan unduh PDF
-        $outputPath = public_path($fileName);
-        $pdf = PDF::loadView('template_surat.surat_tugas', compact('pdfData'));
-        $pdf->save($outputPath);
+    //     // Buat dan unduh PDF
+    //     $outputPath = public_path($fileName);
+    //     $pdf = PDF::loadView('template_surat.surat_tugas', compact('pdfData'));
+    //     $pdf->save($outputPath);
 
-        return response()->download($outputPath)->deleteFileAfterSend(true);
-    }
+    //     return response()->download($outputPath)->deleteFileAfterSend(true);
+    // }
 
     public function setujuiSurat($id)
     {
@@ -109,51 +109,21 @@ class SuratTugasController extends Controller
 
 
     // previewsurat
-    public function previewsurat($id)
-    {
-
-        $pdfData = SuratTugas::find($id);
-
-        $pdf = new Mpdf();
-        $html = view('template_surat.surat_tugas', compact('pdfData'))->render();
-
-        $pdf->WriteHTML($html);
-
-        // Metode Output dengan mode 'I' (inline)
-        return $pdf->Output('surat-pdf.pdf', 'I');
-    }
-}
-
-    // function ini dipakai ketika akan download pdf
-    // public function generateSuratTugasPDF(Request $request)
+    // public function previewsurat($id)
     // {
-    //     // Ambil data dari sesi
-    //     $data = session('pdf_data');
 
-    //     // Buat data untuk PDF
-    //     $nama_mhs = Str::title($data->nama_mhs);
-    //     $prodi = Str::title($data->prodi);
-    //     $nama_dospem = Str::title($data->nama_dospem);
-    //     $judul_skripsi = Str::title($data->judul_skripsi);
+    //     $pdfData = SuratTugas::find($id);
 
+    //     $pdf = new Mpdf();
+    //     $html = view('template_surat.surat_tugas', compact('pdfData'))->render();
 
-    //     $filePath =  'surat-tugas\\' . $fileName;
+    //     $pdf->WriteHTML($html);
 
-    //     $pdfData = [
-    //         'nama_mhs' => $nama_mhs,
-    //         'npm' => $data->npm,
-    //         'prodi' => $prodi,
-    //         'nama_dospem' => $nama_dospem,
-    //         'judul_skripsi' => $judul_skripsi,
-    //         'file_path' => $filePath,
-    //     ];
-
-    //     // Buat dan unduh PDF
-    //     $outputPath = storage_path('app\\' . $filePath);
-    //     $pdf = PDF::loadView('template_surat.surat_tugas', compact('pdfData'));
-    //     $pdf->save($outputPath);
-
-    //     return response()->download($outputPath);
+    //     // Metode Output dengan mode 'I' (inline)
+    //     return $pdf->Output('surat-pdf.pdf', 'I');
     // }
 }
+
+    
+
 
