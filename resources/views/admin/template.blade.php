@@ -123,6 +123,15 @@
             <script src="{{ asset('/template/assets/js/charts-apex.js') }}"></script>
 
             <script>
+                function updateAdminNotificationBadge(count) {
+                    // Ubah kode ini sesuai dengan struktur HTML dan badge Anda
+                    $('#admin-notification-badge').text(count);
+                }
+
+            </script>
+
+
+            <script>
                 function openPdfPreview(pdfUrl) {
                     // Setel atribut 'src' iframe dengan URL PDF
                     document.getElementById('pdfPreviewFrame').src = pdfUrl;

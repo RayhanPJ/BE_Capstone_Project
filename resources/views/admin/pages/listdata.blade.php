@@ -56,7 +56,7 @@ Surat Tugas
                             <form action="/cancelsurattugas/{{ $d->id }}" method="POST" class="d-inline ms-2 align-top">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm text-secondary">
+                                <button onclick="cancelSuratTugas()" class="btn btn-sm text-secondary">
                                     <span class="badge rounded-pill bg-label-dark">Cancel</span>
                                 </button>
                             </form>

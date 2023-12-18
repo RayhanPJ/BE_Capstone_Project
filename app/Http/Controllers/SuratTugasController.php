@@ -6,7 +6,10 @@ use PDF;
 use Mpdf\Mpdf;
 use App\Models\SuratTugas;
 use Illuminate\Support\Str;
+use App\Events\DataApproved;
 use Illuminate\Http\Request;
+use App\Events\UserDataInput;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 
 class SuratTugasController extends Controller
@@ -39,6 +42,8 @@ class SuratTugasController extends Controller
         $outputPath = storage_path('app\\public\\surat-tugas\\' . $filePath);
         $pdf = PDF::loadView('template_surat.surat_tugas', compact('data'));
         $pdf->save($outputPath);
+
+        event(new UserDataInput( 'Pengguna telah menginput data.'));
         return redirect('/');
     }
 
@@ -47,6 +52,8 @@ class SuratTugasController extends Controller
         $SuratTugas = SuratTugas::findOrFail($id);
         $SuratTugas->status = 'disetujui';
         $SuratTugas->save();
+
+        event(new DataApproved($id, 'Data Anda telah di-approve oleh admin.'));
 
         return redirect()->back()->with('success', 'Surat Tugas telah disetujui!');
     }
@@ -67,6 +74,7 @@ class SuratTugasController extends Controller
         $suratTugas->status = null;
         $suratTugas->keterangan = null;
         $suratTugas->save();
+        session()->forget('data_approved_notifications');
         return redirect()->back();
     }
 
@@ -101,33 +109,4 @@ class SuratTugasController extends Controller
             abort(404, 'File not found');
         }
     }
-
-    // public function generateSuratTugasPDF(Request $request)
-    // {
-    //     // Ambil data dari sesi
-    //     $data = session('pdf_data');
-
-    //     // Buat data untuk PDF
-    //     $nama_mhs = Str::title($data['nama_mhs']);
-    //     $prodi = Str::title($data['prodi']);
-    //     $nama_dospem = Str::title($data['nama_dospem']);
-    //     $judul_skripsi = Str::title($data['judul_skripsi']);
-
-    //     $fileName = 'Surat Tugas_' . $data['id'] . '_' . $nama_mhs . '_' . $data['npm'] . '.pdf';
-
-    //     $pdfData = [
-    //         'nama_mhs' => $nama_mhs,
-    //         'npm' => $data['npm'],
-    //         'prodi' => $prodi,
-    //         'nama_dospem' => $nama_dospem,
-    //         'judul_skripsi' => $judul_skripsi,
-    //     ];
-
-    //     // Buat dan unduh PDF
-    //     $outputPath = public_path($fileName);
-    //     $pdf = PDF::loadView('template_surat.surat_tugas', compact('pdfData'));
-    //     $pdf->save($outputPath);
-
-    //     return response()->download($outputPath)->deleteFileAfterSend(true);
-    // }
 }

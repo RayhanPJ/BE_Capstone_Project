@@ -9,6 +9,7 @@
     <title>@yield('pageTitle')</title>
 
     <meta name="description" content="" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{{ asset('/template/assets/img/favicon/favicon-1.png') }}" />
@@ -115,7 +116,29 @@
             <!-- Main JS -->
             <script src="{{ asset('/template/assets/js/main.js') }}"></script>
 
-            <!-- Page Js -->
+            {{-- notifikasi --}}
+            <script>
+                function cancelSuratTugas(id) {
+                    // Panggil AJAX atau method lainnya untuk membatalkan persetujuan
+                    $.ajax({
+                        url: '/cancelsurattugas/' + id
+                        , type: 'DELETE'
+                        , headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                        , success: function() {
+                            // Berhasil membatalkan persetujuan, lakukan tindakan yang diperlukan
+                            updateApproveBadge(0);
+                        }
+                    })
+                }
+
+                function updateApproveBadge(count) {
+                    // Ubah kode ini sesuai dengan struktur HTML dan badge Anda
+                    $('#approve-badge').text(count);
+                }
+
+            </script>
 
             <!-- sweetalert2 -->
             <script>
