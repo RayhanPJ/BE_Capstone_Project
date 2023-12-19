@@ -130,7 +130,6 @@
 
             </script>
 
-
             <script>
                 function openPdfPreview(pdfUrl) {
                     // Setel atribut 'src' iframe dengan URL PDF
@@ -141,7 +140,6 @@
                 }
 
             </script>
-
 
             <!-- dataTable -->
             <script>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use PDF;
 use Mpdf\Mpdf;
+use App\Models\User;
 use App\Models\SuratTugas;
 use Illuminate\Support\Str;
 use App\Events\DataApproved;
@@ -11,6 +12,7 @@ use Illuminate\Http\Request;
 use App\Events\UserDataInput;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
+use App\Notifications\AdminNotification;
 
 class SuratTugasController extends Controller
 {
@@ -39,13 +41,18 @@ class SuratTugasController extends Controller
         $data->file_path = $filePath;
         $data->save();
 
+        $user = auth()->user();
+        $user->notify(new AdminNotification($user));
+
         $outputPath = storage_path('app\\public\\surat-tugas\\' . $filePath);
         $pdf = PDF::loadView('template_surat.surat_tugas', compact('data'));
         $pdf->save($outputPath);
 
-        event(new UserDataInput( 'Pengguna telah menginput data.'));
+        // event(new UserDataInput( 'Pengguna telah menginput data.'));
+
         return redirect('/');
     }
+
 
     public function setujuiSurat($id)
     {

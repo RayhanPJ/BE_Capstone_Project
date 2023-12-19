@@ -42,11 +42,6 @@
                         <div data-i18n="Riwayat Surat">Riwayat Surat</div>
                     </a>
                 </li>
-                <li class="menu-item">
-                    <a href="{{ route('home.admin') }}" class="menu-link">
-                        <div data-i18n="Admin">Admin</div>
-                    </a>
-                </li>
             </ul>
         </li>
     </ul>

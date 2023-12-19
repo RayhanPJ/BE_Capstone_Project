@@ -18,14 +18,15 @@
                     <i class="ti ti-bell ti-md"></i>
 
                     @php
-                    $dataApprovedNotifications = session('data_approved_notifications', []);
-                    $notificationCount = count($dataApprovedNotifications);
+                    $unreadNotifications = auth()->user()->unreadnotifications;
+                    $notificationCount = $unreadNotifications->count();
                     @endphp
-                    @if($notificationCount > 0)
-                    <span id="approve-badge" class="badge bg-danger rounded-pill badge-notifications">{{ $notificationCount }}</span>
-                    @endif
 
+                    @if($notificationCount > 0)
+                    <span class="badge bg-danger rounded-pill badge-notifications">{{ $notificationCount }}</span>
+                    @endif
                 </a>
+
                 @if($notificationCount > 0)
                 <ul class="dropdown-menu dropdown-menu-end py-0">
                     <li class="dropdown-menu-header border-bottom">
@@ -36,6 +37,7 @@
                     </li>
                     <li class="dropdown-notifications-list scrollable-container">
                         <ul class="list-group list-group-flush">
+                            @foreach(auth()->user()->unreadnotifications as $notification)
                             <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
                                 <div class="d-flex">
                                     <div class="flex-shrink-0 me-3">
@@ -45,17 +47,15 @@
                                     </div>
                                     <div class="flex-grow-1">
                                         <h6 class="mb-1">New Message ✉️</h6>
-                                        @foreach($dataAdminNotifications as $notification)
-                                        <p class="mb-0">{{ $notification  }}</p>
-                                        @endforeach
-                                        <small class="text-muted">1h ago</small>
+                                        <p class="mb-0"><b>{{ $notification->data['name'] }}</b> telah mengajukan surat.</p>
+                                        <small class="text-muted">{{ \Carbon\Carbon::parse($notification->created_at)->diffForHumans() }}</small>
                                     </div>
                                     <div class="flex-shrink-0 dropdown-notifications-actions">
-                                        <a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a>
-                                        <a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="ti ti-x"></span></a>
+                                        <a href="{{ route('markasread', $notification->id) }}" class="dropdown-notifications-archive"><span class="ti ti-x"></span></a>
                                     </div>
                                 </div>
                             </li>
+                            @endforeach
                         </ul>
                     </li>
                 </ul>
@@ -80,7 +80,7 @@
                                     </div>
                                 </div>
                                 <div class="flex-grow-1">
-                                    <span class="fw-semibold d-block">John Doe</span>
+                                    <span class="fw-semibold d-block">{{ auth()->user()->name }}</span>
                                     <small class="text-muted">Admin</small>
                                 </div>
                             </div>
@@ -102,7 +102,7 @@
                         </a>
                     </li>
                     <li>
-                        <a class="dropdown-item" href="../authentication/auth-login-cover.html" target="_blank">
+                        <a class="dropdown-item" href="{{route('logout')}}">
                             <i class="ti ti-logout me-2 ti-sm"></i>
                             <span class="align-middle">Log Out</span>
                         </a>

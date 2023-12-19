@@ -122,5 +122,15 @@ Surat Tugas
     <!--/ Column Search -->
 </div>
 
+<script>
+    // Fungsi untuk merefresh halaman setiap 5 menit
+    function refreshPage() {
+        location.reload(true); // Parameter true untuk me-reload dari server
+    }
+
+    // Set interval untuk menjalankan fungsi refreshPage setiap 1 menit
+    setInterval(refreshPage, 60000);
+
+</script>
 
 @endsection

@@ -17,7 +17,7 @@ Surat Tugas
                     <label class="form-label" for="basic-icon-default-fullname">Nama Mahasiswa</label>
                     <div class="input-group input-group-merge">
                         <span id="basic-icon-default-fullname2" class="input-group-text"><i class="ti ti-user"></i></span>
-                        <input type="text" class="form-control alphabet-input" name="nama_mhs" id="basic-icon-default-fullname" placeholder="" aria-label="John Doe" aria-describedby="basic-icon-default-fullname2" />
+                        <input type="text" class="form-control alphabet-input" name="nama_mhs" id="basic-icon-default-fullname" value="{{ auth()->user()->name }}" readonly />
                     </div>
                 </div>
                 <div class="mb-3">
@@ -30,8 +30,6 @@ Surat Tugas
                 <div class="mb-3">
                     <label class="form-label" for="basic-icon-default-fullname">Prodi</label>
                     <div class="input-group input-group-merge">
-
-                        {{-- <select class="form-select" name="prodi" aria-label="Default select example"> --}}
                         <select id="select2IconsProdi" name="prodi" class="select2-icons form-select">
                             <option value="Informatika" data-icon="ti ti-notebook">Informatika</option>
                             <option value="Sistem Informasi" data-icon="ti ti-notebook">Sistem Informasi</option>
