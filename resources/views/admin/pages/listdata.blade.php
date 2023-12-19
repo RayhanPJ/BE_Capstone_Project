@@ -20,6 +20,7 @@ Surat Tugas
                         <th>NPM</th>
                         <th>Prodi</th>
                         <th>Aktivitas</th>
+                        <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -36,70 +37,66 @@ Surat Tugas
                                 <i class="fa-solid fa-eye"></i>
                             </a>
 
-                            {{-- indikator surat telah disetujui --}}
-                            @if($d->status == 'disetujui')
-                            <span class="ps-2">
-                                <i class="fa-solid fa-circle-check btn-outline-success"></i>
-                            </span>
-                            <form action="/cancelsurattugas/{{ $d->id }}" method="POST" class="d-inline ps-5">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-sm text-danger">
-                                    Cancel
-                                </button>
-                            </form>
-
-                            {{-- indikator surat telah ditolak --}}
-                            @elseif($d->status == 'ditolak')
-                            <span class="ps-2">
-                                <i class="fa-solid fa-circle-xmark btn-outline-danger"></i>
-                            </span>
-                            <form action="/cancelsurattugas/{{ $d->id }}" method="POST" class="d-inline ps-5">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-sm text-danger">
-                                    Cancel
-                                </button>
-                            </form>
-
-                            @else
+                            @if(!$d->status == 'disetujui' || !$d->status == 'ditolak')
                             {{-- button surat disetujui --}}
                             <form action="/setujui-surat/{{$d->id}}" method="POST" class="d-inline">
                                 @csrf
-                                <button type="submit" class="btn btn-outline-success btn-sm"><i class="fa-solid fa-circle-check"></i></button>
+                                <button type="submit" style="display: none;" class="btn btn-outline-success btn-sm">
+                                    <i class="fa-solid fa-circle-check"></i>
+                                </button>
                             </form>
 
                             {{-- button surat ditolak --}}
-                            <button type="submit" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#myModal-{{$d->id}}">
+                            <button type="submit" style="display: none;" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#myModal-{{$d->id}}">
                                 <i class="fa-solid fa-circle-xmark"></i>
                             </button>
 
-                            <!-- Modal -->
-                            <div class="modal fade" id="myModal-{{$d->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Keterangan Reject</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <!-- Form inside the modal -->
-                                            <form action="/tidaksetuju-surat/{{$d->id}}" method="POST">
-                                                @csrf
-                                                <div class="mb-3">
-                                                    <label for="text-input" class="form-label">Masukkan
-                                                        Keterangan:</label>
-                                                    <input type="text" class="form-control" id="text-input" name="text_input" required>
-                                                </div>
-                                                <button type="submit" class="btn btn-primary">Submit</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            @else
+                            {{-- button cancel --}}
+                            <form action="/cancelsurattugas/{{ $d->id }}" method="POST" class="d-inline ms-2 align-top">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm text-secondary">
+                                    <span class="badge rounded-pill bg-label-dark">Cancel</span>
+                                </button>
+                            </form>
+                            @endif
+                        </td>
+                        <td>
+                            @if($d->status == 'disetujui')
+                            <span class="badge badge-sm rounded-pill bg-label-success">Disetujui</span>
+
+                            @elseif($d->status == 'ditolak')
+                            <span class="badge badge-sm rounded-pill bg-label-danger">Ditolak</span>
+
+                            @else
                             @endif
                         </td>
                     </tr>
+
+                    <!-- Modal Reject -->
+                    <div class="modal fade" id="myModal-{{$d->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Keterangan Reject</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <!-- Form inside the modal -->
+                                    <form action="/tidaksetuju-surat/{{$d->id}}" method="POST">
+                                        @csrf
+                                        <div class="mb-3">
+                                            <label for="text-input" class="form-label">Masukkan
+                                                Keterangan:</label>
+                                            <input type="text" class="form-control" id="text-input" name="text_input" required>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                     <!-- Modal untuk menampilkan PDF -->
                     <div class="modal fade" id="pdfPreviewModal" tabindex="-1" role="dialog" aria-labelledby="pdfPreviewModalLabel" aria-hidden="true">

@@ -11,7 +11,7 @@
     <meta name="description" content="" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="{{ asset('/template/assets/img/favicon/favicon.ico') }}" />
+    <link rel="icon" type="image/x-icon" href="{{ asset('/template/assets/img/favicon/favicon-1.png') }}" />
 
     <!-- Icons -->
     <link rel="stylesheet" href="{{ asset('/template/assets/vendor/fonts/fontawesome.css') }}" />
@@ -55,9 +55,7 @@
             <!-- Layout container -->
             <div class="layout-page">
                 <!-- Navbar -->
-
                 @yield('navbar')
-
                 <!-- / Navbar -->
 
                 <!-- Content wrapper -->
