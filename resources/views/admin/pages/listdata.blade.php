@@ -123,13 +123,13 @@ Surat Tugas
 </div>
 
 <script>
-    // Fungsi untuk merefresh halaman setiap 5 menit
+    // Function to refresh the page every 30 seconds
     function refreshPage() {
-        location.reload(true); // Parameter true untuk me-reload dari server
+        location.reload(true); // Parameter true to reload from the server
     }
 
-    // Set interval untuk menjalankan fungsi refreshPage setiap 1 menit
-    setInterval(refreshPage, 60000);
+    // Set interval to run the refreshPage function every 30 seconds (30,000 milliseconds)
+    setInterval(refreshPage, 30000);
 
 </script>
 
