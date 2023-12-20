@@ -16,12 +16,9 @@
             <li class="nav-item dropdown-notifications navbar-dropdown dropdown me-3 me-xl-1">
                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
                     <i class="ti ti-bell ti-md"></i>
-
-
                     @php
                     $notificationCount = auth()->user()->unreadnotifications->count();
                     @endphp
-
 
                     @if($notificationCount > 0)
                     <span class="badge bg-danger rounded-pill badge-notifications">{{ $notificationCount }}</span>

@@ -39,6 +39,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/surattugas', [SuratTugasController::class, 'store'])->name('surattugas.store');
     Route::get('/riwayat-surat', [SuratTugasController::class, 'riwayatSurat'])->name('riwayat-surat');
     Route::get('/download-surat/{file_path}', [SuratTugasController::class, 'downloadSurat'])->name('download-surat');
+    Route::get('/markasreadapprove/{id}', [SuratTugasController::class, 'markAsReadApprove'])->name('markasreadapprove');
 });
 
 // ======== admin ============

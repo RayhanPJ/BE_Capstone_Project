@@ -13,6 +13,7 @@ use App\Events\UserDataInput;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use App\Notifications\AdminNotification;
+use App\Notifications\UserNotifcation;
 
 class SuratTugasController extends Controller
 {
@@ -65,7 +66,14 @@ class SuratTugasController extends Controller
         $SuratTugas->status = 'disetujui';
         $SuratTugas->save();
 
-        event(new DataApproved($id, 'Data Anda telah di-approve oleh admin.'));
+        $users = User::where('role', 'user')->get();
+
+        foreach ($users as $user) {
+            $user->notify(new UserNotifcation([
+                'user_id' => auth()->id(),
+                'name' => auth()->user()->name,
+            ]));
+        }
 
         return redirect()->back()->with('success', 'Surat Tugas telah disetujui!');
     }
@@ -95,7 +103,7 @@ class SuratTugasController extends Controller
         $navbarView = view('layouts/navbar');
         $sidebarView = view('layouts/sidebar');
 
-        $data = SuratTugas::orderBy('created_at', 'desc')->get();
+        $data = SuratTugas::orderBy('created_at', 'desc')->where('nama_mhs', auth()->user()->name)->get();
 
         // Menggunakan ucfirst untuk mengubah huruf pertama menjadi besar
         $formattedData = $data->map(function ($item) {
@@ -120,5 +128,14 @@ class SuratTugasController extends Controller
         } else {
             abort(404, 'File not found');
         }
+    }
+
+    public function markAsReadApprove($id)
+    {
+        if ($id) {
+            auth()->user()->notifications->where('id', $id)->markAsRead();
+        }
+
+        return redirect()->back();
     }
 }

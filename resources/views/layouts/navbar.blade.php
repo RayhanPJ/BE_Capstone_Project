@@ -17,11 +17,11 @@
                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
                     <i class="ti ti-bell ti-md"></i>
                     @php
-                    $dataApprovedNotifications = session('data_approved_notifications', []);
-                    $notificationCount = count($dataApprovedNotifications);
+                    $notificationCount = auth()->user()->unreadnotifications->count();
                     @endphp
+
                     @if($notificationCount > 0)
-                    <span id="approve-badge" class="badge bg-danger rounded-pill badge-notifications">{{ $notificationCount }}</span>
+                    <span class="badge bg-danger rounded-pill badge-notifications">{{ $notificationCount }}</span>
                     @endif
                 </a>
                 @if($notificationCount > 0)
@@ -34,6 +34,7 @@
                     </li>
                     <li class="dropdown-notifications-list scrollable-container">
                         <ul class="list-group list-group-flush">
+                            @foreach(auth()->user()->unreadnotifications as $notification)
                             <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
                                 <div class="d-flex">
                                     <div class="flex-shrink-0 me-3">
@@ -43,18 +44,16 @@
                                     </div>
                                     <div class="flex-grow-1">
                                         <h6 class="mb-1">New Message ✉️</h6>
-                                        @foreach($dataApprovedNotifications as $notification)
-                                        <p class="mb-0">{{ $notification  }}</p>
-                                        @endforeach
-                                        <small class="text-muted">1h ago</small>
+                                        <p class="mb-0">{{ $notification->data['message'] }}</p>
+
+                                        <small class="text-muted">{{ \Carbon\Carbon::parse($notification->created_at)->diffForHumans() }}</small>
                                     </div>
                                     <div class="flex-shrink-0 dropdown-notifications-actions">
-                                        <a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a>
-                                        <a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="ti ti-x"></span></a>
+                                        <a href="{{ route('markasreadapprove', $notification->id) }}" class="dropdown-notifications-archive"><span class="ti ti-x"></span></a>
                                     </div>
                                 </div>
                             </li>
-
+                            @endforeach
                         </ul>
                     </li>
                 </ul>
@@ -62,55 +61,55 @@
             </li>
             <!--/ Notification -->
 
-                <!-- User -->
-                <li class="nav-item navbar-dropdown dropdown-user dropdown">
-                    <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                        <div class="avatar avatar-online">
-                            <img src="{{ asset('/template/assets/img/avatars/1.png') }}" alt class="h-auto rounded-circle" />
-                        </div>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                        <li>
-                            <a class="dropdown-item" href="../profile/pages-account-settings-account.html">
-                                <div class="d-flex">
-                                    <div class="flex-shrink-0 me-3">
-                                        <div class="avatar avatar-online">
-                                            <img src="{{ asset('/template/assets/img/avatars/1.png') }}" alt class="h-auto rounded-circle" />
-                                        </div>
-                                    </div>
-                                    <div class="flex-grow-1">
-                                        <span class="fw-semibold d-block">{{ auth()->user()->name }}</span>
-                                        <small class="text-muted">Mahasiswa</small>
+            <!-- User -->
+            <li class="nav-item navbar-dropdown dropdown-user dropdown">
+                <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
+                    <div class="avatar avatar-online">
+                        <img src="{{ asset('/template/assets/img/avatars/1.png') }}" alt class="h-auto rounded-circle" />
+                    </div>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li>
+                        <a class="dropdown-item" href="../profile/pages-account-settings-account.html">
+                            <div class="d-flex">
+                                <div class="flex-shrink-0 me-3">
+                                    <div class="avatar avatar-online">
+                                        <img src="{{ asset('/template/assets/img/avatars/1.png') }}" alt class="h-auto rounded-circle" />
                                     </div>
                                 </div>
-                            </a>
-                        </li>
-                        <li>
-                            <div class="dropdown-divider"></div>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="../profile/pages-profile-user.html">
-                                <i class="ti ti-user-check me-2 ti-sm"></i>
-                                <span class="align-middle">My Profile</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="../profile/pages-account-settings-account.html">
-                                <i class="ti ti-settings me-2 ti-sm"></i>
-                                <span class="align-middle">Settings</span>
-                            </a>
-                        </li>
-                       <li>
-                           <a class="dropdown-item" href="{{route('logout')}}">
-                               <i class="ti ti-logout me-2 ti-sm"></i>
-                               <span class="align-middle">Log Out</span>
-                           </a>
-                       </li>
-                    </ul>
-                </li>
-                <!--/ User -->
-            </ul>
-        </div>
+                                <div class="flex-grow-1">
+                                    <span class="fw-semibold d-block">{{ auth()->user()->name }}</span>
+                                    <small class="text-muted">Mahasiswa</small>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <div class="dropdown-divider"></div>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="../profile/pages-profile-user.html">
+                            <i class="ti ti-user-check me-2 ti-sm"></i>
+                            <span class="align-middle">My Profile</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="../profile/pages-account-settings-account.html">
+                            <i class="ti ti-settings me-2 ti-sm"></i>
+                            <span class="align-middle">Settings</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="{{route('logout')}}">
+                            <i class="ti ti-logout me-2 ti-sm"></i>
+                            <span class="align-middle">Log Out</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <!--/ User -->
+        </ul>
+    </div>
 
     <!-- Search Small Screens -->
     <div class="navbar-search-wrapper search-input-wrapper d-none">
