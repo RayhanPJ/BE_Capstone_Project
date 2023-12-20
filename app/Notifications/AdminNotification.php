@@ -11,14 +11,11 @@ use Illuminate\Notifications\Messages\MailMessage;
 class AdminNotification extends Notification
 {
     use Queueable;
-    public $user;
+    public $data;
 
-    /**
-     * Create a new notification instance.
-     */
-    public function __construct($user)
+    public function __construct($data)
     {
-         $this->user = $user;
+        $this->data = $data;
     }
 
     /**
@@ -37,16 +34,11 @@ class AdminNotification extends Notification
      *
      * @return array<string, mixed>
      */
-    public function toArray(object $notifiable): array
+   public function toDatabase($notifiable)
     {
         return [
-            'user_id' => $this->user['id'],
-            'name' => $this->user['name'],
+            'user_id' => $this->data['user_id'],
+            'name' => $this->data['name']
         ];
-    }
-
-    public function middleware()
-    {
-        return [new AdminMiddleware];
     }
 }

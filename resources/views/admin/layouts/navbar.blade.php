@@ -17,10 +17,11 @@
                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
                     <i class="ti ti-bell ti-md"></i>
 
+
                     @php
-                    $unreadNotifications = auth()->user()->unreadnotifications;
-                    $notificationCount = $unreadNotifications->count();
+                    $notificationCount = auth()->user()->unreadnotifications->count();
                     @endphp
+
 
                     @if($notificationCount > 0)
                     <span class="badge bg-danger rounded-pill badge-notifications">{{ $notificationCount }}</span>
@@ -47,7 +48,8 @@
                                     </div>
                                     <div class="flex-grow-1">
                                         <h6 class="mb-1">New Message ✉️</h6>
-                                        <p class="mb-0"><b>{{ $notification->data['name'] }}</b> telah mengajukan surat.</p>
+                                        <p class="mb-0"><b>{{ $notification->data['name']}}</b> telah mengajukan surat.</p>
+
                                         <small class="text-muted">{{ \Carbon\Carbon::parse($notification->created_at)->diffForHumans() }}</small>
                                     </div>
                                     <div class="flex-shrink-0 dropdown-notifications-actions">

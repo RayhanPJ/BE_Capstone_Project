@@ -41,14 +41,19 @@ class SuratTugasController extends Controller
         $data->file_path = $filePath;
         $data->save();
 
-        $user = auth()->user();
-        $user->notify(new AdminNotification($user));
+        // Notify admins
+        $admins = User::where('role', 'admin')->get();
+
+        foreach ($admins as $admin) {
+            $admin->notify(new AdminNotification([
+                'user_id' => auth()->id(),
+                'name' => auth()->user()->name,
+            ]));
+        }
 
         $outputPath = storage_path('app\\public\\surat-tugas\\' . $filePath);
         $pdf = PDF::loadView('template_surat.surat_tugas', compact('data'));
         $pdf->save($outputPath);
-
-        // event(new UserDataInput( 'Pengguna telah menginput data.'));
 
         return redirect('/');
     }
