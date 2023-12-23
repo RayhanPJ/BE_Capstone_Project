@@ -116,6 +116,14 @@
             <!-- Main JS -->
             <script src="{{ asset('/template/assets/js/main.js') }}"></script>
 
+            <script>
+                function refreshPage() {
+                    location.reload(true);
+                }
+                setInterval(refreshPage, 60000);
+
+            </script>
+
             {{-- notifikasi --}}
             <script>
                 function cancelSuratTugas(id) {

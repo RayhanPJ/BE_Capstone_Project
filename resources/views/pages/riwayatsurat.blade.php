@@ -52,16 +52,5 @@ Riwayat Surat
     <!--/ Column Search -->
 </div>
 
-<script>
-    // Function to refresh the page every 30 seconds
-    function refreshPage() {
-        location.reload(true); // Parameter true to reload from the server
-    }
-
-    // Set interval to run the refreshPage function every 30 seconds (30,000 milliseconds)
-    setInterval(refreshPage, 30000);
-
-</script>
-
 
 @endsection

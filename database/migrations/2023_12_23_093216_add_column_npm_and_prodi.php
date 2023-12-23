@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('semester')->nullable();
-            $table->string('prodi')->nullable();
+            $table->bigInteger('npm')->nullable();
+            $table->enum('prodi',['Informatika', 'Sistem Informasi']);
         });
     }
 

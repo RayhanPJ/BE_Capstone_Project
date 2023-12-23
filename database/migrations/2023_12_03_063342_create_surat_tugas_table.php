@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nama_mhs');
             $table->bigInteger('npm');
-            $table->string('prodi');
+            $table->enum('prodi',['Informatika', 'Sistem Informasi']);
             $table->string('nama_dospem');
             $table->string('judul_skripsi');
             $table->string('jenis_surat')->default('Surat Tugas');

@@ -16,15 +16,14 @@ class RegistController extends Controller
 
     public function create()
     {
-
-        $this->validate(request(), [
+        $validator = $this->validate(request(), [
             'name' => 'required',
             'email' => 'required|email',
             'password' => 'required',
-            'prodi' => 'required',
-            'semester' => 'required'
-
+            'npm' => 'required',
+            'prodi' => 'required'
         ]);
+
         $allowedDomain = 'student.unsika.ac.id'; // Ganti dengan domain yang diizinkan
 
         $email = request('email');
@@ -32,14 +31,33 @@ class RegistController extends Controller
             return redirect()->back()->withInput()->with('error', 'Alamat email harus memiliki domain ' . $allowedDomain);
         }
 
-        // $user = User::create(request(['name', 'email', 'password', 'prodi', 'semester']));
+        // Periksa apakah terdapat karakter HTML khusus dalam input
+        $containsHtmlSpecialChar = $this->containsHtmlSpecialChar(request()->all());
+        if ($containsHtmlSpecialChar) {
+            return redirect()->route('regist')->with('error', 'Input tidak valid, harap isi dengan teks biasa.');
+        }
 
-        $userData = request(['name', 'email', 'password', 'prodi', 'semester']);
-        $userData['remember_token'] = Str::random(60); // Add remember_token with a random value
+        $userData = [
+            'name' => Str::title(request('name')),
+            'email' => request('email'),
+            'password' => bcrypt(request('password')),
+            'npm' => request('npm'),
+            'prodi' => request('prodi'),
+            'remember_token' => Str::random(60),
+        ];
 
         $user = User::create($userData);
-        // auth()->login($user);
 
-        return redirect()->route('login')->with('success', 'Anda Telah Berhasil Mendaftar!');;
+        return redirect()->route('login')->with('success', 'Anda Telah Berhasil Mendaftar!');
+    }
+
+    private function containsHtmlSpecialChar($data)
+    {
+        foreach ($data as $value) {
+            if ($value != strip_tags($value)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

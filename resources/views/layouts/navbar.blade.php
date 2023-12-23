@@ -39,14 +39,16 @@
                                 <div class="d-flex">
                                     <div class="flex-shrink-0 me-3">
                                         <div class="avatar">
-                                            <img src="{{ asset('/template/assets/img/avatars/2.png') }}" alt class="h-auto rounded-circle" />
+                                            <img src="{{ asset('/template/assets/img/avatars/user.png') }}" alt class="h-auto rounded-circle" />
                                         </div>
                                     </div>
                                     <div class="flex-grow-1">
-                                        <h6 class="mb-1">New Message ✉️</h6>
-                                        <p class="mb-0">{{ $notification->data['message'] }}</p>
+                                        <a href="{{ route('riwayat-surat') }}" class="text-decoration-none text-dark">
+                                            <h6 class="mb-1">New Message ✉️</h6>
+                                            <p class="mb-0">{{ $notification->data['message'] }}</p>
 
-                                        <small class="text-muted">{{ \Carbon\Carbon::parse($notification->created_at)->diffForHumans() }}</small>
+                                            <small class="text-muted">{{ \Carbon\Carbon::parse($notification->created_at)->diffForHumans() }}</small>
+                                        </a>
                                     </div>
                                     <div class="flex-shrink-0 dropdown-notifications-actions">
                                         <a href="{{ route('markasreadapprove', $notification->id) }}" class="dropdown-notifications-archive"><span class="ti ti-x"></span></a>
@@ -65,7 +67,7 @@
             <li class="nav-item navbar-dropdown dropdown-user dropdown">
                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                     <div class="avatar avatar-online">
-                        <img src="{{ asset('/template/assets/img/avatars/1.png') }}" alt class="h-auto rounded-circle" />
+                        <img src="{{ asset('/template/assets/img/avatars/user.png') }}" alt class="h-auto rounded-circle" />
                     </div>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
@@ -74,7 +76,7 @@
                             <div class="d-flex">
                                 <div class="flex-shrink-0 me-3">
                                     <div class="avatar avatar-online">
-                                        <img src="{{ asset('/template/assets/img/avatars/1.png') }}" alt class="h-auto rounded-circle" />
+                                        <img src="{{ asset('/template/assets/img/avatars/user.png') }}" alt class="h-auto rounded-circle" />
                                     </div>
                                 </div>
                                 <div class="flex-grow-1">
