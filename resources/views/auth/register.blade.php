@@ -9,14 +9,11 @@ Register
 
 <div class="authentication-wrapper authentication-cover authentication-bg">
     <div class="authentication-inner row">
-        <!-- /Left Text -->
-        <div class="d-none d-lg-flex col-lg-7 p-0" style="background-image: url('https://elshinta.com/asset/upload/article/2022/februari/2215_ELSHINTADOTCOM_20220208_12.jpg'); background-size: cover; height: 100vh; background-position: right top;">
-
-        </div>
-        <!-- /Left Text -->
+        <!-- Gambar -->
+        <div class="d-none d-lg-flex col-lg-7 p-0" style="background-image: url('https://elshinta.com/asset/upload/article/2022/februari/2215_ELSHINTADOTCOM_20220208_12.jpg'); background-size: cover; height: 100vh; background-position: right top;"></div>
 
         <!-- Register -->
-        <div class="d-flex col-12 col-lg-5 align-items-center p-sm-5 p-4">
+        <div class="d-flex col-12 col-lg-5 align-items-center p-sm-5 p-4" style="max-height: 100vh; overflow: hidden;">
             <div class="w-px-400 mx-auto">
                 <h3 class="mb-1 fw-bold">Sign up your account here 🚀</h3>
                 <p class="mb-4">Make your profile easy!</p>
@@ -70,7 +67,6 @@ Register
                 </p>
             </div>
         </div>
-        <!-- /Register -->
     </div>
 </div>
 @endsection
