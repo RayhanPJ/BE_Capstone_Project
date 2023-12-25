@@ -7,11 +7,10 @@ Riwayat Surat
 @section('mainContent')
 
 <div class="col-xl">
-    <!-- Column Search -->
     <div class="card">
         <h5 class="card-header">Riwayat Surat</h5>
         <div class="card-datatable table-responsive pt-0">
-            <table class="table" id="myTable">
+            <table class="table table-striped" id="myTable">
                 <thead>
                     <tr>
                         <th>#</th>
@@ -49,8 +48,5 @@ Riwayat Surat
             </table>
         </div>
     </div>
-    <!--/ Column Search -->
 </div>
-
-
 @endsection

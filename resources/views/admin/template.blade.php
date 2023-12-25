@@ -50,35 +50,26 @@
             <!-- Menu -->
             @yield('sidebarAdmin')
 
-            <!-- / Menu -->
-
             <!-- Layout container -->
             <div class="layout-page">
+
                 <!-- Navbar -->
-
                 @yield('navbarAdmin')
-
-                <!-- / Navbar -->
 
                 <!-- Content wrapper -->
                 <div class="content-wrapper">
-                    <!-- Content -->
-
-                    <div class="container-xxl flex-grow-1 container-p-y">
+                    <div class="container-xxl flex-grow-1">
                         <div class="row">
                             <!-- Main Content -->
                             @yield('mainContentAdmin')
-                            <!-- /Main Content -->
 
                             <!-- Footer -->
                             @yield('footerAdmin')
-                            <!-- / Footer -->
 
                             <div class="content-backdrop fade"></div>
                         </div>
                         <!-- Content wrapper -->
                     </div>
-                    <!-- / Layout page -->
                 </div>
 
                 <!-- Overlay -->
@@ -87,8 +78,6 @@
                 <!-- Drag Target Area To SlideIn Menu On Small Screens -->
                 <div class="drag-target"></div>
             </div>
-            <!-- / Layout wrapper -->
-
 
             <!-- Core JS -->
             <!-- build:js assets/vendor/js/core.js -->

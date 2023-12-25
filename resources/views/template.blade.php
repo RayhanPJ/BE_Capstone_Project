@@ -34,13 +34,9 @@
     <link rel="stylesheet" href="{{ asset('/template/assets/vendor/libs/animate-css/animate.css') }}" />
     <link rel="stylesheet" href="{{ asset('/template/assets/vendor/libs/sweetalert2/sweetalert2.css') }}" />
 
-    <!-- Page CSS -->
-
     <!-- Helpers -->
     <script src="{{ asset('/template/assets/vendor/js/helpers.js') }}"></script>
 
-    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
-    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="{{ asset('/template/assets/js/config.js') }}"></script>
 </head>
 
@@ -51,33 +47,24 @@
             <!-- Menu -->
             @yield('sidebar')
 
-            <!-- / Menu -->
-
             <!-- Layout container -->
             <div class="layout-page">
                 <!-- Navbar -->
                 @yield('navbar')
-                <!-- / Navbar -->
 
                 <!-- Content wrapper -->
                 <div class="content-wrapper">
-                    <!-- Content -->
-
-                    <div class="container-xxl flex-grow-1 container-p-y">
+                    <div class="container-xxl flex-grow-1">
                         <div class="row">
                             <!-- Main Content -->
                             @yield('mainContent')
-                            <!-- /Main Content -->
 
                             <!-- Footer -->
                             @yield('footer')
-                            <!-- / Footer -->
 
                             <div class="content-backdrop fade"></div>
                         </div>
-                        <!-- Content wrapper -->
                     </div>
-                    <!-- / Layout page -->
                 </div>
 
                 <!-- Overlay -->
@@ -86,7 +73,6 @@
                 <!-- Drag Target Area To SlideIn Menu On Small Screens -->
                 <div class="drag-target"></div>
             </div>
-            <!-- / Layout wrapper -->
 
             <!-- Core JS -->
             <!-- build:js assets/vendor/js/core.js -->

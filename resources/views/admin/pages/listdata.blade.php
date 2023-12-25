@@ -11,7 +11,7 @@ Surat Tugas
     <div class="card">
         <h5 class="card-header">Pengajuan Surat</h5>
         <div class="card-datatable table-responsive pt-0">
-            <table class="table" id="myTable">
+            <table class="table table-striped" id="myTable">
                 <thead>
                     <tr>
                         <th>#</th>
@@ -33,7 +33,7 @@ Surat Tugas
                         <td>{{ $d->prodi }}</td>
                         <td>
                             {{-- preview --}}
-                            <a href="#" class="btn btn-outline-primary btn-sm" onclick="openPdfPreview('{{ route('surattugas-preview', ['file_path' => $d->file_path]) }}')">
+                            <a href="#" class="btn btn-outline-info btn-sm" onclick="openPdfPreview('{{ route('surattugas-preview', ['file_path' => $d->file_path]) }}')">
                                 <i class="fa-solid fa-eye"></i>
                             </a>
 
@@ -56,8 +56,8 @@ Surat Tugas
                             <form action="/cancelsurattugas/{{ $d->id }}" method="POST" class="d-inline ms-2 align-top">
                                 @csrf
                                 @method('DELETE')
-                                <button onclick="cancelSuratTugas()" class="btn btn-sm text-secondary">
-                                    <span class="badge rounded-pill bg-label-dark">Cancel</span>
+                                <button onclick="cancelSuratTugas()" class="btn btn-sm">
+                                    <span class="badge rounded-pill bg-warning">Cancel</span>
                                 </button>
                             </form>
                             @endif
