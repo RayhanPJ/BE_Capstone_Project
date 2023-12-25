@@ -16,11 +16,11 @@
     <div class="menu-inner-shadow"></div>
 
     <ul class="menu-inner py-1">
-        <!-- Dashboards -->
+        <!-- Dashboard -->
         <li class="menu-item {{ request()->routeIs('home') ? 'active' : '' }} open">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons ti ti-smart-home"></i>
-                <div data-i18n="Dashboards">Dashboards</div>
+                <div data-i18n="Dashboard">Dashboard</div>
             </a>
             <ul class="menu-sub">
                 <li class="menu-item {{ request()->routeIs('home') ? 'active' : '' }}">

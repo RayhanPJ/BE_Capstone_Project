@@ -18,7 +18,7 @@ Login
                     <b> {{ session('success') }} </b>
                 </div>
                 @endif
-                <p class="mb-4">Please sign-in to your account</p>
+                <p class="mb-4">Silakan masuk ke akun Anda</p>
                 @if (session('error'))
                 <div class="alert alert-danger">
                     <b>Opps!</b> {{ session('error') }}
@@ -35,7 +35,7 @@ Login
                         <div class="d-flex justify-content-between">
                             <label class="form-label" for="password">Password</label>
                             <a href="{{route('forgot-pw')}}">
-                                <small>Forgot Password?</small>
+                                <small>Lupa Password?</small>
                             </a>
                         </div>
                         <div class="input-group input-group-merge">
@@ -45,13 +45,13 @@ Login
                             </span>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary d-grid w-100">Sign in</button>
+                    <button type="submit" class="btn btn-primary d-grid w-100">Masuk</button>
                 </form>
 
                 <p class="text-center">
-                    <span>New on our platform?</span>
+                    <span>Belum punya akun?</span>
                     <a href="{{route('regist')}}">
-                        <span>Create an account</span>
+                        <span>Daftar akun</span>
                     </a>
                 </p>
             </div>

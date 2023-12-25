@@ -15,8 +15,8 @@ Register
         <!-- Register -->
         <div class="d-flex col-12 col-lg-5 align-items-center p-sm-5 p-4" style="max-height: 100vh; overflow: hidden;">
             <div class="w-px-400 mx-auto">
-                <h3 class="mb-1 fw-bold">Sign up your account here 🚀</h3>
-                <p class="mb-4">Make your profile easy!</p>
+                <h3 class="mb-1 fw-bold">Registrasi akun Anda di sini 🚀</h3>
+                <p class="mb-4">Buat profil Anda menjadi mudah!</p>
                 @if(session('error'))
                 <div class="alert alert-danger">
                     {{ session('error') }}
@@ -56,13 +56,13 @@ Register
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-primary d-grid w-100">Sign up</button>
+                    <button type="submit" class="btn btn-primary d-grid w-100">Daftar</button>
                 </form>
 
                 <p class="text-center">
-                    <span>Already have an account?</span>
+                    <span>Sudah punya akun?</span>
                     <a href="{{route('login')}}">
-                        <span>Sign in instead</span>
+                        <span>Silahkan masuk</span>
                     </a>
                 </p>
             </div>
