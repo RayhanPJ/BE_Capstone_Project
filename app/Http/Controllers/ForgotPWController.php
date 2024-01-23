@@ -42,6 +42,9 @@ class ForgotPWController extends Controller
             'token' => 'required',
             'email' => 'required|email',
             'password' => 'required|min:6|confirmed',
+        ],[
+            'password.required' => 'Password tidak boleh kosong.',
+            'password.confirmed' => 'Password harus sesuai.'
         ]);
 
         $status = Password::reset(
@@ -56,8 +59,9 @@ class ForgotPWController extends Controller
                 event(new PasswordReset($user));
             }
         );
-       return $status === Password::PASSWORD_RESET
-                ? redirect()->route('login')->with('status', __($status))
-                : back()->withErrors(['email' => [__($status)]]);
+
+        return $status === Password::PASSWORD_RESET
+            ? redirect()->route('login')->with('status', __($status))
+            : back()->withErrors(['email' => [__($status)]]);
     }
 }

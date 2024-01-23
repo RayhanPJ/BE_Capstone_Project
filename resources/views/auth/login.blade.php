@@ -10,20 +10,39 @@ Login
         <!-- Login -->
         <div class="auth-cover-bg auth-cover-bg-color d-flex justify-content-center align-items-center" style="width: 500px; height: 500px; margin: auto;">
             <div class="w-px-400 mx-auto">
-                <!-- Logo -->
-                <!-- /Logo -->
-                <h3 class="mb-1 fw-bold">Fasilkom e-Letter</h3>
-                @if (session('success'))
-                <div class="alert alert-success">
-                    <b> {{ session('success') }} </b>
+
+
+
+                <div class="row">
+                    <div class="col text-center">
+                        <div class="mb-2">
+                            <img src="{{ asset('/template/assets/img/branding/e-letter-logo.png') }}" alt="E-Letter" width="180" height="85" align="center">
+                        </div>
+                        <h3 class="mb-1 fw-bold">TU Fasilkom Unsika</h3>
+                        {{-- regist berhasil --}}
+                        @if (session('success'))
+                        <div class="alert alert-success">
+                            <b> {{ session('success') }} </b>
+                        </div>
+                        @endif
+
+                        {{-- reset password berhasil --}}
+                        @if(session()->get('status'))
+                        <div class="alert alert-success">
+                            {{ session()->get('status') }}
+                        </div>
+                        @endif
+
+                        <p class="mb-4">Silakan masuk ke akun Anda</p>
+
+                        {{-- login gagal --}}
+                        @if (session('error'))
+                        <div class="alert alert-danger">
+                            <b>Opps!</b> {{ session('error') }}
+                        </div>
+                        @endif
+                    </div>
                 </div>
-                @endif
-                <p class="mb-4">Silakan masuk ke akun Anda</p>
-                @if (session('error'))
-                <div class="alert alert-danger">
-                    <b>Opps!</b> {{ session('error') }}
-                </div>
-                @endif
 
                 <form id="formAuthentication" class="mb-3" action="{{route('postlogin')}}" method="post">
                     @csrf

@@ -45,7 +45,7 @@
                                     </div>
                                     <div class="flex-grow-1">
                                         <a href="{{ route('listdata') }}" class="text-decoration-none text-dark">
-                                            <h6 class="mb-1">New Message ✉️</h6>
+                                            <h6 class="mb-1">Pesan Baru ✉️</h6>
                                             <p class="mb-0"><b>{{ $notification->data['name']}}</b> telah mengajukan surat.</p>
 
                                             <small class="text-muted">{{ \Carbon\Carbon::parse($notification->created_at)->diffForHumans() }}</small>
@@ -95,13 +95,13 @@
                     <li>
                         <a class="dropdown-item" href="../profile/pages-profile-user.html">
                             <i class="ti ti-user-check me-2 ti-sm"></i>
-                            <span class="align-middle">My Profile</span>
+                            <span class="align-middle">Profile</span>
                         </a>
                     </li>
                     <li>
                         <a class="dropdown-item" href="../profile/pages-account-settings-account.html">
                             <i class="ti ti-settings me-2 ti-sm"></i>
-                            <span class="align-middle">Settings</span>
+                            <span class="align-middle">Pengaturan</span>
                         </a>
                     </li>
                     <li>

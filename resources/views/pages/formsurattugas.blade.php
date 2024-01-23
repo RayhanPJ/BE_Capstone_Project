@@ -10,7 +10,18 @@ Surat Tugas
         <div class="card-header d-flex justify-content-between align-items-center">
             <h5 class="mb-0">Form Surat Tugas</h5>
         </div>
+
         <div class="card-body">
+            @if($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
+
             <form method="post" action="{{ route('surattugas.store') }}" id="formSuratTugas">
                 @csrf
                 <div class="mb-3">
@@ -85,7 +96,7 @@ Surat Tugas
                     <label class="form-label" for="basic-icon-default-fullname">Judul Skripsi</label>
                     <div class="input-group input-group-merge">
                         <span id="basic-icon-default-message2" class="input-group-text"><i class="ti ti-book"></i></span>
-                        <textarea id="basic-icon-default-message" name="judul_skripsi" class="form-control" placeholder=""></textarea>
+                        <textarea id="basic-icon-default-message" name="judul_skripsi" class="form-control" placeholder="" required></textarea>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary">Send</button>

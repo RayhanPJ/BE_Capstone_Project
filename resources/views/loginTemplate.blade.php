@@ -84,18 +84,21 @@
 
     <script>
         $(document).ready(function() {
-            $("#togglePassword").click(function() {
-                var passwordInput = $("#password");
-                var icon = $(".input-group-text i");
+            function togglePasswordVisibility(passwordId, iconId) {
+                var passwordInput = $("#" + passwordId);
+                var icon = $("." + iconId + " i");
 
                 // Toggle password visibility
-                if (passwordInput.attr("type") === "password") {
-                    passwordInput.attr("type", "text");
-                    icon.removeClass("ti-eye-off").addClass("ti-eye");
-                } else {
-                    passwordInput.attr("type", "password");
-                    icon.removeClass("ti-eye").addClass("ti-eye-off");
-                }
+                passwordInput.attr("type", passwordInput.attr("type") === "password" ? "text" : "password");
+                icon.toggleClass("ti-eye ti-eye-off");
+            }
+
+            $("#togglePassword").click(function() {
+                togglePasswordVisibility("password", "input-group-text");
+            });
+
+            $("#toggleNewPassword").click(function() {
+                togglePasswordVisibility("password_confirmation", "input-group-text2");
             });
         });
 
@@ -133,7 +136,6 @@
         });
 
     </script>
-
 
 </body>
 
