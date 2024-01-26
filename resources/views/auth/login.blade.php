@@ -10,9 +10,6 @@ Login
         <!-- Login -->
         <div class="auth-cover-bg auth-cover-bg-color d-flex justify-content-center align-items-center" style="width: 500px; height: 500px; margin: auto;">
             <div class="w-px-400 mx-auto">
-
-
-
                 <div class="row">
                     <div class="col text-center">
                         <div class="mb-2">

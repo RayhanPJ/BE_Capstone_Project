@@ -2,11 +2,12 @@
 
 use App\Http\Controllers\Home;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegistController;
 use App\Http\Controllers\ForgotPWController;
 use App\Http\Controllers\SuratTugasController;
-use App\Http\Controllers\AdminController;
 
 
 
@@ -35,11 +36,13 @@ Route::post('reset-password', [ForgotPWController::class, 'reset'])->name('passw
 // ======== user =============
 Route::middleware(['auth'])->group(function () {
     Route::get('/home', [Home::class, 'index'])->name('home');
-    Route::get('/surattugas/create', [SuratTugasController::class, 'create'])->name('surattugas.create');
+    Route::get('/surattugas/create/{id}', [SuratTugasController::class, 'create'])->name('surattugas.create');
     Route::post('/surattugas', [SuratTugasController::class, 'store'])->name('surattugas.store');
     Route::get('/riwayat-surat', [SuratTugasController::class, 'riwayatSurat'])->name('riwayat-surat');
     Route::get('/download-surat/{file_path}', [SuratTugasController::class, 'downloadSurat'])->name('download-surat');
     Route::get('/markasreadapprove/{id}', [SuratTugasController::class, 'markAsReadApprove'])->name('markasreadapprove');
+    Route::get('/user/profile/{id}', [UserController::class, 'profile'])->name('user.profile');
+    Route::post('/user/profile/{id}', [UserController::class, 'lengkapiProfile'])->name('user.lengkapiprofile');
 });
 
 // ======== admin ============

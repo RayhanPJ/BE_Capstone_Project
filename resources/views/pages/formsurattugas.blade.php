@@ -42,7 +42,7 @@ Surat Tugas
                     <label class="form-label" for="basic-icon-default-company">Prodi</label>
                     <div class="input-group input-group-merge">
                         <span id="basic-icon-default-company2" class="input-group-text"><i class="ti ti-notebook"></i></span>
-                        <input type="text" id="basic-icon-default-company" name="prodi" class="form-control" value="{{ auth()->user()->prodi }}" readonly />
+                        <input type="text" id="basic-icon-default-company" name="prodi" class="form-control" value="{{ $data->mahasiswa->prodi ?? '' }} " readonly />
                     </div>
                 </div>
                 <div class="mb-3">

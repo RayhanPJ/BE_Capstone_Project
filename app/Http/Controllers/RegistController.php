@@ -20,7 +20,6 @@ class RegistController extends Controller
             'name' => 'required',
             'npm' => 'required',
             'email' => 'required|email',
-            'prodi' => 'required',
             'password' => 'required'
         ]);
 
@@ -59,7 +58,6 @@ class RegistController extends Controller
             'name' => Str::title(request('name')),
             'npm' => $npm,
             'email' => $email,
-            'prodi' => request('prodi'),
             'password' => bcrypt(request('password')),
             'remember_token' => Str::random(60),
         ];

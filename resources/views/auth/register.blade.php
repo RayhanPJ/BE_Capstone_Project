@@ -37,15 +37,6 @@ Register
                         <label for="email" class="form-label">Email</label>
                         <input type="text" class="form-control" id="email" name="email" placeholder="Cth: npm@student.unsika.ac.id" />
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label" for="basic-icon-default-fullname">Program Studi</label>
-                        <div class="input-group input-group-merge">
-                            <select id="select2IconsProdi" name="prodi" class="select2-icons form-select">
-                                <option value="Informatika" data-icon="ti ti-notebook">Informatika</option>
-                                <option value="Sistem Informasi" data-icon="ti ti-notebook">Sistem Informasi</option>
-                            </select>
-                        </div>
-                    </div>
                     <div class="mb-3 form-password-toggle">
                         <label class="form-label" for="password">Password</label>
                         <div class="input-group input-group-merge">

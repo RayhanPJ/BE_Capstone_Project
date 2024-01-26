@@ -14,6 +14,11 @@
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{{ asset('/template/assets/img/favicon/favicon-1.png') }}" />
 
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet" />
+
     <!-- Icons -->
     <link rel="stylesheet" href="{{ asset('/template/assets/vendor/fonts/fontawesome.css') }}" />
     <link rel="stylesheet" href="{{ asset('/template/assets/vendor/fonts/tabler-icons.css') }}" />
@@ -33,6 +38,9 @@
     <link rel="stylesheet" href="{{ asset('/template/assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css') }}" />
     <link rel="stylesheet" href="{{ asset('/template/assets/vendor/libs/animate-css/animate.css') }}" />
     <link rel="stylesheet" href="{{ asset('/template/assets/vendor/libs/sweetalert2/sweetalert2.css') }}" />
+
+    {{-- page CSS --}}
+    <link rel="stylesheet" href="{{ asset('/template/assets/vendor/css/pages/page-profile.css') }}" />
 
     <!-- Helpers -->
     <script src="{{ asset('/template/assets/vendor/js/helpers.js') }}"></script>
@@ -55,15 +63,15 @@
                 <!-- Content wrapper -->
                 <div class="content-wrapper">
                     <div class="container-xxl flex-grow-1">
-                        <div class="row">
-                            <!-- Main Content -->
-                            @yield('mainContent')
+                        {{-- <div class="row"> --}}
+                        <!-- Main Content -->
+                        @yield('mainContent')
 
-                            <!-- Footer -->
-                            @yield('footer')
+                        <!-- Footer -->
+                        @yield('footer')
 
-                            <div class="content-backdrop fade"></div>
-                        </div>
+                        <div class="content-backdrop fade"></div>
+                        {{-- </div> --}}
                     </div>
                 </div>
 

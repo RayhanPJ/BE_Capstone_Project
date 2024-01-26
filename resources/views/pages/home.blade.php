@@ -18,7 +18,7 @@ Home
                         <p class="card-text">
                             Ini hanyalah percontohan saja untuk mencoba fitur create form input surat dikarenakan belum adanya template yang rill.
                         </p>
-                        <a href="{{ route('surattugas.create') }}" class="btn btn-secondary">Buat Surat</a>
+                        <a href="{{ route('surattugas.create', ['id' => auth()->id()]) }}" class="btn btn-secondary">Buat Surat</a>
                     </div>
                 </div>
             </div>

@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 use App\Events\DataApproved;
 use Illuminate\Http\Request;
 use App\Events\UserDataInput;
+use App\Models\Mahasiswa;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use App\Notifications\AdminNotification;
@@ -17,12 +18,14 @@ use App\Notifications\UserNotifcation;
 
 class SuratTugasController extends Controller
 {
-    public function create()
+    public function create($id)
     {
         $navbarView = view('layouts/navbar');
         $sidebarView = view('layouts/sidebar');
 
-        return view('pages.formsurattugas', [$navbarView, $sidebarView]);
+        $data = User::where('id', $id)->first();
+
+        return view('pages.formsurattugas', [$navbarView, $sidebarView, 'data' => $data]);
     }
 
     public function store(Request $request)

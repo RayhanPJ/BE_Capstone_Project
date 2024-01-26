@@ -90,7 +90,7 @@
                         <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                        <a class="dropdown-item" href="../profile/pages-profile-user.html">
+                        <a class="dropdown-item" href="{{ route('user.profile', ['id' => auth()->id()]) }}">
                             <i class="ti ti-user-check me-2 ti-sm"></i>
                             <span class="align-middle">Profile</span>
                         </a>
