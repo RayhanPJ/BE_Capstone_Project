@@ -41,8 +41,10 @@ Surat Tugas
                 <div class="mb-3">
                     <label class="form-label" for="basic-icon-default-company">Prodi</label>
                     <div class="input-group input-group-merge">
-                        <span id="basic-icon-default-company2" class="input-group-text"><i class="ti ti-notebook"></i></span>
-                        <input type="text" id="basic-icon-default-company" name="prodi" class="form-control" value="{{ $data->mahasiswa->prodi ?? '' }} " readonly />
+                        <select name="prodi" id="select2IconsProdi" class="select2-icons form-select">
+                            <option value="Informatika" data-icon="ti ti-notebook">Informatika</option>
+                            <option value="Sistem Informasi" data-icon="ti ti-notebook">Sistem Informasi</option>
+                        </select>
                     </div>
                 </div>
                 <div class="mb-3">
