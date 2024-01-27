@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -56,5 +57,38 @@ class UserController extends Controller
         Mahasiswa::updateOrCreate(['user_id' => $id], $data);
 
         return redirect()->route('user.profile',  ['id' => $id])->with('success', 'Data diri telah berhasil diubah!');
+    }
+
+    public function settings($id)
+    {
+        $navbarView = view('layouts/navbar');
+        $sidebarView = view('layouts/sidebar');
+
+        return view('pages.settings', [
+            $navbarView, $sidebarView
+        ]);
+    }
+
+    public function changePassword(Request $request, $id)
+    {
+        $request->validate([
+            'current_password' => 'required',
+            'password' => 'required|min:6|confirmed',
+        ], [
+            'current_password.required' => 'Password saat ini harus diisi.',
+            'password.required' => 'Password baru harus diisi.',
+            'password.min' => 'Password minimal 6 karakter.',
+            'password.confirmed' => 'Konfirmasi Password baru tidak cocok.',
+        ]);
+
+        $user = User::find($id);
+
+        if (!Hash::check($request->current_password, $user->password)) {
+            return redirect()->back()->withInput()->with('error', 'Password saat ini tidak sesuai.');
+        }
+
+        $user->update(['password' => bcrypt($request->password)]);
+
+        return redirect()->back()->with('success', 'Password berhasil diubah.');
     }
 }

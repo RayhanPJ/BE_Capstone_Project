@@ -72,7 +72,7 @@
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
                     <li>
-                        <a class="dropdown-item" href="../profile/pages-account-settings-account.html">
+                        <a class="dropdown-item" href="{{ route('user.profile', ['id'=> auth()->id()]) }}">
                             <div class="d-flex">
                                 <div class="flex-shrink-0 me-3">
                                     <div class="avatar avatar-online">
@@ -96,7 +96,7 @@
                         </a>
                     </li>
                     <li>
-                        <a class="dropdown-item" href="../profile/pages-account-settings-account.html">
+                        <a class="dropdown-item" href="{{ route('user.settings', ['id' => auth()->id()]) }}">
                             <i class="ti ti-settings me-2 ti-sm"></i>
                             <span class="align-middle">Pengaturan</span>
                         </a>

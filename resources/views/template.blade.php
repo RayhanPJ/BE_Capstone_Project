@@ -110,6 +110,9 @@
             <!-- Main JS -->
             <script src="{{ asset('/template/assets/js/main.js') }}"></script>
 
+            <script src="{{ asset('/template/assets/js/script.js')}}">
+            </script>
+
             <script>
                 function refreshPage() {
                     location.reload(true);

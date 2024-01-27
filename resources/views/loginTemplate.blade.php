@@ -82,26 +82,7 @@
     <script src="{{ asset('/template/assets/js/pages-auth.js') }}"></script>
     <script src="{{ asset('/template/assets/js/form-layouts.js') }}"></script>
 
-    <script>
-        $(document).ready(function() {
-            function togglePasswordVisibility(passwordId, iconId) {
-                var passwordInput = $("#" + passwordId);
-                var icon = $("." + iconId + " i");
-
-                // Toggle password visibility
-                passwordInput.attr("type", passwordInput.attr("type") === "password" ? "text" : "password");
-                icon.toggleClass("ti-eye ti-eye-off");
-            }
-
-            $("#togglePassword").click(function() {
-                togglePasswordVisibility("password", "input-group-text");
-            });
-
-            $("#toggleNewPassword").click(function() {
-                togglePasswordVisibility("password_confirmation", "input-group-text2");
-            });
-        });
-
+    <script src="{{ asset('/template/assets/js/script.js')}}">
     </script>
 
     <script>

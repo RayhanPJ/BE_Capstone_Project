@@ -43,6 +43,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/markasreadapprove/{id}', [SuratTugasController::class, 'markAsReadApprove'])->name('markasreadapprove');
     Route::get('/user/profile/{id}', [UserController::class, 'profile'])->name('user.profile');
     Route::post('/user/profile/{id}', [UserController::class, 'lengkapiProfile'])->name('user.lengkapiprofile');
+    Route::get('/user/settings/{id}', [UserController::class, 'settings'])->name('user.settings');
+    Route::post('/user/settings/{id}', [UserController::class, 'changePassword'])->name('change.password');
 });
 
 // ======== admin ============
