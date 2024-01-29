@@ -19,7 +19,7 @@ User Profile
             </div>
             <div class="user-profile-header d-flex flex-column flex-sm-row text-sm-start text-center mb-4">
                 <div class="flex-shrink-0 mt-n2 mx-sm-0 mx-auto">
-                    <img src="{{ asset('/template/assets/img/avatars/user_profile.png') }}" alt="user image" class="d-block h-auto ms-0 ms-sm-4 rounded user-profile-img" />
+                    <img src="{{ asset('storage/foto-mahasiswa/' . $user->mahasiswa->foto) }}" alt="user image" class="d-block h-auto ms-0 ms-sm-4 rounded user-profile-img" />
                 </div>
                 <div class="flex-grow-1 mt-3 mt-sm-5">
                     <div class="d-flex align-items-md-end align-items-sm-start align-items-center justify-content-md-between justify-content-start mx-4 flex-md-row flex-column gap-4">
@@ -37,9 +37,6 @@ User Profile
                                 </li>
                             </ul>
                         </div>
-                        <a href="javascript:void(0)" class="btn btn-primary">
-                            <i class="ti ti-user-check me-1"></i>Connected
-                        </a>
                     </div>
                 </div>
             </div>
@@ -108,6 +105,10 @@ User Profile
                         <span>{{ $user->mahasiswa->domisili ?? '' }}</span>
                     </li>
                     <li class="d-flex align-items-center mb-3">
+                        <i class="ti ti-flag"></i><span class="fw-bold mx-2">Jenis Kelamin:</span>
+                        <span>{{ $user->mahasiswa->jenis_kelamin ?? '' }}</span>
+                    </li>
+                    <li class="d-flex align-items-center mb-3">
                         <i class="ti ti-crown"></i><span class="fw-bold mx-2">Role:</span>
                         <span>Mahasiswa</span>
                     </li>
@@ -133,31 +134,30 @@ User Profile
             <div class="card-header align-items-center">
                 <h5 class="card-action-title mb-0">Lengkapi Profile</h5>
             </div>
-            <!-- Account -->
-            <div class="card-body">
-                <div class="d-flex align-items-start align-items-sm-center gap-4">
-                    <img src="{{ asset('/template/assets/img/avatars/user_profile.png') }}" alt="user-avatar" class="d-block w-px-100 h-px-100 rounded" id="uploadedAvatar" />
-                    <div class="button-wrapper">
-                        <label for="upload" class="btn btn-primary me-2 mb-3" tabindex="0">
-                            <span class="d-none d-sm-block">Upload new photo</span>
-                            <i class="ti ti-upload d-block d-sm-none"></i>
-                            <input type="file" id="upload" class="account-file-input" hidden accept="image/png, image/jpeg" />
-                        </label>
-                        <button type="button" class="btn btn-label-secondary account-image-reset mb-3">
-                            <i class="ti ti-refresh-dot d-block d-sm-none"></i>
-                            <span class="d-none d-sm-block">Reset</span>
-                        </button>
-
-                        <div class="text-muted">
-                            Allowed JPG, GIF or PNG. Max size of 800K
+            <form method="post" action="{{ route('user.lengkapiprofile',  ['id' => auth()->id()]) }}" enctype="multipart/form-data">
+                @csrf
+                <!-- Account -->
+                <div class="card-body">
+                    <div class="d-flex align-items-start align-items-sm-center gap-4">
+                        <img src="{{ asset('storage/foto-mahasiswa/' . $user->mahasiswa->foto) ?? '' }}" alt="user-avatar" class="d-block w-px-100 h-px-100 rounded" id="uploadedAvatar" />
+                        <div class="button-wrapper">
+                            <label for="upload" class="btn btn-primary me-2 mb-3" tabindex="0">
+                                <span class="d-none d-sm-block">Upload new photo</span>
+                                <i class="ti ti-upload d-block d-sm-none"></i>
+                                <input type="file" name="foto" id="upload" class="account-file-input" hidden accept="image/png, image/jpeg" />
+                            </label>
+                            <button type="button" class="btn btn-label-secondary account-image-reset mb-3" onclick="resetFileInput()">
+                                <i class="ti ti-refresh-dot d-block d-sm-none"></i>
+                                <span class="d-none d-sm-block">Reset</span>
+                            </button>
+                            <div class="text-muted">
+                                Mengizinkan format JPG, SVG, atau PNG. Ukuran maksimal 1MB.
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <hr class="my-0" />
-            <div class="card-body pb-0">
-                <form method="post" action="{{ route('user.lengkapiprofile',  ['id' => auth()->id()]) }}">
-                    @csrf
+                <hr class="my-0" />
+                <div class="card-body pb-0">
                     <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
                     <div class="mb-3">
                         <label class="form-label" for="basic-icon-default-fullname">Nama Mahasiswa</label>
@@ -177,7 +177,7 @@ User Profile
                         <label class="form-label" for="basic-icon-default-company">Semester</label>
                         <div class="input-group input-group-merge">
                             <span id="basic-icon-default-company2" class="input-group-text"></span>
-                            <input type="number" id="basic-icon-default-company" name="semester" class="form-control numeric-input" />
+                            <input type="number" id="basic-icon-default-company" name="semester" class="form-control numeric-input" value="{{ $user->mahasiswa->semester ?? '' }}" />
                         </div>
                     </div>
                     <div class="mb-3">
@@ -193,7 +193,16 @@ User Profile
                         <label class="form-label" for="basic-icon-default-company">Domisili</label>
                         <div class="input-group input-group-merge">
                             <span id="basic-icon-default-company2" class="input-group-text"></span>
-                            <input type="text" id="basic-icon-default-company" name="domisili" class="form-control" />
+                            <input type="text" id="basic-icon-default-company" name="domisili" class="form-control" value="{{ $user->mahasiswa->domisili ?? '' }}" />
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="basic-icon-default-fullname">Jenis Kelamin</label>
+                        <div class="input-group input-group-merge">
+                            <select name="jenis_kelamin" class="select2-icons form-select">
+                                <option value="Laki-laki">Laki-laki</option>
+                                <option value="Perempuan">Perempuan</option>
+                            </select>
                         </div>
                     </div>
                     <div class="mb-3">
@@ -210,14 +219,14 @@ User Profile
                         <label class="form-label" for="basic-icon-default-phone">No HP</label>
                         <div class="input-group input-group-merge">
                             <span id="basic-icon-default-phone2" class="input-group-text"></span>
-                            <input type="number" id="basic-icon-default-phone" name="no_hp" class="form-control phone-mask numeric-input" />
+                            <input type="number" id="basic-icon-default-phone" name="no_hp" class="form-control phone-mask numeric-input" value="{{ $user->mahasiswa->no_hp ?? '' }}" />
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary">Update Profile</button>
-                </form>
-            </div>
+            </form>
         </div>
     </div>
+</div>
 </div>
 <!--/ User Profile Content -->
 

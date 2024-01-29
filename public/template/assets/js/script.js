@@ -111,3 +111,9 @@
      location.reload(true);
  }
  setInterval(refreshPage, 120000);
+
+ // reset button img
+ function resetFileInput() {
+     // Reset nilai input file dengan mengganti nilai dengan dirinya sendiri
+     document.getElementById('upload').value = '';
+ }

@@ -30,7 +30,8 @@ class UserController extends Controller
         $request->validate([
             'semester' => 'required|numeric',
             'domisili' => 'required',
-            'no_hp' => 'required|numeric'
+            'no_hp' => 'required|numeric',
+            'foto' => 'image|mimes:jpg,png,svg|max:1024',
         ], [
             'semester.required' => 'Semester harus diisi',
             'domisili.required' => 'Domisili harus diisi',
@@ -45,13 +46,31 @@ class UserController extends Controller
             }
         }
 
+        // Upload gambar baru
+        $file = $request->file('foto');
+        $namaFile = null;
+
+        if ($file) {
+            $npmMahasiswa = auth()->user()->npm;
+            $namaFile = auth()->user()->name . '-' . $npmMahasiswa . '-' . time() . '.' . $file->getClientOriginalExtension();
+            $file->storeAs('public/foto-mahasiswa', $namaFile);
+        }
+
+        // Ambil foto sebelumnya
+        $previousFoto = Mahasiswa::where('user_id', $id)->value('foto');
+
+        // Tetapkan foto sebelumnya jika upload baru bernilai null
+        $namaFile = $namaFile ?? $previousFoto;
+
         $data = [
             'user_id' => $id,
             'semester' => $request->input('semester'),
             'prodi' => $request->input('prodi'),
             'domisili' => $request->input('domisili'),
+            'jenis_kelamin' => $request->input('jenis_kelamin'),
             'no_hp' => $request->input('no_hp'),
             'status' => $request->input('status'),
+            'foto' => $namaFile
         ];
 
         Mahasiswa::updateOrCreate(['user_id' => $id], $data);

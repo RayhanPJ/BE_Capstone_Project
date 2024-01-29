@@ -17,8 +17,10 @@ use HasFactory;
     'semester',
     'prodi',
     'domisili',
+    'jenis_kelamin',
     'no_hp',
-    'status'
+    'status',
+    'foto'
   ];
 
   public function user()

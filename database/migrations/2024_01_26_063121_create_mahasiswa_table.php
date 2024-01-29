@@ -17,8 +17,10 @@ return new class extends Migration
             $table->integer('semester')->nullable();
             $table->enum('prodi',['Informatika', 'Sistem Informasi'])->nullable();
             $table->string('domisili')->nullable();
+            $table->enum('jenis_kelamin', ['Laki-laki', 'Perempuan'])->nullable();
             $table->string('no_hp')->nullable();
             $table->enum('status', ['Aktif', 'Lulus', 'Drop Out'])->nullable();
+            $table->string('foto')->nullable()->default('user_profile.png');
             $table->timestamps();
         });
     }
