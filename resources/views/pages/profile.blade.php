@@ -19,7 +19,7 @@ User Profile
             </div>
             <div class="user-profile-header d-flex flex-column flex-sm-row text-sm-start text-center mb-4">
                 <div class="flex-shrink-0 mt-n2 mx-sm-0 mx-auto">
-                    <img src="{{ asset('/template/assets/img/avatars/profile.png') }}" alt="user image" class="d-block h-auto ms-0 ms-sm-4 rounded user-profile-img" />
+                    <img src="{{ asset('/template/assets/img/avatars/user_profile.png') }}" alt="user image" class="d-block h-auto ms-0 ms-sm-4 rounded user-profile-img" />
                 </div>
                 <div class="flex-grow-1 mt-3 mt-sm-5">
                     <div class="d-flex align-items-md-end align-items-sm-start align-items-center justify-content-md-between justify-content-start mx-4 flex-md-row flex-column gap-4">
@@ -133,6 +133,28 @@ User Profile
             <div class="card-header align-items-center">
                 <h5 class="card-action-title mb-0">Lengkapi Profile</h5>
             </div>
+            <!-- Account -->
+            <div class="card-body">
+                <div class="d-flex align-items-start align-items-sm-center gap-4">
+                    <img src="{{ asset('/template/assets/img/avatars/user_profile.png') }}" alt="user-avatar" class="d-block w-px-100 h-px-100 rounded" id="uploadedAvatar" />
+                    <div class="button-wrapper">
+                        <label for="upload" class="btn btn-primary me-2 mb-3" tabindex="0">
+                            <span class="d-none d-sm-block">Upload new photo</span>
+                            <i class="ti ti-upload d-block d-sm-none"></i>
+                            <input type="file" id="upload" class="account-file-input" hidden accept="image/png, image/jpeg" />
+                        </label>
+                        <button type="button" class="btn btn-label-secondary account-image-reset mb-3">
+                            <i class="ti ti-refresh-dot d-block d-sm-none"></i>
+                            <span class="d-none d-sm-block">Reset</span>
+                        </button>
+
+                        <div class="text-muted">
+                            Allowed JPG, GIF or PNG. Max size of 800K
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-0" />
             <div class="card-body pb-0">
                 <form method="post" action="{{ route('user.lengkapiprofile',  ['id' => auth()->id()]) }}">
                     @csrf

@@ -85,39 +85,6 @@
     <script src="{{ asset('/template/assets/js/script.js')}}">
     </script>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            let inputNumeric = document.querySelectorAll('.numeric-input');
-            let inputNPM = document.querySelectorAll('.npm');
-
-            inputNumeric.forEach(function(input) {
-                input.addEventListener("input", function() {
-                    // Hapus karakter selain angka
-                    this.value = this.value.replace(/\D/g, '');
-                });
-            });
-
-            inputNPM.forEach(function(input) {
-                input.addEventListener("input", function() {
-                    let inputValue = input.value;
-
-                    // Hapus karakter yang tidak valid
-                    let validValue = inputValue.replace(/[^0-9]/g, '');
-
-                    // Batasi panjang string menjadi 13 karakter
-                    if (validValue.length > 13) {
-                        validValue = validValue.slice(0, 13);
-                    }
-
-                    // Setel nilai input dengan string yang sudah valid
-                    input.value = validValue;
-
-                });
-            });
-        });
-
-    </script>
-
 </body>
 
 </html>

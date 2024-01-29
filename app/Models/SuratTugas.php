@@ -11,4 +11,9 @@ class SuratTugas extends Model
     use Notifiable;
     protected $table = 'surat_tugas';
     protected $fillable = ['nama_mhs','npm','prodi','nama_dospem','judul_skirpsi'];
+
+    public function user()
+{
+    return $this->belongsTo(User::class);
+}
 }

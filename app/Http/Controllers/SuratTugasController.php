@@ -50,7 +50,7 @@ class SuratTugasController extends Controller
 
         foreach ($admins as $admin) {
             $admin->notify(new AdminNotification([
-                'user_id' => auth()->id(),
+                'user_id' => auth()->user()->id,
                 'name' => auth()->user()->name,
             ]));
         }
@@ -69,11 +69,17 @@ class SuratTugasController extends Controller
         $SuratTugas->status = 'disetujui';
         $SuratTugas->save();
 
-        $users = User::where('role', 'user')->get();
+        // ambil nama_mhs saja dalam 1 data objek
+        $nama_mhs = SuratTugas::where('nama_mhs', $SuratTugas->nama_mhs)
+            ->pluck('nama_mhs');
+
+        $users = User::where('role', 'user')
+            ->whereIn('name', $nama_mhs)
+            ->get();
 
         foreach ($users as $user) {
             $user->notify(new UserNotifcation([
-                'user_id' => auth()->id(),
+                'user_id' => auth()->user()->id,
                 'name' => auth()->user()->name,
             ]));
         }

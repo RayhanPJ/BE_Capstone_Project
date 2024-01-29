@@ -111,16 +111,7 @@
 
             <script src="{{ asset('/template/assets/js/charts-apex.js') }}"></script>
 
-            <script>
-                // Function to refresh the page every 30 seconds
-                function refreshPage() {
-                    location.reload(true); // Parameter true to reload from the server
-                }
-
-                // Set interval to run the refreshPage function every 30 seconds (30,000 milliseconds)
-                setInterval(refreshPage, 30000);
-
-            </script>
+            <script src="{{ asset('/template/assets/js/script.js') }}"></script>
 
             <script>
                 function openPdfPreview(pdfUrl) {
