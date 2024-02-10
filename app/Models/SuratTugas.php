@@ -10,10 +10,10 @@ class SuratTugas extends Model
 {
     use Notifiable;
     protected $table = 'surat_tugas';
-    protected $fillable = ['nama_mhs','npm','prodi','nama_dospem','judul_skirpsi'];
+    protected $fillable = ['nama_mhs', 'npm', 'prodi', 'nama_dospem', 'judul_skirpsi', 'updated_at'];
 
     public function user()
-{
-    return $this->belongsTo(User::class);
-}
+    {
+        return $this->belongsTo(User::class);
+    }
 }

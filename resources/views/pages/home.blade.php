@@ -12,7 +12,7 @@ Home
         <div class="row mb-5">
             <div class="col-lg-4 mb-3">
                 <div class="card">
-                    <img class="card-img-top" src="{{ asset('/template/assets/img/elements/11.jpg') }}" alt="Surat Tugas" height="250" />
+                    <img class="card-img-top" src="{{ asset('/template/assets/img/elements/surat-tugas.png') }}" alt="Surat Tugas" height="250" />
                     <div class="card-body">
                         <h5 class="card-title">Surat Tugas (Contoh)</h5>
                         <p class="card-text">

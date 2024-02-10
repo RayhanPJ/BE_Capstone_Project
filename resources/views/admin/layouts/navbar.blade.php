@@ -40,7 +40,11 @@
                                 <div class="d-flex">
                                     <div class="flex-shrink-0 me-3">
                                         <div class="avatar">
-                                            <img src="{{ asset('/template/assets/img/avatars/admin.jpg') }}" alt class="h-auto rounded-circle" />
+                                            @if(isset($userAuth) && $userAuth && isset($userAuth->mahasiswa))
+                                            <img src="{{ asset('storage/foto-mahasiswa/' . $userAuth->mahasiswa->foto) }}" alt class="h-auto rounded-circle" />
+                                            @else
+                                            <img src="{{ asset('/template/assets/img/avatars/user.png') }}" alt class="h-auto rounded-circle" />
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="flex-grow-1">
@@ -93,7 +97,7 @@
                         <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                        <a class="dropdown-item" href="../profile/pages-profile-user.html">
+                        <a class="dropdown-item" href="{{ route('admin.profile', ['id'=> auth()->id()]) }}">
                             <i class="ti ti-user-check me-2 ti-sm"></i>
                             <span class="align-middle">Profile</span>
                         </a>

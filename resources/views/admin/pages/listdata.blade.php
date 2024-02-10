@@ -7,6 +7,17 @@ Surat Tugas
 @section('mainContentAdmin')
 
 <div class="col-xl">
+
+    <div class="row">
+        <div class="col-md-5">
+            <div class="alert alert-info position-relative" role="alert">
+                <h4 class="alert-heading">Informasi!</h4>
+                <p>Jangan lupa ketika klik tombol preview (icon mata warna biru), matikan idm agar dapat preview surat.</p>
+
+                <button type="button" class="btn-close position-absolute top-0 end-0" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
     <!-- Column Search -->
     <div class="card">
         <h5 class="card-header">Pengajuan Surat</h5>
@@ -19,7 +30,8 @@ Surat Tugas
                         <th>Nama Mahasiswa</th>
                         <th>NPM</th>
                         <th>Prodi</th>
-                        <th>Aktivitas</th>
+                        <th width="140">Aktivitas</th>
+                        <th>Tanggal Approve</th>
                         <th>Status</th>
                     </tr>
                 </thead>
@@ -62,6 +74,9 @@ Surat Tugas
                             </form>
                             @endif
                         </td>
+                        @if($d->status === 'disetujui')
+                        <td>{{ \Carbon\Carbon::parse($d->updated_at)->locale('id_ID')->isoFormat('D MMMM Y') }}</td>
+                        @endif
                         <td>
                             @if($d->status == 'disetujui')
                             <span class="badge badge-sm rounded-pill bg-label-success">Disetujui</span>

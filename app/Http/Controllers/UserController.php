@@ -11,18 +11,34 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+
+    public function home()
+    {
+        $userAuth = auth()->user();
+
+        // agar di navbar foto profile selalu sesuai
+        if ($userAuth && $userAuth->mahasiswa) {
+            $navbarView = view('layouts/navbar', compact('userAuth'));
+            $sidebarView = view('layouts/sidebar', compact('userAuth'));
+
+            return view('pages.home', compact('navbarView', 'sidebarView', 'userAuth'));
+        }
+    }
+
     public function profile($id)
     {
+        $userAuth = auth()->user();
+        if ($userAuth && $userAuth->mahasiswa) {
+            $navbarView = view('layouts/navbar', compact('userAuth'));
+            $sidebarView = view('layouts/sidebar', compact('userAuth'));
 
-        $navbarView = view('layouts/navbar');
-        $sidebarView = view('layouts/sidebar');
+            $user = User::with('mahasiswa')->where('name', auth()->user()->name)->find($id);
+            $createdAt = $user->created_at;
 
-        $user = User::with('mahasiswa')->where('name', auth()->user()->name)->find($id);
-        $createdAt = $user->created_at;
-
-        return view('pages.profile', [
-            $navbarView, $sidebarView,  'user' => $user, 'createdAt' => $createdAt,
-        ]);
+            return view('pages.profile', [
+                $navbarView, $sidebarView,  'user' => $user, 'userAuth', 'createdAt' => $createdAt,
+            ]);
+        }
     }
 
     public function lengkapiProfile(Request $request, $id)
@@ -78,14 +94,31 @@ class UserController extends Controller
         return redirect()->route('user.profile',  ['id' => $id])->with('success', 'Data diri telah berhasil diubah!');
     }
 
-    public function settings($id)
+    public function settingAccount($id)
     {
-        $navbarView = view('layouts/navbar');
-        $sidebarView = view('layouts/sidebar');
+        $userAuth = auth()->user();
+        if ($userAuth && $userAuth->mahasiswa) {
+            $navbarView = view('layouts/navbar', compact('userAuth'));
+            $sidebarView = view('layouts/sidebar', compact('userAuth'));
+            $user = User::with('mahasiswa')->where('name', auth()->user()->name)->find($id);
 
-        return view('pages.settings', [
-            $navbarView, $sidebarView
-        ]);
+            return view('pages.settingAccount', [
+                $navbarView, $sidebarView, 'user' => $user, 'userAuth'
+            ]);
+        }
+    }
+
+    public function settingSecurity($id)
+    {
+        $userAuth = auth()->user();
+        if ($userAuth && $userAuth->mahasiswa) {
+            $navbarView = view('layouts/navbar', compact('userAuth'));
+            $sidebarView = view('layouts/sidebar', compact('userAuth'));
+
+            return view('pages.settingSecurity', [
+                $navbarView, $sidebarView, 'userAuth'
+            ]);
+        }
     }
 
     public function changePassword(Request $request, $id)

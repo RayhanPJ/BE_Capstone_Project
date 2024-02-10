@@ -2,22 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class Home extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($id)
     {
-        $navbarView = view('layouts/navbar');
-        $sidebarView = view('layouts/sidebar');
-
-        $contentView = view('pages/home')->with('navbar', $navbarView)->with('sidebar', $sidebarView);
-
-        return $contentView;
+      
     }
 
     /**

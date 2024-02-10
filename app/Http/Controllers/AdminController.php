@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\User;
 use App\Models\SuratTugas;
 use Illuminate\Http\Request;
 use App\Events\UserDataInput;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Response;
 
@@ -57,5 +59,41 @@ class AdminController extends Controller
         }
 
         return redirect()->back();
+    }
+
+    public function profile($id)
+    {
+        $navbarView = view('admin/layouts/navbar');
+        $sidebarView = view('admin/layouts/sidebar');
+
+        $user = User::with('mahasiswa')->where('name', auth()->user()->name)->find($id);
+        $createdAt = $user->created_at;
+
+        return view('admin.pages.profile', [
+            $navbarView, $sidebarView,  'user' => $user, 'createdAt' => $createdAt,
+        ]);
+    }
+
+    public function changePassword(Request $request, $id)
+    {
+        $request->validate([
+            'current_password' => 'required',
+            'password' => 'required|min:6|confirmed',
+        ], [
+            'current_password.required' => 'Password saat ini harus diisi.',
+            'password.required' => 'Password baru harus diisi.',
+            'password.min' => 'Password minimal 6 karakter.',
+            'password.confirmed' => 'Konfirmasi Password baru tidak cocok.',
+        ]);
+
+        $user = User::find($id);
+
+        if (!Hash::check($request->current_password, $user->password)) {
+            return redirect()->back()->withInput()->with('error', 'Password saat ini tidak sesuai.');
+        }
+
+        $user->update(['password' => bcrypt($request->password)]);
+
+        return redirect()->back()->with('success', 'Password berhasil diubah.');
     }
 }

@@ -4,17 +4,18 @@ namespace App\Http\Controllers;
 
 use PDF;
 use Mpdf\Mpdf;
+use Carbon\Carbon;
 use App\Models\User;
+use App\Models\Mahasiswa;
 use App\Models\SuratTugas;
 use Illuminate\Support\Str;
 use App\Events\DataApproved;
 use Illuminate\Http\Request;
 use App\Events\UserDataInput;
-use App\Models\Mahasiswa;
+use App\Notifications\UserNotifcation;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use App\Notifications\AdminNotification;
-use App\Notifications\UserNotifcation;
 
 class SuratTugasController extends Controller
 {
@@ -67,6 +68,7 @@ class SuratTugasController extends Controller
     {
         $SuratTugas = SuratTugas::findOrFail($id);
         $SuratTugas->status = 'disetujui';
+        $SuratTugas->updated_at = Carbon::now()->locale('id_ID'); 
         $SuratTugas->save();
 
         // ambil nama_mhs saja dalam 1 data objek

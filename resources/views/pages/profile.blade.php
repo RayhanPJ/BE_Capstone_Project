@@ -55,12 +55,6 @@ User Profile
                 </a>
             </li>
             <li class="nav-item mx-3">
-                @if (session('success'))
-                <div class="alert alert-success">
-                    <b>{{ session('success') }}</b>
-                </div>
-                @endif
-
                 @if($errors->any())
                 <div class="alert alert-danger">
                     <ul>
@@ -132,98 +126,99 @@ User Profile
         <!-- Activity Timeline -->
         <div class="card card-action mb-4">
             <div class="card-header align-items-center">
-                <h5 class="card-action-title mb-0">Lengkapi Profile</h5>
-            </div>
-            <form method="post" action="{{ route('user.lengkapiprofile',  ['id' => auth()->id()]) }}" enctype="multipart/form-data">
-                @csrf
-                <!-- Account -->
-                <div class="card-body">
-                    <div class="d-flex align-items-start align-items-sm-center gap-4">
-                        <img src="{{ asset('storage/foto-mahasiswa/' . $user->mahasiswa->foto) ?? '' }}" alt="user-avatar" class="d-block w-px-100 h-px-100 rounded" id="uploadedAvatar" />
-                        <div class="button-wrapper">
-                            <label for="upload" class="btn btn-primary me-2 mb-3" tabindex="0">
-                                <span class="d-none d-sm-block">Upload new photo</span>
-                                <i class="ti ti-upload d-block d-sm-none"></i>
-                                <input type="file" name="foto" id="upload" class="account-file-input" hidden accept="image/png, image/jpeg" />
-                            </label>
-                            <button type="button" class="btn btn-label-secondary account-image-reset mb-3" onclick="resetFileInput()">
-                                <i class="ti ti-refresh-dot d-block d-sm-none"></i>
-                                <span class="d-none d-sm-block">Reset</span>
-                            </button>
-                            <div class="text-muted">
-                                Mengizinkan format JPG, SVG, atau PNG. Ukuran maksimal 1MB.
-                            </div>
-                        </div>
+                <h5 class="card-action-title mb-0">Aktivitas Terbaru</h5>
+                <div class="card-action-element">
+                    <div class="dropdown">
+                        <button type="button" class="btn dropdown-toggle hide-arrow p-0" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="ti ti-dots-vertical text-muted"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li>
+                                <a class="dropdown-item" href="javascript:void(0);">Share timeline</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:void(0);">Suggest edits</a>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider" />
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:void(0);">Report bug</a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
-                <hr class="my-0" />
-                <div class="card-body pb-0">
-                    <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
-                    <div class="mb-3">
-                        <label class="form-label" for="basic-icon-default-fullname">Nama Mahasiswa</label>
-                        <div class="input-group input-group-merge">
-                            <span id="basic-icon-default-fullname2" class="input-group-text"></span>
-                            <input type="text" class="form-control alphabet-input" name="nama_mhs" id="basic-icon-default-fullname" value="{{ auth()->user()->name }}" />
+            </div>
+            <div class="card-body pb-0">
+                <ul class="timeline ms-1 mb-0">
+                    <li class="timeline-item timeline-item-transparent">
+                        <span class="timeline-point timeline-point-primary"></span>
+                        <div class="timeline-event">
+                            <div class="timeline-header">
+                                <h6 class="mb-0">Client Meeting</h6>
+                                <small class="text-muted">Today</small>
+                            </div>
+                            <p class="mb-2">
+                                Project meeting with john @10:15am
+                            </p>
+                            <div class="d-flex flex-wrap">
+                                <div class="avatar me-2">
+                                    <img src="{{ asset('/template/assets/img/avatars/3.png') }}" alt="Avatar" class="rounded-circle" />
+                                </div>
+                                <div class="ms-1">
+                                    <h6 class="mb-0">Lester McCarthy (Client)</h6>
+                                    <span>CEO of Infibeam</span>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label" for="basic-icon-default-company">NPM</label>
-                        <div class="input-group input-group-merge">
-                            <span id="basic-icon-default-company2" class="input-group-text"></span>
-                            <input type="text" id="basic-icon-default-company" name="npm" class="form-control numeric-input npm" value="{{ auth()->user()->npm }}" />
+                    </li>
+                    <li class="timeline-item timeline-item-transparent">
+                        <span class="timeline-point timeline-point-success"></span>
+                        <div class="timeline-event">
+                            <div class="timeline-header">
+                                <h6 class="mb-0">
+                                    Create a new project for client
+                                </h6>
+                                <small class="text-muted">2 Day Ago</small>
+                            </div>
+                            <p class="mb-0">Add files to new design folder</p>
                         </div>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label" for="basic-icon-default-company">Semester</label>
-                        <div class="input-group input-group-merge">
-                            <span id="basic-icon-default-company2" class="input-group-text"></span>
-                            <input type="number" id="basic-icon-default-company" name="semester" class="form-control numeric-input" value="{{ $user->mahasiswa->semester ?? '' }}" />
+                    </li>
+                    <li class="timeline-item timeline-item-transparent">
+                        <span class="timeline-point timeline-point-danger"></span>
+                        <div class="timeline-event">
+                            <div class="timeline-header">
+                                <h6 class="mb-0">Shared 2 New Project Files</h6>
+                                <small class="text-muted">6 Day Ago</small>
+                            </div>
+                            <p class="mb-2">
+                                Sent by Mollie Dixon
+                                <img src="{{ asset('/template/assets/img/avatars/4.png') }}" class="rounded-circle me-3" alt="avatar" height="24" width="24" />
+                            </p>
+                            <div class="d-flex flex-wrap gap-2 pt-1">
+                                <a href="javascript:void(0)" class="me-3">
+                                    <img src="{{ asset('/template/assets/img/icons/misc/doc.png') }}" alt="Document image" width="15" class="me-2" />
+                                    <span class="fw-semibold text-heading">App Guidelines</span>
+                                </a>
+                                <a href="javascript:void(0)">
+                                    <img src="{{ asset('/template/assets/img/icons/misc/xls.png') }}" alt="Excel image" width="15" class="me-2" />
+                                    <span class="fw-semibold text-heading">Testing Results</span>
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label" for="basic-icon-default-fullname">Prodi</label>
-                        <div class="input-group input-group-merge">
-                            <select name="prodi" class="select2-icons form-select">
-                                <option value="Informatika" data-icon="ti ti-notebook">Informatika</option>
-                                <option value="Sistem Informasi" data-icon="ti ti-notebook">Sistem Informasi</option>
-                            </select>
+                    </li>
+                    <li class="timeline-item timeline-item-transparent border-0">
+                        <span class="timeline-point timeline-point-info"></span>
+                        <div class="timeline-event">
+                            <div class="timeline-header">
+                                <h6 class="mb-0">Project status updated</h6>
+                                <small class="text-muted">10 Day Ago</small>
+                            </div>
+                            <p class="mb-0">Woocommerce iOS App Completed</p>
                         </div>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label" for="basic-icon-default-company">Domisili</label>
-                        <div class="input-group input-group-merge">
-                            <span id="basic-icon-default-company2" class="input-group-text"></span>
-                            <input type="text" id="basic-icon-default-company" name="domisili" class="form-control" value="{{ $user->mahasiswa->domisili ?? '' }}" />
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label" for="basic-icon-default-fullname">Jenis Kelamin</label>
-                        <div class="input-group input-group-merge">
-                            <select name="jenis_kelamin" class="select2-icons form-select">
-                                <option value="Laki-laki">Laki-laki</option>
-                                <option value="Perempuan">Perempuan</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label" for="basic-icon-default-fullname">Status</label>
-                        <div class="input-group input-group-merge">
-                            <select name="status" class="select2-icons form-select">
-                                <option value="Aktif">Aktif</option>
-                                <option value="Lulus">Lulus</option>
-                                <option value="Drop Out">Drop Out</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label" for="basic-icon-default-phone">No HP</label>
-                        <div class="input-group input-group-merge">
-                            <span id="basic-icon-default-phone2" class="input-group-text"></span>
-                            <input type="number" id="basic-icon-default-phone" name="no_hp" class="form-control phone-mask numeric-input" value="{{ $user->mahasiswa->no_hp ?? '' }}" />
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Update Profile</button>
-            </form>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>

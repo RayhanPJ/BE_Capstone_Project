@@ -35,7 +35,7 @@ Route::post('reset-password', [ForgotPWController::class, 'reset'])->name('passw
 
 // ======== user =============
 Route::middleware(['auth'])->group(function () {
-    Route::get('/home', [Home::class, 'index'])->name('home');
+    Route::get('/home', [UserController::class, 'home'])->name('home');
     Route::get('/surattugas/create/{id}', [SuratTugasController::class, 'create'])->name('surattugas.create');
     Route::post('/surattugas', [SuratTugasController::class, 'store'])->name('surattugas.store');
     Route::get('/riwayat-surat', [SuratTugasController::class, 'riwayatSurat'])->name('riwayat-surat');
@@ -43,7 +43,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/markasreadapprove/{id}', [SuratTugasController::class, 'markAsReadApprove'])->name('markasreadapprove');
     Route::get('/user/profile/{id}', [UserController::class, 'profile'])->name('user.profile');
     Route::post('/user/profile/{id}', [UserController::class, 'lengkapiProfile'])->name('user.lengkapiprofile');
-    Route::get('/user/settings/{id}', [UserController::class, 'settings'])->name('user.settings');
+    Route::get('/user/settings-account/{id}', [UserController::class, 'settingAccount'])->name('user.settingAccount');
+    Route::get('/user/settings-security/{id}', [UserController::class, 'settingSecurity'])->name('user.settingSecurity');
     Route::post('/user/settings/{id}', [UserController::class, 'changePassword'])->name('change.password');
 });
 
@@ -53,8 +54,11 @@ Route::middleware(['admin'])->group(function () {
     Route::get('/admin/listdata', [AdminController::class, 'listdata'])->name('listdata');
     Route::get('/storage/surat-tugas/{file_path}', [AdminController::class, 'surattugasPreview'])->name('surattugas-preview');
     Route::get('/markasread/{id}', [AdminController::class, 'markAsRead'])->name('markasread');
-    
+
     Route::post('/setujui-surat/{id}', [SuratTugasController::class, 'setujuiSurat']);
     Route::post('/tidaksetuju-surat/{id}', [SuratTugasController::class, 'tidaksetujuSurat']);
     Route::delete('/cancelsurattugas/{id}', [SuratTugasController::class, 'cancelsurattugas']);
+
+    Route::get('/admin/profile/{id}', [AdminController::class, 'profile'])->name('admin.profile');
+    Route::post('/admin/profile/{id}', [AdminController::class, 'changePassword'])->name('change.password.admin');
 });
