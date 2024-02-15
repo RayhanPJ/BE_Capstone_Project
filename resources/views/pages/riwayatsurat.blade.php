@@ -10,7 +10,7 @@ Riwayat Surat
     <div class="card">
         <h5 class="card-header">Riwayat Surat</h5>
         <div class="card-datatable table-responsive pt-0">
-            <table class="table table-striped" id="myTable">
+            <table class="table table-striped" id="riwayat-surat">
                 <thead>
                     <tr>
                         <th>#</th>

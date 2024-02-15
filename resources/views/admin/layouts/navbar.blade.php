@@ -103,7 +103,7 @@
                         </a>
                     </li>
                     <li>
-                        <a class="dropdown-item" href="../profile/pages-account-settings-account.html">
+                        <a class="dropdown-item" href="#">
                             <i class="ti ti-settings me-2 ti-sm"></i>
                             <span class="align-middle">Pengaturan</span>
                         </a>

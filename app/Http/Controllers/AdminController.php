@@ -10,6 +10,7 @@ use App\Events\UserDataInput;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Response;
+use Yajra\DataTables\Facades\DataTables;
 
 class AdminController extends Controller
 {

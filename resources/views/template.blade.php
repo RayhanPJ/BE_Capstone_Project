@@ -173,7 +173,9 @@
 
             <!-- dataTable -->
             <script>
-                $('#myTable').dataTable({});
+                $(document).ready(function() {
+                    $('#riwayat-surat').DataTable();
+                });
 
             </script>
 </body>

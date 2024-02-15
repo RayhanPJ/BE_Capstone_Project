@@ -13,7 +13,6 @@ Surat Tugas
             <div class="alert alert-info position-relative" role="alert">
                 <h4 class="alert-heading">Informasi!</h4>
                 <p>Jangan lupa ketika klik tombol preview (icon mata warna biru), matikan idm agar dapat preview surat.</p>
-
                 <button type="button" class="btn-close position-absolute top-0 end-0" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         </div>
@@ -22,7 +21,7 @@ Surat Tugas
     <div class="card">
         <h5 class="card-header">Pengajuan Surat</h5>
         <div class="card-datatable table-responsive pt-0">
-            <table class="table table-striped" id="myTable">
+            <table id="listdata" class="table table-striped">
                 <thead>
                     <tr>
                         <th>#</th>
@@ -74,9 +73,11 @@ Surat Tugas
                             </form>
                             @endif
                         </td>
-                        @if($d->status === 'disetujui')
-                        <td>{{ \Carbon\Carbon::parse($d->updated_at)->locale('id_ID')->isoFormat('D MMMM Y') }}</td>
-                        @endif
+                        <td>
+                            @if($d->status === 'disetujui')
+                            {{ \Carbon\Carbon::parse($d->updated_at)->locale('id_ID')->isoFormat('D MMMM Y') }}
+                            @endif
+                        </td>
                         <td>
                             @if($d->status == 'disetujui')
                             <span class="badge badge-sm rounded-pill bg-label-success">Disetujui</span>

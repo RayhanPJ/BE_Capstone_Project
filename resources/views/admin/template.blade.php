@@ -102,13 +102,14 @@
             </script>
             <script src="{{ asset('/template/assets/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.css') }}">
             </script>
+            <script src="{{ asset('/template/assets/vendor/libs/datatables-fixedcolumns-bs5/fixedcolumns.bootstrap5.css') }}">
+            </script>
 
             <!-- Main JS -->
             <script src="{{ asset('/template/assets/js/main.js') }}"></script>
             <script src="{{ asset('/template/assets/js/script.js') }}"></script>
 
             <!-- Page JS -->
-            <script src="{{ asset('/template/assets/js/dashboards-crm.js') }}"></script>
             <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
             {{-- preview pdf --}}
@@ -312,7 +313,9 @@
 
             <!-- dataTable -->
             <script>
-                $('#myTable').dataTable({});
+                $(document).ready(function() {
+                    $('#listdata').DataTable({});
+                });
 
             </script>
 
