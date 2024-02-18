@@ -48,9 +48,17 @@
                                         </div>
                                     </div>
                                     <div class="flex-grow-1">
-                                        <a href="{{ route('listdata') }}" class="text-decoration-none text-dark">
+                                        <a href="
+                                         @if($notification->data['jenis_surat'] === 'Surat Tugas')
+                                         {{ route('listdata.surattugas') }}
+                                         @elseif($notification->data['jenis_surat'] === 'Surat Izin Penelitian')
+                                         {{ route('listdata.suratizinpenelitian') }}
+                                         @else
+                                         {{ route('home.admin') }}
+                                         @endif
+                                        " class="text-decoration-none text-dark">
                                             <h6 class="mb-1">Pesan Baru ✉️</h6>
-                                            <p class="mb-0"><b>{{ $notification->data['name']}}</b> telah mengajukan surat.</p>
+                                            <p class="mb-0"><b>{{ $notification->data['name']}}</b> telah mengajukan {{ $notification->data['jenis_surat'] }}.</p>
 
                                             <small class="text-muted">{{ \Carbon\Carbon::parse($notification->created_at)->diffForHumans() }}</small>
                                         </a>

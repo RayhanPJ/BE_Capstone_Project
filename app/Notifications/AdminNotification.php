@@ -38,7 +38,8 @@ class AdminNotification extends Notification
     {
         return [
             'user_id' => $this->data['user_id'],
-            'name' => $this->data['name']
+            'name' => $this->data['name'],
+            'jenis_surat' => $this->data['jenis_surat'],
         ];
     }
 }

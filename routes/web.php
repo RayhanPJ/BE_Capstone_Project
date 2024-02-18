@@ -8,6 +8,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegistController;
 use App\Http\Controllers\ForgotPWController;
 use App\Http\Controllers\SuratTugasController;
+use App\Http\Controllers\SuratIzinPenelitianController;
 
 
 
@@ -36,10 +37,21 @@ Route::post('reset-password', [ForgotPWController::class, 'reset'])->name('passw
 // ======== user =============
 Route::middleware(['auth'])->group(function () {
     Route::get('/home', [UserController::class, 'home'])->name('home');
+
+    // pembuatan surat
     Route::get('/surattugas/create/{id}', [SuratTugasController::class, 'create'])->name('surattugas.create');
+    Route::get('/suratizinpenelitian/create/{id}', [SuratIzinPenelitianController::class, 'create'])->name('suratizinpenelitian.create');
     Route::post('/surattugas', [SuratTugasController::class, 'store'])->name('surattugas.store');
-    Route::get('/riwayat-surat', [SuratTugasController::class, 'riwayatSurat'])->name('riwayat-surat');
+    Route::post('/suratizinpenelitian', [SuratIzinPenelitianController::class, 'store'])->name('suratizinpenelitian.store');
+
+    // riwayat surat
+    Route::get('/riwayat-surat-tugas', [SuratTugasController::class, 'riwayatSuratTugas'])->name('riwayat-surat-tugas');
+    Route::get('/riwayat-surat-izin-penelitian', [SuratIzinPenelitianController::class, 'riwayatSuratIzinPenelitian'])->name('riwayat-surat-izin-penelitian');
+
+    // download surat
     Route::get('/download-surat/{file_path}', [SuratTugasController::class, 'downloadSurat'])->name('download-surat');
+    Route::get('/download-surat/{file_path}', [SuratIzinPenelitianController::class, 'downloadSuratIzinPenelitian'])->name('download-surat');
+
     Route::get('/markasreadapprove/{id}', [SuratTugasController::class, 'markAsReadApprove'])->name('markasreadapprove');
     Route::get('/user/profile/{id}', [UserController::class, 'profile'])->name('user.profile');
     Route::post('/user/profile/{id}', [UserController::class, 'lengkapiProfile'])->name('user.lengkapiprofile');
@@ -51,13 +63,20 @@ Route::middleware(['auth'])->group(function () {
 // ======== admin ============
 Route::middleware(['admin'])->group(function () {
     Route::get('/admin', [AdminController::class, 'home'])->name('home.admin');
-    Route::get('/admin/listdata', [AdminController::class, 'listdata'])->name('listdata');
-    Route::get('/storage/surat-tugas/{file_path}', [AdminController::class, 'surattugasPreview'])->name('surattugas-preview');
+    Route::get('/admin/listdata/surattugas', [AdminController::class, 'listdataSuratTugas'])->name('listdata.surattugas');
+    Route::get('/admin/listdata/suratizinpenelitian', [AdminController::class, 'listdataSuratIzinPenelitian'])->name('listdata.suratizinpenelitian');
+    Route::get('/storage/{folders}/{file_path}', [AdminController::class, 'suratPreview'])
+    ->name('surat-preview');
+
     Route::get('/markasread/{id}', [AdminController::class, 'markAsRead'])->name('markasread');
 
     Route::post('/setujui-surat/{id}', [SuratTugasController::class, 'setujuiSurat']);
     Route::post('/tidaksetuju-surat/{id}', [SuratTugasController::class, 'tidaksetujuSurat']);
     Route::delete('/cancelsurattugas/{id}', [SuratTugasController::class, 'cancelsurattugas']);
+    
+    Route::post('/setujui-surat/{id}', [SuratIzinPenelitianController::class, 'setujuiSuratIzinPenelitian']);
+    Route::post('/tidaksetuju-surat/{id}', [SuratIzinPenelitianController::class, 'tidaksetujuSuratIzinPenelitian']);
+    Route::delete('/cancelsurattugas/{id}', [SuratIzinPenelitianController::class, 'cancelsuratIzinPenelitian']);
 
     Route::get('/admin/profile/{id}', [AdminController::class, 'profile'])->name('admin.profile');
     Route::post('/admin/profile/{id}', [AdminController::class, 'changePassword'])->name('change.password.admin');

@@ -28,7 +28,7 @@ class UserNotifcation extends Notification
         return [
             'user_id' => $this->data['user_id'],
             'name' => $this->data['name'],
-            'message' => 'Surat Anda telah disetujui oleh admin.',
+            'jenis_surat' => $this->data['jenis_surat'],
         ];
     }
    

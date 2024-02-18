@@ -15,10 +15,10 @@ Riwayat Surat
                     <tr>
                         <th>#</th>
                         <th>Tanggal Masuk</th>
+                        <th>Jenis Surat</th>
                         <th>Nama Mahasiswa</th>
                         <th>NPM</th>
                         <th>Prodi</th>
-                        <th>Jenis Surat</th>
                         <th>Aktivitas</th>
                     </tr>
                 </thead>
@@ -27,10 +27,10 @@ Riwayat Surat
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ \Carbon\Carbon::parse($d->created_at)->locale('id_ID')->isoFormat('D MMMM Y') }}</td>
+                        <td>{{ $d->jenis_surat }}</td>
                         <td>{{ $d->nama_mhs }}</td>
                         <td>{{ $d->npm }}</td>
                         <td>{{ $d->prodi }}</td>
-                        <td>{{ $d->jenis_surat }}</td>
                         <td>
                             @if($d->status == 'disetujui')
                             <a href="{{ route('download-surat', ['file_path' => $d->file_path]) }}" class="badge bg-info rounded-pill me-2">

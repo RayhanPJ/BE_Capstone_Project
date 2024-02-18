@@ -47,10 +47,17 @@
                                         </div>
                                     </div>
                                     <div class="flex-grow-1">
-                                        <a href="{{ route('riwayat-surat') }}" class="text-decoration-none text-dark">
+                                        <a href="
+                                         @if($notification->data['jenis_surat'] === 'Surat Tugas')
+                                         {{ route('riwayat-surat-tugas') }}
+                                         @elseif($notification->data['jenis_surat'] === 'Surat Izin Penelitian')
+                                         {{ route('riwayat-surat-izin-penelitian') }}
+                                         @else
+                                         {{ route('/admin') }}
+                                         @endif
+                                        " class="text-decoration-none text-dark">
                                             <h6 class="mb-1">Pesan Baru ✉️</h6>
-                                            <p class="mb-0">{{ $notification->data['message'] }}</p>
-
+                                            <p class="mb-0">{{ $notification->data['jenis_surat'] }} telah disetujui oleh Admin</p>
                                             <small class="text-muted">{{ \Carbon\Carbon::parse($notification->created_at)->diffForHumans() }}</small>
                                         </a>
                                     </div>
@@ -84,11 +91,11 @@
                             <div class="d-flex">
                                 <div class="flex-shrink-0 me-3">
                                     <div class="avatar avatar-online">
-                                       @if(isset($userAuth) && $userAuth && isset($userAuth->mahasiswa))
-                                       <img src="{{ asset('storage/foto-mahasiswa/' . $userAuth->mahasiswa->foto) }}" alt class="h-auto rounded-circle" />
-                                       @else
-                                       <img src="{{ asset('/template/assets/img/avatars/user.png') }}" alt class="h-auto rounded-circle" />
-                                       @endif
+                                        @if(isset($userAuth) && $userAuth && isset($userAuth->mahasiswa))
+                                        <img src="{{ asset('storage/foto-mahasiswa/' . $userAuth->mahasiswa->foto) }}" alt class="h-auto rounded-circle" />
+                                        @else
+                                        <img src="{{ asset('/template/assets/img/avatars/user.png') }}" alt class="h-auto rounded-circle" />
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="flex-grow-1">

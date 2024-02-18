@@ -43,8 +43,16 @@ Surat Tugas
                         <td>{{ $d->npm }}</td>
                         <td>{{ $d->prodi }}</td>
                         <td>
-                            {{-- preview --}}
-                            <a href="#" class="btn btn-outline-info btn-sm" onclick="openPdfPreview('{{ route('surattugas-preview', ['file_path' => $d->file_path]) }}')">
+                            @php
+                            if ($d->jenis_surat == 'Surat Tugas') {
+                            $folder = 'surat-tugas';
+                            } elseif ($d->jenis_surat == 'Surat Izin Penelitian') {
+                            $folder = 'surat-izin-penelitian';
+                            } else {
+                            $folder = '';
+                            }
+                            @endphp
+                            <a href="#" class="btn btn-outline-info btn-sm" onclick="openPdfPreview('{{ route('surat-preview', ['folders' => $folder, 'file_path' => $d->file_path]) }}')">
                                 <i class="fa-solid fa-eye"></i>
                             </a>
 

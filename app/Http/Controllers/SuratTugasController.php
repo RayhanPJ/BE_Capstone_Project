@@ -38,12 +38,12 @@ class SuratTugasController extends Controller
         $data->nama_dospem = Str::title($request->input('nama_dospem'));
         $data->judul_skripsi = Str::title($request->input('judul_skripsi'));
 
-        // Simpan file path ke dalam database
-        $hash = md5('Surat Tugas TU Fasilkom');
-        $fileName = 'Surat Tugas' . '_' . Str::title($data['nama_mhs']) . '_' . $data['npm'] . '_' . $hash . '.pdf';
+        $timestamp = now()->timestamp; 
+        $fileName =  $timestamp . '_' . 'Surat Tugas' . '_' . Str::title($data['nama_mhs']) . '_' . $data['npm'] . '.pdf';
         $filePath =  $fileName;
 
         $data->file_path = $filePath;
+        $data->jenis_surat = 'Surat Tugas';
         $data->save();
 
         // Notify admins
@@ -53,6 +53,7 @@ class SuratTugasController extends Controller
             $admin->notify(new AdminNotification([
                 'user_id' => auth()->user()->id,
                 'name' => auth()->user()->name,
+                'jenis_surat' => $data->jenis_surat
             ]));
         }
 
@@ -60,15 +61,14 @@ class SuratTugasController extends Controller
         $pdf = PDF::loadView('template_surat.surat_tugas', compact('data'));
         $pdf->save($outputPath);
 
-        return redirect('/');
+        return redirect()->back()->with('success', 'Surat Tugas telah dibuat. Periksa menu Riwayat Surat untuk melihat file surat!');
     }
-
 
     public function setujuiSurat($id)
     {
         $SuratTugas = SuratTugas::findOrFail($id);
         $SuratTugas->status = 'disetujui';
-        $SuratTugas->updated_at = Carbon::now()->locale('id_ID'); 
+        $SuratTugas->updated_at = Carbon::now()->locale('id_ID');
         $SuratTugas->save();
 
         // ambil nama_mhs saja dalam 1 data objek
@@ -83,6 +83,7 @@ class SuratTugasController extends Controller
             $user->notify(new UserNotifcation([
                 'user_id' => auth()->user()->id,
                 'name' => auth()->user()->name,
+                'jenis_surat' => 'Surat Tugas'
             ]));
         }
 
@@ -109,7 +110,7 @@ class SuratTugasController extends Controller
         return redirect()->back();
     }
 
-    public function riwayatSurat()
+    public function riwayatSuratTugas()
     {
         $navbarView = view('layouts/navbar');
         $sidebarView = view('layouts/sidebar');

@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\SuratTugas;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Events\UserDataInput;
+use App\Models\SuratIzinPenelitian;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Response;
@@ -25,7 +27,7 @@ class AdminController extends Controller
         ]);
     }
 
-    public function listdata()
+    public function listdataSuratTugas()
     {
         $navbarView = view('admin/layouts/navbar');
         $sidebarView = view('admin/layouts/sidebar');
@@ -46,10 +48,34 @@ class AdminController extends Controller
         ]);
     }
 
-    public function surattugasPreview($file_path)
+    public function listdataSuratIzinPenelitian()
     {
-        $path = Storage::url('surat-tugas/' . $file_path);
+        $navbarView = view('admin/layouts/navbar');
+        $sidebarView = view('admin/layouts/sidebar');
+
+        $data = SuratIzinPenelitian::orderBy('created_at', 'desc')->get();
+
+        // Menggunakan ucfirst untuk mengubah huruf pertama menjadi besar
+        $formattedData = $data->map(function ($item) {
+            $item->nama_mhs = ucfirst($item->nama_mhs);
+            $item->judul_skripsi = ucfirst($item->judul_skripsi);
+            return $item;
+        });
+
+        return view('admin.pages.listdata', [
+            'data' => $formattedData,
+            $navbarView,
+            $sidebarView
+        ]);
+    }
+
+    public function suratPreview($folders, $file_path)
+    {
+        $folders = ['surat-tugas', 'surat-izin-penelitian'];
+
+        $path = storage_path("app/public/{$folders}/{$file_path}");
         $iframe = asset($path);
+
         return $iframe;
     }
 

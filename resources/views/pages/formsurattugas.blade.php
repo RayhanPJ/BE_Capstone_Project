@@ -22,7 +22,7 @@ Surat Tugas
             </div>
             @endif
 
-            <form method="post" action="{{ route('surattugas.store') }}" id="formSuratTugas">
+            <form method="post" action="{{ route('surattugas.store') }}">
                 @csrf
                 <div class="mb-3">
                     <label class="form-label" for="basic-icon-default-fullname">Nama Mahasiswa</label>

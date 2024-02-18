@@ -10,6 +10,15 @@
             font-size: 13px;
         }
 
+        body {
+            margin-left: 5px;
+        }
+
+        table {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
         .img-stempel {
             position: absolute;
             left: 847px;
@@ -52,52 +61,64 @@
 
         <br>
 
-        <table border="0" align="center">
+        <table border="0" width="500">
             <tr>
-                <td>
-                    <center>
-                        <font size="4"><strong>SURAT TUGAS</strong></font> <br>
-                        <font size="3">Nomor : 2479/UN64.7/KP/2023</font> <br>
-                    </center>
+                <td align="right">
+                    <font size="3">Karawang, {{ \Carbon\Carbon::parse($data['created_at'])->locale('id_ID')->isoFormat('D MMMM Y') }}</font>
                 </td>
             </tr>
         </table>
 
         <br>
 
-        <table border="0" width="600">
+        <table border="0" width="580">
             <tr>
                 <td>
-                    <font size="3">Dekan Fakultas Ilmu Komputer Universitas Singaperbangsa Karawang, dengan ini</font>
-                    <br>
-                    <font size="3">menugaskan nama berikut:</font>
+                    <font size="3">Nomor</font>
+                </td>
+
+                <td width="572">: -</td>
+            </tr>
+            <tr>
+                <td>
+                    <font size="3">Lampiran</font>
+                </td>
+                <td width="572">: -</td>
+            </tr>
+            <tr>
+                <td>
+                    <font size="3">Perihal</font>
+                </td>
+                <td width="572">: <font size="3">Permohonan Izin Penelitian</font>
                 </td>
             </tr>
         </table>
 
-        <br>
-        <table border="0" align="center">
-            <tr>
-                <td>
-                    <font size="3"><strong>{{ $data['nama_dospem'] }}</strong></font>
-                </td>
-            </tr>
-        </table>
 
         <br>
-
-        <table border="0" width="600">
+        <table border="0" width="580">
             <tr>
                 <td>
-                    <font size="3">Untuk melaksanakan tugas sebagai dosen pembimbing proposal skripsi mahasiswa/i:
+                    <font size="3">Yth. <br> {{ $data['tujuan_instansi'] }} <br> di <br> {{ $data['domisili_instansi'] }}
                     </font>
                 </td>
             </tr>
         </table>
+        <br>
+
+        <table border="0" width="580">
+            <tr>
+                <td>
+                    <font size="3">Dipermaklumkan dengan hormat, sehubungan dengan Penelitian Skripsi yang harus
+                        dilaksanakan <br> di luar kampus Fakultas Ilmu Komputer Universitas Singaperbangsa
+                        Karawang, <br> kami mohon bagi mahasiswa di bawah ini :</font>
+                </td>
+            </tr>
+        </table>
 
         <br>
-        
-        <table border="0" width="500">
+
+        <table border="0" width="400">
             <tr>
                 <td>
                     <font size="3">Nama</font>
@@ -115,49 +136,65 @@
                 </td>
             </tr>
             <tr>
-                <td width="100">
+                <td>
                     <font size="3">Program Studi</font>
                 </td>
                 <td>
-                    <font size="3">: {{ $data['prodi'] }}</font>
+                    <font size="3">: S1 - {{ $data['prodi'] }}</font>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <font size="3">Topik Utama</font>
+                    <font size="3">Jenjang Pendidikan</font>
                 </td>
                 <td>
-                    <font size="3">: {{ $data['judul_skripsi'] }}</font>
+                    <font size="3">: Sarjana (S1)</font>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <font size="3">Judul Penelitian</font>
+                </td>
+                <td>
+                    <font size="3">: {{ $data['judul_penelitian'] }}</font>
+                </td>
+            </tr>
+        </table>
+
+
+        <br>
+        <table border="0" width="580">
+            <tr>
+                <td>
+                    <font size="3">Mahasiswa tersebut bermaksud melakukan penelitian dan Permohonan Data yang
+                        berkaitan dengan kegiatan/ <br> pembelajaran di Instansi/Perusahaan yang Bapak/Ibu Pimpin selama
+                        6
+                        (Enam) bulan terhitung dari tanggal <br> pembuatan surat ini.
+                    </font>
                 </td>
             </tr>
         </table>
 
         <br>
-        <table border="0" width="500">
-            <tr>
-                <td align="justify">
-                    <font size="3">Surat tugas ini mulai berlaku sejak tanggal ditetapkan dengan ketentuan dikemudian
-                        hari terdapat kekeliruan didalamnya akan dilakukan perbaikan sebagaimana mestinya dan berakhir pada tanggal 21 Mei 2024.</font>
-                </td>
-            </tr>
-        </table>
-        <br>
-        <table border="0" width="600">
+        <table border="0" width="580">
             <tr>
                 <td>
-                    <font size="3">Surat tugas ini dibuat untuk dilaksanakan dengan penuh tanggung jawab.
+                    <font size="3">Demikian disampaikan, atas perhatian dan perkenannya kami ucapkan terima kasih.
                     </font>
                 </td>
             </tr>
         </table>
+
+
         <br>
         <br>
-        <table border="0" width="600">
+        <table border="0" width="580">
             <tr>
                 <td width="340"></td>
                 <td align="left">
-                    <font size="3">Karawang, {{ \Carbon\Carbon::parse($data['created_at'])->locale('id_ID')->isoFormat('D MMMM Y') }}</font> <br>
-                    <font size="3">Dekan,</font>
+                    <font size="3">A.n Dekan,</font>
+                    <br>
+                    <font size="3">Koor. Program Studi</font>
                     <br><br>
                     <div class="container">
                         <div class="left">
@@ -168,9 +205,9 @@
                         </div>
                     </div>
                     <br>
-                    <font size="3">Dr. Oman Komarudin, S.Si., M.Kom.</font>
+                    <font size="3">Azhari Ali Ridha, S.Kom., M.M.S.I</font>
                     <br>
-                    <font size="3">NIP : 197704062021211004</font>
+                    <font size="3">NIDN : 003048503</font>
                 </td>
             </tr>
         </table>

@@ -136,40 +136,22 @@
 
             </script>
 
-            <!-- sweetalert2 -->
-            <script>
-                document.getElementById('formSuratTugas').addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    Swal.fire({
-                        title: 'Berhasil!'
-                        , text: 'Data berhasil ditambahkan, silahkan tunggu dan periksa halaman riwayat surat terkait disetujui/ditolak surat yang diajukan.'
-                        , icon: 'success'
-                        , customClass: {
-                            confirmButton: 'btn btn-primary'
-                        }
-                        , buttonsStyling: false
-                    }).then(() => {
-                        this.submit();
-                        setTimeout(function() {
-                            window.location.href = '/';
-                        }, 2000);
-                    });
-                });
-
-            </script>
-
             @if (session()->has('success'))
             <script>
                 Swal.fire({
-                    icon: "success"
+                    title: "Berhasil"
+                    , icon: "success"
                     , text: "{{ session('success') }}"
                     , showConfirmButton: false
                     , timer: 2000
+                }).then(() => {
+                    setTimeout(function() {
+                        window.location.href = '/';
+                    }, 2000);
                 });
 
             </script>
             @endif
-
 
             <!-- dataTable -->
             <script>
