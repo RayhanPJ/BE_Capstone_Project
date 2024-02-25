@@ -48,15 +48,19 @@ Riwayat Surat
                             <p class="text-center">-</p>
                             @endif
                         </td>
-                        {{-- <td>5 Hari</td> --}}
                         <td>
                             @php
                             $tanggalMasuk = $d->created_at;
                             $tanggalSelesai = $d->updated_at;
 
-                            $selisihHari =$tanggalMasuk->diffInDays($tanggalSelesai);
+                            $selisihHari = $tanggalMasuk->diffInDays($tanggalSelesai);
                             @endphp
+
+                            @if($selisihHari > 7)
+                            <span style="color: red;">{{ $selisihHari }} Hari</span>
+                            @else
                             {{ $selisihHari }} Hari
+                            @endif
                         </td>
                         <td>
                             @if($d->status == 'disetujui')
