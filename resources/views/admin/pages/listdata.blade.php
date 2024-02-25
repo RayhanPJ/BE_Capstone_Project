@@ -56,9 +56,37 @@ Surat Tugas
                                 <i class="fa-solid fa-eye"></i>
                             </a>
 
-                            @if(!$d->status == 'disetujui' || !$d->status == 'ditolak')
                             {{-- button surat disetujui --}}
+                            {{-- @if(!$d->status == 'disetujui' || !$d->status == 'ditolak')
                             <form action="/setujui-surat/{{$d->id}}" method="POST" class="d-inline">
+                            @csrf
+                            <button type="submit" style="display: none;" class="btn btn-outline-success btn-sm">
+                                <i class="fa-solid fa-circle-check"></i>
+                            </button>
+                            </form> --}}
+
+                            @if($d instanceof App\Models\SuratTugas)
+                            {{-- Aksi dan tautan untuk Surat Tugas --}}
+
+                            @php
+                            $setujuiRoute = "/setujui-surat-tugas/{$d->id}";
+                            $tidakSetujuRoute = "/tidaksetuju-surat-tugas/{$d->id}";
+                            $cancelRoute = "/cancelsurattugas/{$d->id}";
+                            @endphp
+
+                            @elseif($d instanceof App\Models\SuratIzinPenelitian)
+                            {{-- Aksi dan tautan untuk Surat Izin Penelitian --}}
+                            @php
+                            $setujuiRoute = "/setujui-surat-izin-penelitian/{$d->id}";
+                            $tidakSetujuRoute = "/tidaksetuju-surat-izin-penelitian/{$d->id}";
+                            $cancelRoute = "/cancelsurat-izin-penelitian/{$d->id}";
+                            @endphp
+
+                            @endif
+
+                            @if(!$d->status == 'disetujui' || !$d->status == 'ditolak')
+                            {{-- Tombol untuk menyetujui surat --}}
+                            <form action="{{ $setujuiRoute }}" method="POST" class="d-inline">
                                 @csrf
                                 <button type="submit" style="display: none;" class="btn btn-outline-success btn-sm">
                                     <i class="fa-solid fa-circle-check"></i>
@@ -72,7 +100,7 @@ Surat Tugas
 
                             @else
                             {{-- button cancel --}}
-                            <form action="/cancelsurattugas/{{ $d->id }}" method="POST" class="d-inline ms-2 align-top">
+                            <form action="{{ $cancelRoute }}" method="POST" class="d-inline ms-2 align-top">
                                 @csrf
                                 @method('DELETE')
                                 <button onclick="cancelSuratTugas()" class="btn btn-sm">
@@ -108,7 +136,7 @@ Surat Tugas
                                 </div>
                                 <div class="modal-body">
                                     <!-- Form inside the modal -->
-                                    <form action="/tidaksetuju-surat/{{$d->id}}" method="POST">
+                                    <form action="{{ $tidakSetujuRoute }}" method="POST">
                                         @csrf
                                         <div class="mb-3">
                                             <label for="text-input" class="form-label">Masukkan

@@ -42,10 +42,14 @@
     {{-- page CSS --}}
     <link rel="stylesheet" href="{{ asset('/template/assets/vendor/css/pages/page-profile.css') }}" />
 
+    {{-- my CSS --}}
+    <link rel="stylesheet" href="{{ asset('/template/assets/css/style.css') }}">
+
     <!-- Helpers -->
     <script src="{{ asset('/template/assets/vendor/js/helpers.js') }}"></script>
-
     <script src="{{ asset('/template/assets/js/config.js') }}"></script>
+
+
 </head>
 
 <body>
@@ -106,6 +110,8 @@
             </script>
             <script src="{{ asset('/template/assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.js') }}">
             </script>
+            <script src="{{ asset('/template/assets/vendor/libs/datatables-fixedColumns-bs5/fixedColumns.bootstrap5.js') }}">
+            </script>
 
             <!-- Main JS -->
             <script src="{{ asset('/template/assets/js/main.js') }}"></script>
@@ -156,7 +162,14 @@
             <!-- dataTable -->
             <script>
                 $(document).ready(function() {
-                    $('#riwayat-surat').DataTable();
+                    $('#riwayat-surat').DataTable({
+                        paging: true
+                        , searching: true
+                        , fixedColumns: {
+                            leftColumns: 3
+                            , rightColumns: 0
+                        }
+                    });
                 });
 
             </script>

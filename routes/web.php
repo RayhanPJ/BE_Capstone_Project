@@ -66,17 +66,28 @@ Route::middleware(['admin'])->group(function () {
     Route::get('/admin/listdata/surattugas', [AdminController::class, 'listdataSuratTugas'])->name('listdata.surattugas');
     Route::get('/admin/listdata/suratizinpenelitian', [AdminController::class, 'listdataSuratIzinPenelitian'])->name('listdata.suratizinpenelitian');
     Route::get('/storage/{folders}/{file_path}', [AdminController::class, 'suratPreview'])
-    ->name('surat-preview');
+        ->name('surat-preview');
 
     Route::get('/markasread/{id}', [AdminController::class, 'markAsRead'])->name('markasread');
 
-    Route::post('/setujui-surat/{id}', [SuratTugasController::class, 'setujuiSurat']);
-    Route::post('/tidaksetuju-surat/{id}', [SuratTugasController::class, 'tidaksetujuSurat']);
+    // Route::post('/setujui-surat/{id}', [SuratTugasController::class, 'setujuiSurat']);
+    // Route::post('/tidaksetuju-surat/{id}', [SuratTugasController::class, 'tidaksetujuSurat']);
+    // Route::delete('/cancelsurattugas/{id}', [SuratTugasController::class, 'cancelsurattugas']);
+
+    // Route::post('/setujui-surat/{id}', [SuratIzinPenelitianController::class, 'setujuiSuratIzinPenelitian']);
+    // Route::post('/tidaksetuju-surat/{id}', [SuratIzinPenelitianController::class, 'tidaksetujuSuratIzinPenelitian']);
+    // Route::delete('/cancelsurattugas/{id}', [SuratIzinPenelitianController::class, 'cancelsuratIzinPenelitian']);
+
+    // For SuratTugasController
+    Route::post('/setujui-surat-tugas/{id}', [SuratTugasController::class, 'setujuiSurat']);
+    Route::post('/tidaksetuju-surat-tugas/{id}', [SuratTugasController::class, 'tidaksetujuSurat']);
     Route::delete('/cancelsurattugas/{id}', [SuratTugasController::class, 'cancelsurattugas']);
-    
-    Route::post('/setujui-surat/{id}', [SuratIzinPenelitianController::class, 'setujuiSuratIzinPenelitian']);
-    Route::post('/tidaksetuju-surat/{id}', [SuratIzinPenelitianController::class, 'tidaksetujuSuratIzinPenelitian']);
-    Route::delete('/cancelsurattugas/{id}', [SuratIzinPenelitianController::class, 'cancelsuratIzinPenelitian']);
+
+    // For SuratIzinPenelitianController
+    Route::post('/setujui-surat-izin-penelitian/{id}', [SuratIzinPenelitianController::class, 'setujuiSuratIzinPenelitian']);
+    Route::post('/tidaksetuju-surat-izin-penelitian/{id}', [SuratIzinPenelitianController::class, 'tidaksetujuSuratIzinPenelitian']);
+    Route::delete('/cancelsurat-izin-penelitian/{id}', [SuratIzinPenelitianController::class, 'cancelsuratIzinPenelitian']);
+
 
     Route::get('/admin/profile/{id}', [AdminController::class, 'profile'])->name('admin.profile');
     Route::post('/admin/profile/{id}', [AdminController::class, 'changePassword'])->name('change.password.admin');
