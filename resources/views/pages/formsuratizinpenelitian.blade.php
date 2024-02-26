@@ -48,6 +48,15 @@ Surat Izin Penelitian
                     </div>
                 </div>
                 <div class="mb-3">
+                    <label class="form-label" for="basic-icon-default-company">Lingkup</label>
+                    <div class="input-group input-group-merge">
+                        <select name="lingkup" id="select2IconsLingkup" class="select2-icons form-select">
+                            <option value="Internal" data-icon="ti ti-layers-intersect-2">Internal</option>
+                            <option value="Eksternal" data-icon="ti ti-layers-intersect-2">Eksternal</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="mb-3">
                     <label class="form-label" for="basic-icon-default-company">Semester</label>
                     <div class="input-group input-group-merge">
                         <span id="basic-icon-default-company2" class="input-group-text"></span>

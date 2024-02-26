@@ -25,6 +25,7 @@ Surat Tugas
                 <thead>
                     <tr>
                         <th>#</th>
+                        <th width="40">Nomor Surat</th>
                         <th>Tanggal Masuk</th>
                         <th>Nama Mahasiswa</th>
                         <th>NPM</th>
@@ -38,6 +39,7 @@ Surat Tugas
                     @foreach($data as $d)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
+                        <td>{{ $d->nomor_surat }}</td>
                         <td>{{ \Carbon\Carbon::parse($d->created_at)->locale('id_ID')->isoFormat('D MMMM Y') }}</td>
                         <td>{{ $d->nama_mhs }}</td>
                         <td>{{ $d->npm }}</td>
@@ -56,15 +58,6 @@ Surat Tugas
                                 <i class="fa-solid fa-eye"></i>
                             </a>
 
-                            {{-- button surat disetujui --}}
-                            {{-- @if(!$d->status == 'disetujui' || !$d->status == 'ditolak')
-                            <form action="/setujui-surat/{{$d->id}}" method="POST" class="d-inline">
-                            @csrf
-                            <button type="submit" style="display: none;" class="btn btn-outline-success btn-sm">
-                                <i class="fa-solid fa-circle-check"></i>
-                            </button>
-                            </form> --}}
-
                             @if($d instanceof App\Models\SuratTugas)
                             {{-- Aksi dan tautan untuk Surat Tugas --}}
 
@@ -76,6 +69,7 @@ Surat Tugas
 
                             @elseif($d instanceof App\Models\SuratIzinPenelitian)
                             {{-- Aksi dan tautan untuk Surat Izin Penelitian --}}
+
                             @php
                             $setujuiRoute = "/setujui-surat-izin-penelitian/{$d->id}";
                             $tidakSetujuRoute = "/tidaksetuju-surat-izin-penelitian/{$d->id}";

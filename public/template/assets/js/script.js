@@ -45,6 +45,29 @@
      }
  });
 
+ // select2 lingkup internal & eksternal
+ $(document).ready(function () {
+     $('#select2IconsLingkup').select2({
+         templateResult: formatOption,
+         templateSelection: formatOption,
+     });
+
+     // Fungsi untuk mengatur tampilan opsi dengan ikon
+     function formatOption(option) {
+         if (!option.id) {
+             return option.text;
+         }
+
+         var iconClass = $(option.element).data('icon');
+         if (iconClass) {
+             // Jika opsi memiliki data-icon, tambahkan ikon ke dalam teks opsi
+             return $('<span><i class="' + iconClass + '"></i> ' + option.text + '</span>');
+         }
+
+         return option.text;
+     }
+ });
+
  // select2 dospem
  $(document).ready(function () {
      $('#select2IconsDospem').select2({

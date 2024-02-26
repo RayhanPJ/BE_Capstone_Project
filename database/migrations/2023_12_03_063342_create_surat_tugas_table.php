@@ -13,9 +13,11 @@ return new class extends Migration
     {
         Schema::create('surat_tugas', function (Blueprint $table) {
             $table->id();
+            $table->string('nomor_surat');
+            $table->integer('kuota_harian')->default(10); // Mengubah nilai default menjadi 10
             $table->string('nama_mhs');
             $table->bigInteger('npm');
-            $table->enum('prodi',['Informatika', 'Sistem Informasi']);
+            $table->enum('prodi', ['Informatika', 'Sistem Informasi']);
             $table->string('nama_dospem');
             $table->string('judul_skripsi');
             $table->string('jenis_surat')->default('Surat Tugas');

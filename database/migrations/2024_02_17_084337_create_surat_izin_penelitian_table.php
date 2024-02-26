@@ -17,6 +17,7 @@ return new class extends Migration
             $table->bigInteger('npm');
             $table->integer('semester');
             $table->enum('prodi',['Informatika', 'Sistem Informasi']);
+            $table->enum('lingkup',['Internal', 'Eksternal']);
             $table->string('tujuan_surat');
             $table->string('tujuan_instansi');
             $table->string('domisili_instansi');

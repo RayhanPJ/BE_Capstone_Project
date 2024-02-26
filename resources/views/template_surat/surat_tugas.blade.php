@@ -57,7 +57,7 @@
                 <td>
                     <center>
                         <font size="4"><strong>SURAT TUGAS</strong></font> <br>
-                        <font size="3">Nomor : 2479/UN64.7/KP/2023</font> <br>
+                        <font size="3">Nomor : {{ $data['nomor_surat'] }}</font> <br>
                     </center>
                 </td>
             </tr>
@@ -96,7 +96,7 @@
         </table>
 
         <br>
-        
+
         <table border="0" width="500">
             <tr>
                 <td>

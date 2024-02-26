@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use PDF;
+use PhpOffice\PhpWord\TemplateProcessor;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -29,16 +30,18 @@ class SuratIzinPenelitianController extends Controller
         $data->nama_mhs = Str::title($request->input('nama_mhs'));
         $data->npm = $request->input('npm');
         $data->prodi = $request->input('prodi');
+        $data->lingkup = $request->input('lingkup');
         $data->semester = $request->input('semester');
         $data->tujuan_surat = Str::title($request->input('tujuan_surat'));
         $data->tujuan_instansi = Str::title($request->input('tujuan_instansi'));
         $data->domisili_instansi = Str::title($request->input('domisili_instansi'));
         $data->judul_penelitian = Str::title($request->input('judul_penelitian'));
-        
-        $timestamp = now()->timestamp; 
-        $fileName =  $timestamp . '_' . 'Surat Izin Penelitian' . '_' . Str::title($data['nama_mhs']) . '_' . $data['npm'] . '.pdf';
+
+        $timestamp = now()->timestamp;
+        $fileExtension = $data->lingkup === 'Internal' ? 'docx' : 'pdf';
+        $fileName =  $timestamp . '_' . 'Surat Izin Penelitian' . '_' . Str::title($data['nama_mhs']) . '_' . $data['npm'] . '.' . $fileExtension;
         $filePath =  $fileName;
-        
+
         $data->file_path = $filePath;
         $data->jenis_surat = 'Surat Izin Penelitian';
         $data->save();
@@ -56,16 +59,29 @@ class SuratIzinPenelitianController extends Controller
 
         $outputPath = storage_path('app\\public\\surat-izin-penelitian\\' . $filePath);
 
-        if($data->prodi === 'Informatika'){
-            $pdf = PDF::loadView('template_surat.surat_izin_penelitian_if', compact('data'));
-        }else if($data->prodi === 'Sistem Informasi'){
-            $pdf = PDF::loadView('template_surat.surat_izin_penelitian_si', compact('data'));
-        }
+        if ($data->lingkup === 'Internal') {
+            // pembuatan docx
+            $templateProcessor = new TemplateProcessor(public_path('Surat-Izin-Penelitian.docx'));
+            $templateProcessor->setValue('nama_mhs', $data->nama_mhs);
+            $templateProcessor->setValue('npm', $data->npm);
+            $templateProcessor->setValue('prodi', $data->prodi);
+            $templateProcessor->setValue('judul_penelitian', $data->judul_penelitian);
 
-        $pdf->save($outputPath);
+            $templateProcessor->saveAs($outputPath);
+        } elseif ($data->lingkup === 'Eksternal') {
+            // pembuatan pdf
+            if ($data->prodi === 'Informatika') {
+                $pdf = PDF::loadView('template_surat.surat_izin_penelitian_if', compact('data'));
+            } else if ($data->prodi === 'Sistem Informasi') {
+                $pdf = PDF::loadView('template_surat.surat_izin_penelitian_si', compact('data'));
+            }
+
+            $pdf->save($outputPath);
+        }
 
         return redirect()->back()->with('success', 'Surat Izin Penelitian telah dibuat. Periksa menu Riwayat Surat untuk melihat file surat!');
     }
+
 
     public function setujuiSuratIzinPenelitian($id)
     {

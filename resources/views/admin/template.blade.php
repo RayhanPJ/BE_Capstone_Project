@@ -121,7 +121,6 @@
                     // Tampilkan modal
                     $('#pdfPreviewModal').modal('show');
                 }
-
             </script>
 
             {{-- chartapex --}}

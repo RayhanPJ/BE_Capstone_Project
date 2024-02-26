@@ -50,10 +50,10 @@ Riwayat Surat
                         </td>
                         <td>
                             @php
-                            $tanggalMasuk = $d->created_at;
-                            $tanggalSelesai = $d->updated_at;
+                            $tanggalMasuk = \Carbon\Carbon::parse($d->created_at);
+                            $tanggalSaatIni = \Carbon\Carbon::parse($d->updated_at);
 
-                            $selisihHari = $tanggalMasuk->diffInDays($tanggalSelesai);
+                            $selisihHari = $tanggalMasuk->diffInDays($tanggalSaatIni) + 1;
                             @endphp
 
                             @if($selisihHari > 7)
