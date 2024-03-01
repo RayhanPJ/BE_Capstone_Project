@@ -39,7 +39,7 @@ class SuratIzinPenelitianController extends Controller
 
         $timestamp = now()->timestamp;
         $fileExtension = $data->lingkup === 'Internal' ? 'docx' : 'pdf';
-        $fileName =  $timestamp . '_' . 'Surat Izin Penelitian' . '_' . Str::title($data['nama_mhs']) . '_' . $data['npm'] . '.' . $fileExtension;
+        $fileName = $timestamp . '_Surat_Izin_Penelitian_' . Str::title($data->nama_mhs) . '_' . $data->npm . '.' . $fileExtension;
         $filePath =  $fileName;
 
         $data->file_path = $filePath;
@@ -57,11 +57,11 @@ class SuratIzinPenelitianController extends Controller
             ]));
         }
 
-        $outputPath = storage_path('app\\public\\surat-izin-penelitian\\' . $filePath);
+     $outputPath = storage_path('app\\public\\surat-izin-penelitian\\' . $filePath);
 
         if ($data->lingkup === 'Internal') {
             // pembuatan docx
-            $templateProcessor = new TemplateProcessor(public_path('Surat-Izin-Penelitian.docx'));
+            $templateProcessor = new TemplateProcessor(storage_path('app/public/Surat-Izin-Penelitian.docx'));
             $templateProcessor->setValue('nama_mhs', $data->nama_mhs);
             $templateProcessor->setValue('npm', $data->npm);
             $templateProcessor->setValue('prodi', $data->prodi);
@@ -70,11 +70,7 @@ class SuratIzinPenelitianController extends Controller
             $templateProcessor->saveAs($outputPath);
         } elseif ($data->lingkup === 'Eksternal') {
             // pembuatan pdf
-            if ($data->prodi === 'Informatika') {
-                $pdf = PDF::loadView('template_surat.surat_izin_penelitian_if', compact('data'));
-            } else if ($data->prodi === 'Sistem Informasi') {
-                $pdf = PDF::loadView('template_surat.surat_izin_penelitian_si', compact('data'));
-            }
+            $pdf = $this->createPdf($data);
 
             $pdf->save($outputPath);
         }
@@ -82,12 +78,13 @@ class SuratIzinPenelitianController extends Controller
         return redirect()->back()->with('success', 'Surat Izin Penelitian telah dibuat. Periksa menu Riwayat Surat untuk melihat file surat!');
     }
 
-
-    public function setujuiSuratIzinPenelitian($id)
+    public function setujuiSuratIzinPenelitian(Request $request, $id)
     {
         $SuratIzinPenelitian = SuratIzinPenelitian::findOrFail($id);
+        
+        $SuratIzinPenelitian->nomor_surat = $request->input('nomor_surat');
         $SuratIzinPenelitian->status = 'disetujui';
-        $SuratIzinPenelitian->updated_at = Carbon::now()->locale('id_ID');
+        $SuratIzinPenelitian->updated_at = now();
         $SuratIzinPenelitian->save();
 
         // ambil nama_mhs saja dalam 1 data objek
@@ -106,7 +103,31 @@ class SuratIzinPenelitianController extends Controller
             ]));
         }
 
+        // Update konten file PDF
+        $this->updatePdfContent($SuratIzinPenelitian);
+
         return redirect()->back()->with('success', 'Surat Izin Penelitian telah disetujui!');
+    }
+
+    private function updatePdfContent($SuratIzinPenelitian)
+    {
+        // Gantilah dengan path file PDF yang sesuai dengan struktur penyimpanan Anda
+        $outputPath = storage_path('app\\public\\surat-izin-penelitian\\' . $SuratIzinPenelitian->file_path);
+
+        // Gunakan dompdf untuk membuat PDF baru dengan informasi yang diperbarui
+        $pdf = $this->createPdf($SuratIzinPenelitian);
+
+        // Simpan PDF baru dengan konten yang diperbarui
+        $pdf->save($outputPath);
+    }
+
+    private function createPdf($data)
+    {
+        if ($data->prodi === 'Informatika') {
+            return PDF::loadView('template_surat.surat_izin_penelitian_if', compact('data'));
+        } elseif ($data->prodi === 'Sistem Informasi') {
+            return PDF::loadView('template_surat.surat_izin_penelitian_si', compact('data'));
+        }
     }
 
     public function tidaksetujuSuratIzinPenelitian(Request $request, $id)

@@ -59,7 +59,6 @@ Surat Tugas
                             </a>
 
                             @if($d instanceof App\Models\SuratTugas)
-                            {{-- Aksi dan tautan untuk Surat Tugas --}}
 
                             @php
                             $setujuiRoute = "/setujui-surat-tugas/{$d->id}";
@@ -79,13 +78,11 @@ Surat Tugas
                             @endif
 
                             @if(!$d->status == 'disetujui' || !$d->status == 'ditolak')
-                            {{-- Tombol untuk menyetujui surat --}}
-                            <form action="{{ $setujuiRoute }}" method="POST" class="d-inline">
-                                @csrf
-                                <button type="submit" style="display: none;" class="btn btn-outline-success btn-sm">
-                                    <i class="fa-solid fa-circle-check"></i>
-                                </button>
-                            </form>
+
+                            {{-- button surat disetujui --}}
+                            <button type="submit" style="display: none;" class="btn btn-outline-success btn-sm" data-bs-toggle="modal" data-bs-target="#myModalApprove-{{$d->id}}">
+                                <i class="fa-solid fa-circle-check"></i>
+                            </button>
 
                             {{-- button surat ditolak --}}
                             <button type="submit" style="display: none;" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#myModal-{{$d->id}}">
@@ -119,6 +116,30 @@ Surat Tugas
                             @endif
                         </td>
                     </tr>
+
+                    {{-- Modal Approve --}}
+                    <div class="modal fade" id="myModalApprove-{{$d->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Nomor Surat</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <!-- Form inside the modal -->
+                                    <form action="{{ $setujuiRoute }}" method="POST">
+                                        @csrf
+                                        <div class="mb-3">
+                                            <label for="text-input" class="form-label">Masukkan
+                                                Nomor Surat:</label>
+                                            <input type="text" class="form-control" id="text-input" name="nomor_surat" required>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                     <!-- Modal Reject -->
                     <div class="modal fade" id="myModal-{{$d->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

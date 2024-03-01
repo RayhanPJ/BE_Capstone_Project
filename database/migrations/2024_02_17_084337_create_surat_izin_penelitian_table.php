@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('surat_izin_penelitian', function (Blueprint $table) {
             $table->id();
+            $table->string('nomor_surat')->nullable();
             $table->string('nama_mhs');
             $table->bigInteger('npm');
             $table->integer('semester');
