@@ -28,6 +28,11 @@
                         <div data-i18n="Home">Home</div>
                     </a>
                 </li>
+                <li class="menu-item {{ request()->is('admin/upload-ttd') ? 'active' : '' }}">
+                    <a href="{{ route('form.change.ttd') }}" class="menu-link">
+                        <div data-i18n="Change TTD">Change TTD</div>
+                    </a>
+                </li>
                 <li class="menu-item">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
                         <div data-i18n="List Data">List Data</div>

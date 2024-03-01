@@ -91,4 +91,7 @@ Route::middleware(['admin'])->group(function () {
 
     Route::get('/admin/profile/{id}', [AdminController::class, 'profile'])->name('admin.profile');
     Route::post('/admin/profile/{id}', [AdminController::class, 'changePassword'])->name('change.password.admin');
+   
+    Route::get('/admin/upload-ttd/', [AdminController::class, 'formchangeTtd'])->name('form.change.ttd');
+    Route::post('/admin/upload-ttd/', [AdminController::class, 'changeTtd'])->name('change.ttd');
 });

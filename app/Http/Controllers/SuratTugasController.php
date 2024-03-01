@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use PDF;
-use Mpdf\Mpdf;
+// use Mpdf\Mpdf;
 use Carbon\Carbon;
+use Dompdf\Dompdf;
+use App\Models\Ttd;
+use Dompdf\Options;
 use App\Models\User;
 use App\Models\Mahasiswa;
 use App\Models\SuratTugas;
@@ -12,10 +15,13 @@ use Illuminate\Support\Str;
 use App\Events\DataApproved;
 use Illuminate\Http\Request;
 use App\Events\UserDataInput;
+use Illuminate\Support\Facades\Log;
 use App\Notifications\UserNotifcation;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use App\Notifications\AdminNotification;
+// use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
+
 
 class SuratTugasController extends Controller
 {
@@ -29,114 +35,10 @@ class SuratTugasController extends Controller
         return view('pages.formsurattugas', [$navbarView, $sidebarView, 'data' => $data]);
     }
 
-    // public function store(Request $request)
-    // {
-    //     $data = new SuratTugas();
-    //     $data->nama_mhs = Str::title($request->input('nama_mhs'));
-    //     $data->npm = $request->input('npm');
-    //     $data->prodi = $request->input('prodi');
-    //     $data->nama_dospem = Str::title($request->input('nama_dospem'));
-    //     $data->judul_skripsi = Str::title($request->input('judul_skripsi'));
-
-    //     // Ambil nomor surat berikutnya untuk tahun ini
-    //     $currentYear = now()->year;
-    //     $lastSurat = SuratTugas::whereYear('created_at', $currentYear)->latest('nomor_surat')->first();
-    //     $nextSuratNumber = $lastSurat ? (int)explode('/', $lastSurat->nomor_surat)[0] + 1 : 1;
-
-    //     // Reset nomor surat ke 0001 jika tahun berubah
-    //     if ($lastSurat && now()->year > $lastSurat->created_at->year) {
-    //         $nextSuratNumber = 1;
-    //     }
-
-    //     $nomorSurat = str_pad($nextSuratNumber, 4, '0', STR_PAD_LEFT) . '/UN64-7/KM/' . $currentYear;
-    //     $data->nomor_surat = $nomorSurat;
-
-    //     $timestamp = now()->timestamp;
-    //     $fileName = $timestamp . '_' . 'Surat Tugas' . '_' . Str::title($data['nama_mhs']) . '_' . $data['npm'] . '.pdf';
-    //     $filePath = $fileName;
-
-    //     $data->file_path = $filePath;
-    //     $data->jenis_surat = 'Surat Tugas';
-    //     $data->save();
-
-    //     // Notify admins
-    //     $admins = User::where('role', 'admin')->get();
-
-    //     foreach ($admins as $admin) {
-    //         $admin->notify(new AdminNotification([
-    //             'user_id' => auth()->user()->id,
-    //             'name' => auth()->user()->name,
-    //             'jenis_surat' => $data->jenis_surat
-    //         ]));
-    //     }
-
-    //     $outputPath = storage_path('app\\public\\surat-tugas\\' . $filePath);
-    //     $pdf = PDF::loadView('template_surat.surat_tugas', compact('data'));
-    //     $pdf->save($outputPath);
-
-    //     return redirect()->back()->with('success', 'Surat Tugas telah dibuat. Periksa menu Riwayat Surat untuk melihat file surat!');
-    // }
-
-    // fitur ganti tahun maka reset lagi dari 0001
-    // public function store(Request $request)
-    // {
-    //     // Simulasi ganti tahun 2025
-    //     // Carbon::setTestNow(Carbon::create(2025, 1, 1));
-
-    //     $data = new SuratTugas();
-    //     $data->nama_mhs = Str::title($request->input('nama_mhs'));
-    //     $data->npm = $request->input('npm');
-    //     $data->prodi = $request->input('prodi');
-    //     $data->nama_dospem = Str::title($request->input('nama_dospem'));
-    //     $data->judul_skripsi = Str::title($request->input('judul_skripsi'));
-
-    //     // Ambil nomor surat berikutnya untuk tahun ini
-    //     $currentYear = Carbon::now()->year; // Mengambil tahun dari simulasi Carbon
-    //     $lastSurat = SuratTugas::whereYear('created_at', $currentYear)->latest('nomor_surat')->first();
-    //     $nextSuratNumber = $lastSurat ? (int)explode('/', $lastSurat->nomor_surat)[0] + 1 : 1;
-
-    //     // Reset nomor surat ke 0001 jika tahun berubah
-    //     if ($lastSurat && now()->year > $lastSurat->created_at->year) {
-    //         $nextSuratNumber = 1;
-    //     }
-
-    //     $nomorSurat = str_pad($nextSuratNumber, 4, '0', STR_PAD_LEFT) . '/UN64.7/KM/' . $currentYear;
-    //     $data->nomor_surat = $nomorSurat;
-
-    //     $timestamp = now()->timestamp;
-    //     $fileName = $timestamp . '_' . 'Surat Tugas' . '_' . Str::title($data['nama_mhs']) . '_' . $data['npm'] . '.pdf';
-    //     $filePath = $fileName;
-
-    //     $data->file_path = $filePath;
-    //     $data->jenis_surat = 'Surat Tugas';
-    //     $data->save();
-
-    //     // Notify admins
-    //     $admins = User::where('role', 'admin')->get();
-
-    //     foreach ($admins as $admin) {
-    //         $admin->notify(new AdminNotification([
-    //             'user_id' => auth()->user()->id,
-    //             'name' => auth()->user()->name,
-    //             'jenis_surat' => $data->jenis_surat
-    //         ]));
-    //     }
-
-    //     $outputPath = storage_path('app\\public\\surat-tugas\\' . $filePath);
-    //     $pdf = PDF::loadView('template_surat.surat_tugas', compact('data'));
-    //     $pdf->save($outputPath);
-
-    //     // Mengembalikan waktu ke kondisi semula setelah selesai simulasi
-    //     // Carbon::setTestNow(); 
-
-    //     return redirect()->back()->with('success', 'Surat Tugas telah dibuat. Periksa menu Riwayat Surat untuk melihat file surat!');
-    // }
-
     public function store(Request $request)
     {
-
         // untuk testing tanggal, matikan jika tidak diperlukan lagi
-        Carbon::setTestNow(Carbon::create(2024, 2, 27));
+        // Carbon::setTestNow(Carbon::create(2024, 2, 27));
 
         $data = new SuratTugas();
         $data->nama_mhs = Str::title($request->input('nama_mhs'));
@@ -171,6 +73,10 @@ class SuratTugasController extends Controller
 
         $data->file_path = $filePath;
         $data->jenis_surat = 'Surat Tugas';
+
+        $ttdPimpinanData = Ttd::latest('id')->first();
+        $data->id_ttd = $ttdPimpinanData ? $ttdPimpinanData->id : 1;
+
         $data->save();
 
         // Notify admins
@@ -185,36 +91,13 @@ class SuratTugasController extends Controller
         }
 
         $outputPath = storage_path('app\\public\\surat-tugas\\' . $filePath);
-        $pdf = PDF::loadView('template_surat.surat_tugas', compact('data'));
+        $pdf = PDF::loadView('template_surat.surat_tugas', compact('data', 'ttdPimpinanData'));
         $pdf->save($outputPath);
-
-        Carbon::setTestNow();
+       
+        // Carbon::setTestNow();
 
         return redirect()->back()->with('success', 'Surat Tugas telah dibuat. Periksa menu Riwayat Surat untuk melihat file surat!');
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     public function setujuiSurat($id)
     {

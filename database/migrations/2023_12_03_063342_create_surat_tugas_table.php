@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('surat_tugas', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('id_ttd');
             $table->string('nomor_surat');
-            $table->integer('kuota_harian')->default(10); // Mengubah nilai default menjadi 10
             $table->string('nama_mhs');
             $table->bigInteger('npm');
             $table->enum('prodi', ['Informatika', 'Sistem Informasi']);
@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('jenis_surat')->default('Surat Tugas');
             $table->string('file_path')->nullable();
             $table->timestamps();
+
         });
     }
 

@@ -31,7 +31,8 @@
     <center>
         <table border="0">
             <tr>
-                <td><img src="{{ public_path('/template/assets/img/surat/logo_unsika.png') }}" width="120" height="120" alt=""></td>
+                <td><img src="{{ public_path('template/assets/img/surat/logo_unsika.png') }}" width="120" height="120" alt="">
+                </td>
                 <td>
                     <center>
                         <font size="5">KEMENTRIAN PENDIDIKAN, KEBUDAYAAN</font> <br>
@@ -157,18 +158,23 @@
                 <td width="340"></td>
                 <td align="left">
                     <font size="3">Karawang, {{ \Carbon\Carbon::parse($data['created_at'])->locale('id_ID')->isoFormat('D MMMM Y') }}</font> <br>
-                    <font size="3">Dekan,</font>
+                    <font size="3">{{ $ttdPimpinanData->penanda_tangan ?? 'Dekan,' }}</font>
                     <br><br>
+
                     <div class="container">
                         <div class="left">
-                            <img src="{{ public_path('/template/assets/img/surat/stempel.png') }}" width="180" alt="">
+                            <img src="{{ public_path('storage/ttd/stempel.png') }}" width="180" alt="">
                         </div>
                         <div>
-                            <img src="{{ public_path('/template/assets/img/surat/ttd.png') }}" width="160" alt="">
+                            @if ($ttdPimpinanData->ttd_image ?? null)
+                            <img src="{{ public_path('storage/ttd/' . $ttdPimpinanData->ttd_image) }}" width="160" alt="">
+                            @else
+                            <img src="{{ public_path('storage/ttd/ttd.png') }}" width="160" alt="">
+                            @endif
                         </div>
                     </div>
                     <br>
-                    <font size="3">Dr. Oman Komarudin, S.Si., M.Kom.</font>
+                    <font size="3">{{ $ttdPimpinanData->nama_pimpinan ?? 'Dr. Oman Komarudin, S.Si., M.Kom.' }}</font>
                     <br>
                     <font size="3">NIP : 197704062021211004</font>
                 </td>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\Ttd;
 use App\Models\User;
 use App\Models\SuratTugas;
 use Illuminate\Support\Str;
@@ -122,5 +123,40 @@ class AdminController extends Controller
         $user->update(['password' => bcrypt($request->password)]);
 
         return redirect()->back()->with('success', 'Password berhasil diubah.');
+    }
+
+    public function formchangeTtd()
+    {
+        $navbarView = view('admin/layouts/navbar');
+        $sidebarView = view('admin/layouts/sidebar');
+        return view('admin.pages.uploadttd', [
+            $navbarView,
+            $sidebarView
+        ]);
+    }
+
+    public function changeTtd(Request $request)
+    {
+        $request->validate([
+            'penanda_tangan' => 'required|string',
+            'ttd_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:1024',
+            'nama_pimpinan' => 'required|string',
+        ]);
+
+        $imageName = 'ttd' . '_' . $request->nama_pimpinan . '.' . $request->ttd_image->extension();
+
+        // Simpan file ke direktori public/storage/ttd
+        $request->ttd_image->storeAs('public/ttd', $imageName);
+
+        $ttd = Ttd::create(
+            [
+                'penanda_tangan' => $request->input('penanda_tangan'),
+                'ttd_image' => $imageName,
+                'nama_pimpinan' => $request->input('nama_pimpinan'),
+            ]
+        );
+
+        $ttd->save();
+        return redirect()->back()->with('success', 'Tanda Tangan dan Nama Pimpinan pada Semua Surat Tugas berhasil diubah.');
     }
 }
