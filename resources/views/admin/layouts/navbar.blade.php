@@ -49,9 +49,7 @@
                                     </div>
                                     <div class="flex-grow-1">
                                         <a href="
-                                         @if($notification->data['jenis_surat'] === 'Surat Tugas')
-                                         {{ route('listdata.surattugas') }}
-                                         @elseif($notification->data['jenis_surat'] === 'Surat Izin Penelitian')
+                                         @if($notification->data['jenis_surat'] === 'Surat Izin Penelitian')
                                          {{ route('listdata.suratizinpenelitian') }}
                                          @else
                                          {{ route('home.admin') }}

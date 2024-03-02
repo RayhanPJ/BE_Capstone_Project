@@ -143,4 +143,13 @@ class UserController extends Controller
 
         return redirect()->back()->with('success', 'Password berhasil diubah.');
     }
+
+    public function markAsReadApprove($id)
+    {
+        if ($id) {
+            auth()->user()->notifications->where('id', $id)->markAsRead();
+        }
+
+        return redirect()->back();
+    }
 }

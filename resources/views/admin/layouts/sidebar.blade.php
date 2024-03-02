@@ -38,17 +38,11 @@
                         <div data-i18n="List Data">List Data</div>
                     </a>
                     <ul class="menu-sub">
-                        <li class="menu-item {{ request()->is('admin/listdata/surattugas') ? 'active' : '' }}">
-                            <a href="{{ route('listdata.surattugas') }}" class="menu-link">
-                                <div data-i18n="Surat Tugas">Surat Tugas</div>
-                            </a>
-                        </li>
                         <li class="menu-item {{ request()->is('admin/listdata/suratizinpenelitian') ? 'active' : '' }}">
                             <a href="{{ route('listdata.suratizinpenelitian') }}" class="menu-link">
                                 <div data-i18n="Surat Izin Penelitian">Surat Izin Penelitian</div>
                             </a>
                         </li>
-                        <!-- Add more sub-items as needed -->
                     </ul>
                 </li>
 

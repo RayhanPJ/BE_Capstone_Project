@@ -11,11 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ttd', function (Blueprint $table) {
+        Schema::create('ttd_surat_izin_penelitian', function (Blueprint $table) {
             $table->id();
             $table->string('nama_pimpinan');
+            $table->enum('prodi_pimpinan', ['Informatika', 'Sistem Informasi']);
             $table->string('penanda_tangan');
             $table->string('ttd_image');
+            $table->string('nomor_induk');
             $table->timestamps();
         });
     }
@@ -25,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('ttd');
+        Schema::dropIfExists('ttd_surat_izin_penelitian');
     }
 };

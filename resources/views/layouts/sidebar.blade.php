@@ -33,17 +33,11 @@
                         <div data-i18n="Riwayat Surat">Riwayat Surat</div>
                     </a>
                     <ul class="menu-sub">
-                        <li class="menu-item {{ request()->routeIs('riwayat-surat-tugas') ? 'active' : '' }}">
-                            <a href="{{ route('riwayat-surat-tugas') }}" class="menu-link">
-                                <div data-i18n="Surat Tugas">Surat Tugas</div>
-                            </a>
-                        </li>
                         <li class="menu-item {{ request()->routeIs('riwayat-surat-izin-penelitian') ? 'active' : '' }}">
                             <a href="{{ route('riwayat-surat-izin-penelitian') }}" class="menu-link">
                                 <div data-i18n="Surat Izin Penelitian">Surat Izin Penelitian</div>
                             </a>
                         </li>
-                        <!-- Add more sub-items as needed -->
                     </ul>
                 </li>
             </ul>

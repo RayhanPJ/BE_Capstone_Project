@@ -19,21 +19,28 @@
             margin-right: auto;
         }
 
-        .img-stempel {
-            position: absolute;
-            left: 847px;
-            bottom: -72px;
-        }
-
         .left {
             width: 1px;
             position: relative;
             right: 100px;
-            top: -50px;
+            top: -60px;
             float: left;
         }
 
+        .img-blu {
+            position: relative;
+            left: 125px;
+            bottom: -100px;
+            float: left;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+        }
+
     </style>
+
 </head>
 
 <body>
@@ -71,33 +78,33 @@
 
         <br>
 
-        <table border="0" width="580">
+        <table border="0" width="500">
             <tr>
                 <td>
                     <font size="3">Nomor</font>
                 </td>
 
-                <td width="572">: <font size="3">{{ $data->nomor_surat}}</font>
+                <td width="400">: <font size="3">{{ $data->nomor_surat}}</font>
                 </td>
             </tr>
             <tr>
                 <td>
                     <font size="3">Lampiran</font>
                 </td>
-                <td width="572">: -</td>
+                <td width="400">: -</td>
             </tr>
             <tr>
                 <td>
                     <font size="3">Perihal</font>
                 </td>
-                <td width="572">: <font size="3">Permohonan Izin Penelitian</font>
+                <td width="400">: <font size="3">Permohonan Izin Penelitian</font>
                 </td>
             </tr>
         </table>
 
-
         <br>
-        <table border="0" width="580">
+
+        <table border="0" width="500">
             <tr>
                 <td>
                     <font size="3">Yth. <br> {{ $data['tujuan_instansi'] }} <br> di <br> {{ $data['domisili_instansi'] }}
@@ -105,14 +112,14 @@
                 </td>
             </tr>
         </table>
+
         <br>
 
-        <table border="0" width="580">
+        <table border="0" width="500">
             <tr>
                 <td>
                     <font size="3">Dipermaklumkan dengan hormat, sehubungan dengan Penelitian Skripsi yang harus
-                        dilaksanakan <br> di luar kampus Fakultas Ilmu Komputer Universitas Singaperbangsa
-                        Karawang, <br> kami mohon bagi mahasiswa di bawah ini :</font>
+                        dilaksanakan <br> di luar kampus Fakultas Ilmu Komputer Universitas Singaperbangsa Karawang, kami mohon bagi mahasiswa di bawah ini :</font>
                 </td>
             </tr>
         </table>
@@ -164,20 +171,20 @@
 
 
         <br>
-        <table border="0" width="580">
+        <table border="0" width="500">
             <tr>
                 <td>
                     <font size="3">Mahasiswa tersebut bermaksud melakukan penelitian dan Permohonan Data yang
-                        berkaitan dengan kegiatan/ <br> pembelajaran di Instansi/Perusahaan yang Bapak/Ibu Pimpin selama
+                        berkaitan dengan kegiatan/pembelajaran di Instansi/Perusahaan yang Bapak/Ibu Pimpin selama
                         6
-                        (Enam) bulan terhitung dari tanggal <br> pembuatan surat ini.
+                        (Enam) bulan terhitung dari tanggal pembuatan surat ini.
                     </font>
                 </td>
             </tr>
         </table>
 
         <br>
-        <table border="0" width="580">
+        <table border="0" width="500">
             <tr>
                 <td>
                     <font size="3">Demikian disampaikan, atas perhatian dan perkenannya kami ucapkan terima kasih.
@@ -189,26 +196,33 @@
 
         <br>
         <br>
-        <table border="0" width="580">
+        <table border="0" width="500">
             <tr>
                 <td width="340"></td>
                 <td align="left">
-                    <font size="3">A.n Dekan,</font>
-                    <br>
-                    <font size="3">Koor. Program Studi</font>
+                    <font size="3">{{ $ttdPimpinanDataSI[0]->penanda_tangan ?? $defaultTtdData['penanda_tangan'] ?? '' }}</font>
                     <br><br>
                     <div class="container">
                         <div class="left">
                             <img src="{{ public_path('/template/assets/img/surat/stempel.png') }}" width="180" alt="">
                         </div>
                         <div>
-                            <img src="{{ public_path('/template/assets/img/surat/ttd.png') }}" width="160" alt="">
+                            @if (isset($ttdPimpinanDataSI) && $ttdPimpinanDataSI->isNotEmpty() && isset($ttdPimpinanDataSI[0]->ttd_image))
+                            <img src="{{ public_path('storage/ttd/' . $ttdPimpinanDataSI[0]->ttd_image) }}" width="160" alt="">
+                            @else
+                            <img src="{{ public_path('storage/ttd/ttd_azhari.png') }}" width="160" alt="">
+                            @endif
                         </div>
                     </div>
                     <br>
-                    <font size="3">Azhari Ali Ridha, S.Kom., M.M.S.I</font>
+                    <font size="3">{{ $ttdPimpinanDataSI[0]->nama_pimpinan ?? $defaultTtdData['nama_pimpinan'] ?? '' }}</font>
+                    {{-- <font size="3">Azhari Ali Ridha, S.Kom., M.M.S.I</font> --}}
                     <br>
                     <font size="3">NIDN : 003048503</font>
+                    <br>
+                    <br>
+                    <br>
+                    <img class='img-blu' src="{{ public_path('storage/ttd/blu.png') }}" width="60" height="60" alt="">
                 </td>
             </tr>
         </table>

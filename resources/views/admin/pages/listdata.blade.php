@@ -1,7 +1,7 @@
 @extends('admin.template');
 
 @section('pageTitle')
-Surat Tugas
+List Data Surat
 @endsection
 
 @section('mainContentAdmin')
@@ -46,9 +46,7 @@ Surat Tugas
                         <td>{{ $d->prodi }}</td>
                         <td>
                             @php
-                            if ($d->jenis_surat == 'Surat Tugas') {
-                            $folder = 'surat-tugas';
-                            } elseif ($d->jenis_surat == 'Surat Izin Penelitian') {
+                            if ($d->jenis_surat == 'Surat Izin Penelitian') {
                             $folder = 'surat-izin-penelitian';
                             } else {
                             $folder = '';
@@ -58,15 +56,7 @@ Surat Tugas
                                 <i class="fa-solid fa-eye"></i>
                             </a>
 
-                            @if($d instanceof App\Models\SuratTugas)
-
-                            @php
-                            $setujuiRoute = "/setujui-surat-tugas/{$d->id}";
-                            $tidakSetujuRoute = "/tidaksetuju-surat-tugas/{$d->id}";
-                            $cancelRoute = "/cancelsurattugas/{$d->id}";
-                            @endphp
-
-                            @elseif($d instanceof App\Models\SuratIzinPenelitian)
+                            @if($d instanceof App\Models\SuratIzinPenelitian)
                             {{-- Aksi dan tautan untuk Surat Izin Penelitian --}}
 
                             @php

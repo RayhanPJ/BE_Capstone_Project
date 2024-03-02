@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use App\Events\UserDataInput;
 use App\Models\SuratIzinPenelitian;
 use Illuminate\Support\Facades\Hash;
+use App\Models\TtdSuratIzinPenelitian;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Response;
 use Yajra\DataTables\Facades\DataTables;
@@ -135,28 +136,33 @@ class AdminController extends Controller
         ]);
     }
 
-    public function changeTtd(Request $request)
+    public function changeTtdSuratIzinPenelitian(Request $request)
     {
         $request->validate([
             'penanda_tangan' => 'required|string',
             'ttd_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:1024',
             'nama_pimpinan' => 'required|string',
+            'prodi_pimpinan' => 'required|string',
+            'nomor_induk' => 'required|string',
         ]);
 
         $imageName = 'ttd' . '_' . $request->nama_pimpinan . '.' . $request->ttd_image->extension();
 
-        // Simpan file ke direktori public/storage/ttd
         $request->ttd_image->storeAs('public/ttd', $imageName);
 
-        $ttd = Ttd::create(
+        // Sesuaikan kondisi where berdasarkan prodi_pimpinan
+        $ttd = TtdSuratIzinPenelitian::where('prodi_pimpinan', $request->prodi_pimpinan)->first();
+
+        TtdSuratIzinPenelitian::updateOrCreate(
+            ['prodi_pimpinan' => $request->prodi_pimpinan],
             [
                 'penanda_tangan' => $request->input('penanda_tangan'),
                 'ttd_image' => $imageName,
                 'nama_pimpinan' => $request->input('nama_pimpinan'),
+                'nomor_induk' => $request->input('nomor_induk'),
             ]
         );
 
-        $ttd->save();
-        return redirect()->back()->with('success', 'Tanda Tangan dan Nama Pimpinan pada Semua Surat Tugas berhasil diubah.');
+        return redirect()->back()->with('success', 'Tanda Tangan dan Nama Pimpinan pada Surat berhasil diubah.');
     }
 }
