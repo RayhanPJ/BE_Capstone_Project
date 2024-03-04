@@ -39,9 +39,9 @@ class RegistController extends Controller
         $extractedNpm = $matches[1] ?? null;
 
         // Periksa apakah npm yang diambil sesuai dengan npm yang diinput
-        if ($extractedNpm !== $npm) {
-            return redirect()->back()->withInput()->with('error', 'Bagian depan email harus sesuai dengan NPM.');
-        }
+        // if ($extractedNpm !== $npm) {
+        //     return redirect()->back()->withInput()->with('error', 'Bagian depan email harus sesuai dengan NPM.');
+        // }
 
         // Periksa apakah terdapat karakter HTML khusus dalam input
         $containsHtmlSpecialChar = $this->containsHtmlSpecialChar(request()->all());

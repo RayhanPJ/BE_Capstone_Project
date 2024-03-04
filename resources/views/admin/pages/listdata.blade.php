@@ -12,7 +12,7 @@ List Data Surat
         <div class="col-md-5">
             <div class="alert alert-info position-relative" role="alert">
                 <h4 class="alert-heading">Informasi!</h4>
-                <p>Jangan lupa ketika klik tombol preview (icon mata warna biru), matikan idm agar dapat preview surat.</p>
+                <p>Jangan lupa ketika klik tombol preview (icon mata warna biru), matikan internet download manager (idm) agar dapat preview surat.</p>
                 <button type="button" class="btn-close position-absolute top-0 end-0" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         </div>

@@ -155,14 +155,14 @@ class SuratIzinPenelitianController extends Controller
 
         if ($data->prodi === 'Informatika') {
             if ($ttdPimpinanDataIF->isEmpty()) {
-                $defaultTtdData = ['penanda_tangan' => 'Koordinator Prodi,', 'nama_pimpinan' => 'E.Haodudin', 'ttd_image' => 'ttd.png'];
+                $defaultTtdData = ['penanda_tangan' => 'Koordinator Program Studi,', 'nama_pimpinan' => 'E.Haodudin Nurkifli, S.T., M.Cs., Phd.', 'ttd_image' => 'ttd.png'];
                 $pdf = PDF::loadView('template_surat.surat_izin_penelitian_if', compact('data', 'defaultTtdData'));
             } else {
                 $pdf = PDF::loadView('template_surat.surat_izin_penelitian_if', compact('data', 'ttdPimpinanDataIF'));
             }
         } elseif ($data->prodi === 'Sistem Informasi') {
             if ($ttdPimpinanDataSI->isEmpty()) {
-                $defaultTtdData = ['penanda_tangan' => 'Koordinator Prodi,', 'nama_pimpinan' => 'Azhari', 'ttd_image' => 'ttd.png'];
+                $defaultTtdData = ['penanda_tangan' => 'Koordinator Program Studi,', 'nama_pimpinan' => 'Azhari', 'ttd_image' => 'ttd.png'];
                 $pdf = PDF::loadView('template_surat.surat_izin_penelitian_si', compact('data', 'defaultTtdData'));
             } else {
                 $pdf = PDF::loadView('template_surat.surat_izin_penelitian_si', compact('data', 'ttdPimpinanDataSI'));

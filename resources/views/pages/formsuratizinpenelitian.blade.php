@@ -59,7 +59,7 @@ Surat Izin Penelitian
                 <div class="mb-3">
                     <label class="form-label" for="basic-icon-default-company">Semester</label>
                     <div class="input-group input-group-merge">
-                        <span id="basic-icon-default-company2" class="input-group-text"></span>
+                        <span id="basic-icon-default-company2" class="input-group-text"><i class="ti ti-numbers"></i></span>
                         <input type="number" id="basic-icon-default-company" name="semester" class="form-control numeric-input" value="{{ $data->mahasiswa->semester }}" />
                     </div>
                 </div>

@@ -60,9 +60,9 @@ Home
             </div>
             <div class="col-lg-4 mb-3">
                 <div class="card">
-                    <img class="card-img-top" src="{{ asset('/template/assets/img/backgrounds/surat-keterangan-cuti.png') }}" alt="Surat Keterangan Cuti" height="250" />
+                    <img class="card-img-top" src="{{ asset('/template/assets/img/backgrounds/surat-pengajuan-cuti.png') }}" alt="Surat Keterangan Cuti" height="250" />
                     <div class="card-body">
-                        <h5 class="card-title">Surat Keterangan Cuti</h5>
+                        <h5 class="card-title">Surat Pengajuan Cuti</h5>
                         <p class="card-text">
                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque tenetur delectus architecto.
                         </p>

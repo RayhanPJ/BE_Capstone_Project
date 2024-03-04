@@ -22,15 +22,15 @@
         .left {
             width: 1px;
             position: relative;
-            right: 100px;
+            right: 50px;
             top: -60px;
             float: left;
         }
 
         .img-blu {
             position: relative;
-            left: 125px;
-            bottom: -100px;
+            left: 170px;
+            bottom: -190px;
             float: left;
         }
 
@@ -39,8 +39,11 @@
             justify-content: space-between;
         }
 
-    </style>
+        .table2 {
+            margin-top: -30px;
+        }
 
+    </style>
 </head>
 
 <body>
@@ -64,21 +67,17 @@
                     <hr width="500">
                 </td>
             </tr>
-        </table>
-
-        <br>
-
-        <table border="0" width="500">
             <tr>
-                <td align="right">
+                <td></td>
+                <td style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: right;">
                     <font size="3">Karawang, {{ \Carbon\Carbon::parse($data['created_at'])->locale('id_ID')->isoFormat('D MMMM Y') }}</font>
                 </td>
             </tr>
         </table>
-
+        <br>
         <br>
 
-        <table border="0" width="500">
+        <table border="0" width="500" class="table2">
             <tr>
                 <td>
                     <font size="3">Nomor</font>
@@ -193,32 +192,35 @@
             </tr>
         </table>
 
-
         <br>
         <br>
-        <table border="0" width="500">
+        <br>
+        <table border="0" width="600">
             <tr>
                 <td width="340"></td>
                 <td align="left">
                     <font size="3">{{ $ttdPimpinanDataSI[0]->penanda_tangan ?? $defaultTtdData['penanda_tangan'] ?? '' }}</font>
-                    <br><br>
+                    <br>
                     <div class="container">
+                        <br>
+                        <br>
                         <div class="left">
-                            <img src="{{ public_path('/template/assets/img/surat/stempel.png') }}" width="180" alt="">
-                        </div>
-                        <div>
                             @if (isset($ttdPimpinanDataSI) && $ttdPimpinanDataSI->isNotEmpty() && isset($ttdPimpinanDataSI[0]->ttd_image))
                             <img src="{{ public_path('storage/ttd/' . $ttdPimpinanDataSI[0]->ttd_image) }}" width="160" alt="">
                             @else
-                            <img src="{{ public_path('storage/ttd/ttd_azhari.png') }}" width="160" alt="">
+                            <img src="{{ public_path('storage/ttd/ttd_stempel.png') }}" width="160" alt="">
                             @endif
                         </div>
                     </div>
                     <br>
+                    <br>
+                    <br>
+
                     <font size="3">{{ $ttdPimpinanDataSI[0]->nama_pimpinan ?? $defaultTtdData['nama_pimpinan'] ?? '' }}</font>
                     {{-- <font size="3">Azhari Ali Ridha, S.Kom., M.M.S.I</font> --}}
                     <br>
-                    <font size="3">NIDN : 003048503</font>
+                    <font size="3">{{ $ttdPimpinanDataIF[0]->nomor_induk ?? $defaultTtdData['nomor_induk'] ?? 'NIDN : 003048503' }}</font>
+
                     <br>
                     <br>
                     <br>
