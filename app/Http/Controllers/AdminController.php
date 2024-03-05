@@ -148,7 +148,7 @@ class AdminController extends Controller
 
         $imageName = 'ttd' . '_' . $request->nama_pimpinan . '.' . $request->ttd_image->extension();
 
-        $request->ttd_image->storeAs('public/ttd', $imageName);
+        $request->ttd_image->storeAs('public/ttd/terbaru', $imageName);
 
         // Sesuaikan kondisi where berdasarkan prodi_pimpinan
         $ttd = TtdSuratIzinPenelitian::where('prodi_pimpinan', $request->prodi_pimpinan)->first();

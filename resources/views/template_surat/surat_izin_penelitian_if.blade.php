@@ -29,8 +29,8 @@
 
         .img-blu {
             position: relative;
-            left: 170px;
-            bottom: -190px;
+            left: 180px;
+            bottom: -150px;
             float: left;
         }
 
@@ -41,6 +41,10 @@
 
         .table2 {
             margin-top: -30px;
+        }
+
+        textarea {
+            white-space: pre-line;
         }
 
     </style>
@@ -104,7 +108,7 @@
         <table border="0" width="500">
             <tr>
                 <td>
-                    <font size="3">Yth. <br> {{ $data['tujuan_instansi'] }} <br> di <br> {{ $data['domisili_instansi'] }}
+                    <font size="3">Yth. <br> {{ $data['tujuan_surat'] }} <br> {{ $data['tujuan_instansi'] }} <br> di <br> {{ $data['domisili_instansi'] }}
                     </font>
                 </td>
             </tr>
@@ -200,17 +204,21 @@
             <tr>
                 <td width="340"></td>
                 <td align="left">
-                    {{-- <font size="3">A.n Dekan, <br> Koor. Program Studi </font> --}}
-                    <font size="3">{{ $ttdPimpinanDataIF[0]->penanda_tangan ?? $defaultTtdData['penanda_tangan'] ?? '' }}</font>
+                    {{--A.n Dekan, <br> Koor. Program Studi--}}
+
+                    <font size="3">Karawang, {{ \Carbon\Carbon::parse($data['created_at'])->locale('id_ID')->isoFormat('D MMMM Y') }}</font>
                     <br>
+                    <font size="3">{!! nl2br($ttdPimpinanDataIF[0]->penanda_tangan ?? $defaultTtdData['penanda_tangan'] ?? '') !!}</font>
+                    <br>
+
                     <div class="container">
                         <br>
                         <br>
                         <div class="left">
                             @if (isset($ttdPimpinanDataIF) && $ttdPimpinanDataIF->isNotEmpty() && isset($ttdPimpinanDataIF[0]->ttd_image))
-                            <img src="{{ public_path('storage/ttd/' . $ttdPimpinanDataIF[0]->ttd_image) }}" width="160" alt="">
+                            <img src="{{ public_path('storage/ttd/terbaru/' . $ttdPimpinanDataIF[0]->ttd_image) }}" width="180" alt="">
                             @else
-                            <img src="{{ public_path('storage/ttd/ttd_stempel.png') }}" width="180" alt="">
+                            <img src="{{ public_path('storage/ttd/'. $defaultTtdData['ttd_image']) }}" width="180" alt="">
                             @endif
                         </div>
                     </div>
@@ -222,7 +230,7 @@
                     {{-- <font size="3">E.Haodudin Nurkifli, S.T., M.Cs., Phd.</font> --}}
                     <br>
                     {{-- <font size="3">NIDN : 003048503</font> --}}
-                    <font size="3">{{ $ttdPimpinanDataIF[0]->nomor_induk ?? $defaultTtdData['nomor_induk'] ?? 'NIDN : 003048503' }}</font>
+                    <font size="3">{{ $ttdPimpinanDataIF[0]->nomor_induk ?? $defaultTtdData['nomor_induk'] ?? '' }}</font>
 
                     <br>
                     <br>

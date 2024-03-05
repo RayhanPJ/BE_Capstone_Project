@@ -155,14 +155,25 @@ class SuratIzinPenelitianController extends Controller
 
         if ($data->prodi === 'Informatika') {
             if ($ttdPimpinanDataIF->isEmpty()) {
-                $defaultTtdData = ['penanda_tangan' => 'Koordinator Program Studi,', 'nama_pimpinan' => 'E.Haodudin Nurkifli, S.T., M.Cs., Phd.', 'ttd_image' => 'ttd.png'];
-                $pdf = PDF::loadView('template_surat.surat_keterangan_aktif_kuliah_ortu_pns', compact('data', 'defaultTtdData'));
+                $defaultTtdData =
+                    [
+                        'penanda_tangan' => 'a.n Dekan Koord. Program Studi',
+                        'nama_pimpinan' => 'E. Haodudin Nurkifli, M.Cs., Ph.D',
+                        'ttd_image' => 'ttd_if.png',
+                        'nomor_induk' => 'NIP. 198504032021211003'
+                    ];
+                $pdf = PDF::loadView('template_surat.surat_izin_penelitian_if', compact('data', 'defaultTtdData'));
             } else {
-                $pdf = PDF::loadView('template_surat.surat_keterangan_aktif_kuliah_ortu_pns', compact('data', 'ttdPimpinanDataIF'));
+                $pdf = PDF::loadView('template_surat.surat_izin_penelitian_if', compact('data', 'ttdPimpinanDataIF'));
             }
         } elseif ($data->prodi === 'Sistem Informasi') {
             if ($ttdPimpinanDataSI->isEmpty()) {
-                $defaultTtdData = ['penanda_tangan' => 'Koordinator Program Studi,', 'nama_pimpinan' => 'Azhari', 'ttd_image' => 'ttd.png'];
+                $defaultTtdData = [
+                    'penanda_tangan' => 'A.n Dekan, Koor. Program Studi,',
+                    'nama_pimpinan' => 'Azhari Ali Ridha, S.Kom., M.M.S.I.', 
+                    'ttd_image' => 'ttd_si.png', 
+                    'nomor_induk' => 'NIDN. 0415098003'
+                ];
                 $pdf = PDF::loadView('template_surat.surat_izin_penelitian_si', compact('data', 'defaultTtdData'));
             } else {
                 $pdf = PDF::loadView('template_surat.surat_izin_penelitian_si', compact('data', 'ttdPimpinanDataSI'));
