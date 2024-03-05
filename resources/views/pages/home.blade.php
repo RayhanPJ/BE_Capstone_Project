@@ -40,7 +40,7 @@ Home
                     <div class="card-body">
                         <h5 class="card-title">Surat Keterangan Aktif Kuliah (Orang Tua PNS)</h5>
                         <p class="card-text">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque tenetur delectus architecto.
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque tenetur delectus.
                         </p>
                         <a href="{{ route('suratizinpenelitian.create', ['id' => auth()->id()]) }}" class="btn btn-secondary">Buat Surat</a>
                     </div>

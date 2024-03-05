@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>template surat</title>
+    <title>Surat Bebas Pustaka</title>
     <style>
         table tr td {
             font-size: 13px;
@@ -17,20 +17,21 @@
         table {
             margin-left: auto;
             margin-right: auto;
+            margin-top: -10px;
         }
 
         .left {
             width: 1px;
             position: relative;
-            right: 100px;
+            right: 50px;
             top: -60px;
             float: left;
         }
 
         .img-blu {
             position: relative;
-            left: 125px;
-            bottom: -100px;
+            left: 170px;
+            bottom: -390px;
             float: left;
         }
 
@@ -83,14 +84,16 @@
                 <td>
                     <font size="3">Nomor</font>
                 </td>
-
-                <td width="400">: <font size="3">{{ $data->nomor_surat}}</font>
+                <td>:</td>
+                <td width="400">
+                    <font size="3">{{ $data->nomor_surat}}</font>
                 </td>
             </tr>
             <tr>
                 <td>
                     <font size="3">Perihal</font>
                 </td>
+                <td>:</td>
                 <td width="400">: <font size="3">Permohonan Izin Penelitian</font>
                 </td>
             </tr>
@@ -123,35 +126,39 @@
 
         <table border="0" width="500">
             <tr>
-                <td>
+                <td width="170">
                     <font size="3">Nama</font>
                 </td>
+                <td>:</td>
                 <td>
-                    <font size="3">: {{ $data['nama_mhs'] }}</font>
+                    <font size="3"> {{ $data['nama_mhs'] }}</font>
                 </td>
             </tr>
             <tr>
                 <td>
                     <font size="3">NPM</font>
                 </td>
+                <td>:</td>
                 <td>
-                    <font size="3">: {{ $data['npm'] }}</font>
+                    <font size="3"> {{ $data['npm'] }}</font>
                 </td>
             </tr>
             <tr>
                 <td>
                     <font size="3">Program Studi</font>
                 </td>
+                <td>:</td>
                 <td>
-                    <font size="3">: S1 - {{ $data['prodi'] }}</font>
+                    <font size="3"> S1 - {{ $data['prodi'] }}</font>
                 </td>
             </tr>
             <tr>
                 <td>
                     <font size="3">Jenjang Pendidikan</font>
                 </td>
+                <td>:</td>
                 <td>
-                    <font size="3">: Strata (S-1)</font>
+                    <font size="3"> Strata (S-1)</font>
                 </td>
             </tr>
         </table>
@@ -169,34 +176,35 @@
         <br>
         <br>
         <br>
-        <table border="0" width="500">
+        <table border="0" width="600">
             <tr>
                 <td width="340"></td>
                 <td align="left">
                     {{-- <font size="3">A.n Dekan, <br> Koor. Program Studi </font> --}}
                     <font size="3">
                         {{ $ttdPimpinanDataIF[0]->penanda_tangan ?? $defaultTtdData['penanda_tangan'] ?? '' }}</font>
-                    <br><br>
+                    <br>
                     <div class="container">
+                        <br>
+                        <br>
                         <div class="left">
-                            <img src="{{ public_path('/template/assets/img/surat/stempel.png') }}" width="180" alt="">
-                        </div>
-                        <div>
-                            @if (isset($ttdPimpinanDataIF) && $ttdPimpinanDataIF->isNotEmpty() &&
-                            isset($ttdPimpinanDataIF[0]->ttd_image))
+                            @if (isset($ttdPimpinanDataIF) && $ttdPimpinanDataIF->isNotEmpty() && isset($ttdPimpinanDataIF[0]->ttd_image))
                             <img src="{{ public_path('storage/ttd/' . $ttdPimpinanDataIF[0]->ttd_image) }}" width="160" alt="">
                             @else
-                            <img src="{{ public_path('storage/ttd/ttd_hao.png') }}" width="160" alt="">
+                            <img src="{{ public_path('storage/ttd/ttd_stempel.png') }}" width="180" alt="">
                             @endif
                         </div>
                     </div>
                     <br>
                     <br>
-                    <font size="3">{{ $ttdPimpinanDataIF[0]->nama_pimpinan ?? $defaultTtdData['nama_pimpinan'] ?? '' }}
-                    </font>
+                    <br>
+
+                    <font size="3">{{ $ttdPimpinanDataIF[0]->nama_pimpinan ?? $defaultTtdData['nama_pimpinan'] ?? '' }}</font>
                     {{-- <font size="3">E.Haodudin Nurkifli, S.T., M.Cs., Phd.</font> --}}
                     <br>
-                    <font size="3">NIDN : 003048503</font>
+                    {{-- <font size="3">NIDN : 003048503</font> --}}
+                    <font size="3">{{ $ttdPimpinanDataIF[0]->nomor_induk ?? $defaultTtdData['nomor_induk'] ?? 'NIDN : 003048503' }}</font>
+
                     <br>
                     <br>
                     <br>

@@ -82,7 +82,6 @@
                 <td>
                     <font size="3">Nomor</font>
                 </td>
-
                 <td width="400">: <font size="3">{{ $data->nomor_surat}}</font>
                 </td>
             </tr>
@@ -129,40 +128,45 @@
                 <td>
                     <font size="3">Nama</font>
                 </td>
+                <td>:</td>
                 <td>
-                    <font size="3">: {{ $data['nama_mhs'] }}</font>
+                    <font size="3">{{ $data['nama_mhs'] }}</font>
                 </td>
             </tr>
             <tr>
                 <td>
                     <font size="3">NPM</font>
                 </td>
+                <td>:</td>
                 <td>
-                    <font size="3">: {{ $data['npm'] }}</font>
+                    <font size="3"> {{ $data['npm'] }}</font>
                 </td>
             </tr>
             <tr>
                 <td>
                     <font size="3">Program Studi</font>
                 </td>
+                <td>:</td>
                 <td>
-                    <font size="3">: S1 - {{ $data['prodi'] }}</font>
+                    <font size="3"> S1 - {{ $data['prodi'] }}</font>
                 </td>
             </tr>
             <tr>
                 <td>
                     <font size="3">Jenjang Pendidikan</font>
                 </td>
+                <td>:</td>
                 <td>
-                    <font size="3">: Sarjana (S1)</font>
+                    <font size="3"> Sarjana (S1)</font>
                 </td>
             </tr>
             <tr>
                 <td>
                     <font size="3">Judul Penelitian</font>
                 </td>
+                <td>:</td>
                 <td>
-                    <font size="3">: {{ $data['judul_penelitian'] }}</font>
+                    <font size="3"> {{ $data['judul_penelitian'] }}</font>
                 </td>
             </tr>
         </table>
