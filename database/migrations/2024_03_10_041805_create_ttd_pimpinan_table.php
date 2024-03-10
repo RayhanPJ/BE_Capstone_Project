@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ttd_surat_izin_penelitian', function (Blueprint $table) {
+        Schema::create('ttd_pimpinan', function (Blueprint $table) {
             $table->id();
             $table->string('nama_pimpinan');
             $table->enum('prodi_pimpinan', ['Informatika', 'Sistem Informasi']);
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('ttd_surat_izin_penelitian');
+        Schema::dropIfExists('ttd_pimpinan');
     }
 };

@@ -11,19 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('surat_izin_penelitian', function (Blueprint $table) {
-            $table->id();
+        Schema::create('surat_keterangan_aktif', function (Blueprint $table) {
+             $table->id();
             $table->string('nomor_surat')->nullable();
             $table->string('nama_mhs');
             $table->bigInteger('npm');
-            $table->integer('semester');
+            $table->string('semester');
             $table->enum('prodi',['Informatika', 'Sistem Informasi']);
             $table->enum('lingkup',['Internal', 'Eksternal']);
-            $table->string('tujuan_surat');
-            $table->string('tujuan_instansi');
-            $table->string('domisili_instansi');
-            $table->string('judul_penelitian');
-            $table->string('jenis_surat')->default('Surat Izin Penelitian');
+            $table->string('tgl_lahir');
+            $table->text('alamat');
+            $table->string('jenis_surat')->default('Surat Keterangan Aktif Kuliah');
             $table->string('file_path')->nullable();
             $table->string('keterangan')->nullable()->default(null);
             $table->string('status')->nullable()->default(null);
@@ -36,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('surat_izin_penelitian');
+        Schema::dropIfExists('surat_keterangan_aktif');
     }
 };

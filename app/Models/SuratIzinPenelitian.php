@@ -16,9 +16,4 @@ class SuratIzinPenelitian extends Model
     {
         return $this->belongsTo(User::class);
     }
-
-// public function ttd_surat_izin_penelitian()
-// {
-//     return $this->belongsTo(TtdSuratIzinPenelitian::class, 'id_ttd');
-// }
 }

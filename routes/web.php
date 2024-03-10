@@ -8,8 +8,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegistController;
 use App\Http\Controllers\ForgotPWController;
 use App\Http\Controllers\SuratIzinPenelitianController;
-
-
+use App\Http\Controllers\SuratKeteranganAktifController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +39,9 @@ Route::middleware(['auth'])->group(function () {
     // pembuatan surat
     Route::get('/suratizinpenelitian/create/{id}', [SuratIzinPenelitianController::class, 'create'])->name('suratizinpenelitian.create');
     Route::post('/suratizinpenelitian', [SuratIzinPenelitianController::class, 'store'])->name('suratizinpenelitian.store');
+    Route::get('/suratketeranganaktif/create/{id}', [SuratKeteranganAktifController::class, 'create'])->name('suratketeranganaktif.create');
+    Route::post('/suratketeranganaktif', [SuratKeteranganAktifController::class, 'store'])->name('suratketeranganaktif.store');
+
 
     // riwayat surat
     Route::get('/riwayat-surat-izin-penelitian', [SuratIzinPenelitianController::class, 'riwayatSuratIzinPenelitian'])->name('riwayat-surat-izin-penelitian');
@@ -73,5 +75,5 @@ Route::middleware(['admin'])->group(function () {
     Route::post('/admin/profile/{id}', [AdminController::class, 'changePassword'])->name('change.password.admin');
    
     Route::get('/admin/upload-ttd/', [AdminController::class, 'formchangeTtd'])->name('form.change.ttd');
-    Route::post('/admin/upload-ttd/', [AdminController::class, 'changeTtdSuratIzinPenelitian'])->name('change.ttd.suratizinpenelitian');
+    Route::post('/admin/upload-ttd/', [AdminController::class, 'changeTtdPimpinan'])->name('change.ttdpimpinan');
 });

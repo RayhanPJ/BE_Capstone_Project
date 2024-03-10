@@ -80,7 +80,7 @@
             </tr>
             <tr>
                 <td>
-                    <font size="3">Nomor : 24/UN64.7/KM/2024</font>
+                    <font size="3">Nomor : </font>
                 </td>
             </tr>
         </table>
@@ -105,7 +105,7 @@
                 </td>
                 <td>:</td>
                 <td>
-                    <font size="3">Gilang Maulana</font>
+                    <font size="3">{{ $data['nama_mhs'] }}</font>
                 </td>
             </tr>
             <tr>
@@ -114,7 +114,7 @@
                 </td>
                 <td>:</td>
                 <td>
-                    <font size="3">2010631170075</font>
+                    <font size="3">{{ $data['npm'] }}</font>
                 </td>
             </tr>
             <tr>
@@ -123,7 +123,7 @@
                 </td>
                 <td>:</td>
                 <td>
-                    <font size="3">7 (Tujuh)</font>
+                    <font size="3">{{ $data['semester'] }}</font>
                 </td>
             </tr>
             <tr>
@@ -132,7 +132,7 @@
                 </td>
                 <td>:</td>
                 <td>
-                    <font size="3">Ilmu Komputer/S1 - Informatika</font>
+                    <font size="3">Ilmu Komputer/S1 - {{ $data['prodi'] }}</font>
                 </td>
             </tr>
             <tr>
@@ -141,7 +141,7 @@
                 </td>
                 <td>:</td>
                 <td>
-                    <font size="3">14 Mei 2002</font>
+                    <font size="3">{{ $data['tgl_lahir'] }}</font>
                 </td>
             </tr>
             <td>
@@ -149,8 +149,7 @@
             </td>
             <td>:</td>
             <td>
-                <font size="3">Kp.Kirewok RT/RW 001/001 Desa Cintawargi Kec.Tegalwaru
-                    Kab.Karawang</font>
+                <font size="3">{{$data['alamat']}}</font>
             </td>
         </table>
 
@@ -158,9 +157,9 @@
         <table border="0" width="500">
             <tr>
                 <td>
-                    <font size="3">Adalah benar mahasiswa Program Studi S1 - Informatika Fakultas Ilmu Komputer
+                    <font size="3">Adalah benar mahasiswa Program Studi S1 - {{ $data['prodi'] }} Fakultas Ilmu Komputer
                         Universitas Singaperbangsa Karawang, yang bersangkutan aktif mengikuti perkuliahan pada tahun
-                        akademik 2022/2023 duduk pada Semester VII (Tujuh).</font>
+                        akademik 2022/2023 duduk pada Semester {{ $data['semester'] }}.</font>
                 </td>
             </tr>
         </table>
@@ -184,34 +183,30 @@
             <tr>
                 <td width="340"></td>
                 <td align="left">
-                    <font size="3">Karawang, 04 Maret 2024 </font>
+                    <font size="3">Karawang, {{ \Carbon\Carbon::parse($data['created_at'])->locale('id_ID')->isoFormat('D MMMM Y') }} </font>
                     <br>
-                    <font size="3">
-                        {{ $ttdPimpinanDataIF[0]->penanda_tangan ?? $defaultTtdData['penanda_tangan'] ?? '' }}</font>
+                    <font size="3">{!! nl2br($ttdPimpinanDataSI[0]->penanda_tangan ?? $defaultTtdData['penanda_tangan'] ?? '') !!}</font>
                     <br>
                     <div class="container">
                         <br>
                         <br>
-                        <div class="left">
-                            @if (isset($ttdPimpinanDataIF) && $ttdPimpinanDataIF->isNotEmpty() &&
-                            isset($ttdPimpinanDataIF[0]->ttd_image))
-                            <img src="{{ public_path('storage/ttd/' . $ttdPimpinanDataIF[0]->ttd_image) }}" width="160" alt="">
-                            @else
-                            <img src="{{ public_path('storage/ttd/ttd_stempel.png') }}" width="180" alt="">
-                            @endif
-                        </div>
+                         <div class="left">
+                             @if (isset($ttdPimpinanDataSI) && $ttdPimpinanDataSI->isNotEmpty() && isset($ttdPimpinanDataSI[0]->ttd_image))
+                             <img src="{{ public_path('storage/ttd/terbaru/' . $ttdPimpinanDataSI[0]->ttd_image) }}" width="180" alt="">
+                             @else
+                             <img src="{{ public_path('storage/ttd/'. $defaultTtdData['ttd_image']) }}" width="180" alt="">
+                             @endif
+                         </div>
                     </div>
                     <br>
                     <br>
                     <br>
 
-                    <font size="3">{{ $ttdPimpinanDataIF[0]->nama_pimpinan ?? $defaultTtdData['nama_pimpinan'] ?? '' }}
+                    <font size="3">{{ $ttdPimpinanDataSI[0]->nama_pimpinan ?? $defaultTtdData['nama_pimpinan'] ?? '' }}
                     </font>
-                    {{-- <font size="3">E.Haodudin Nurkifli, S.T., M.Cs., Phd.</font> --}}
                     <br>
-                    {{-- <font size="3">NIDN : 003048503</font> --}}
                     <font size="3">
-                        {{ $ttdPimpinanDataIF[0]->nomor_induk ?? $defaultTtdData['nomor_induk'] ?? 'NIDN : 003048503' }}
+                        {{ $ttdPimpinanDataSI[0]->nomor_induk ?? $defaultTtdData['nomor_induk'] ?? '' }}
                     </font>
 
                     <br>

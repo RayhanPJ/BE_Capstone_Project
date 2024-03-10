@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Models\SuratIzinPenelitian;
-use App\Models\TtdSuratIzinPenelitian;
+use App\Models\TtdPimpinan;
 use App\Notifications\UserNotifcation;
 use App\Notifications\AdminNotification;
 
@@ -80,6 +80,58 @@ class SuratIzinPenelitianController extends Controller
         return redirect()->back()->with('success', 'Surat Izin Penelitian telah dibuat. Periksa menu Riwayat Surat untuk melihat file surat!');
     }
 
+    private function createPdf($data)
+    {
+        $ttdPimpinanDataIF = TtdPimpinan::where('prodi_pimpinan', 'Informatika')->get();
+        $ttdPimpinanDataSI = TtdPimpinan::where('prodi_pimpinan', 'Sistem Informasi')->get();
+
+        $pdf = null;
+
+        if ($data->prodi === 'Informatika') {
+            if ($ttdPimpinanDataIF->isEmpty()) {
+                $defaultTtdData =
+                    [
+                        'penanda_tangan' => 'a.n Dekan Koord. Program Studi',
+                        'nama_pimpinan' => 'E. Haodudin Nurkifli, M.Cs., Ph.D',
+                        'ttd_image' => 'ttd_if.png',
+                        'nomor_induk' => 'NIP. 198504032021211003'
+                    ];
+                $pdf = PDF::loadView('template_surat.surat_izin_penelitian_if', compact('data', 'defaultTtdData'));
+            } else {
+                $pdf = PDF::loadView('template_surat.surat_izin_penelitian_if', compact('data', 'ttdPimpinanDataIF'));
+            }
+        } elseif ($data->prodi === 'Sistem Informasi') {
+            if ($ttdPimpinanDataSI->isEmpty()) {
+                $defaultTtdData = [
+                    'penanda_tangan' => 'A.n Dekan, Koor. Program Studi,',
+                    'nama_pimpinan' => 'Azhari Ali Ridha, S.Kom., M.M.S.I.',
+                    'ttd_image' => 'ttd_si.png',
+                    'nomor_induk' => 'NIDN. 0415098003'
+                ];
+                $pdf = PDF::loadView('template_surat.surat_izin_penelitian_si', compact('data', 'defaultTtdData'));
+            } else {
+                $pdf = PDF::loadView('template_surat.surat_izin_penelitian_si', compact('data', 'ttdPimpinanDataSI'));
+            }
+        }
+
+        // Set paper size to F4
+        $pdf->setPaper('legal', 'portrait');
+
+        return $pdf;
+    }
+
+    private function updatePdfContent($SuratIzinPenelitian)
+    {
+        // Gantilah dengan path file PDF yang sesuai dengan struktur penyimpanan Anda
+        $outputPath = storage_path('app\\public\\surat-izin-penelitian\\' . $SuratIzinPenelitian->file_path);
+
+        // Gunakan dompdf untuk membuat PDF baru dengan informasi yang diperbarui
+        $pdf = $this->createPdf($SuratIzinPenelitian);
+
+        // Simpan PDF baru dengan konten yang diperbarui
+        $pdf->save($outputPath);
+    }
+
     public function setujuiSuratIzinPenelitian(Request $request, $id)
     {
         $SuratIzinPenelitian = SuratIzinPenelitian::findOrFail($id);
@@ -110,82 +162,7 @@ class SuratIzinPenelitianController extends Controller
 
         return redirect()->back()->with('success', 'Surat Izin Penelitian telah disetujui!');
     }
-
-    private function updatePdfContent($SuratIzinPenelitian)
-    {
-        // Gantilah dengan path file PDF yang sesuai dengan struktur penyimpanan Anda
-        $outputPath = storage_path('app\\public\\surat-izin-penelitian\\' . $SuratIzinPenelitian->file_path);
-
-        // Gunakan dompdf untuk membuat PDF baru dengan informasi yang diperbarui
-        $pdf = $this->createPdf($SuratIzinPenelitian);
-
-        // Simpan PDF baru dengan konten yang diperbarui
-        $pdf->save($outputPath);
-    }
-
-    // private function createPdf($data)
-    // {
-    //     $ttdPimpinanDataIF = TtdSuratIzinPenelitian::where('prodi_pimpinan', 'Informatika')->get();
-    //     $ttdPimpinanDataSI = TtdSuratIzinPenelitian::where('prodi_pimpinan', 'Sistem Informasi')->get();
-
-    //     if ($data->prodi === 'Informatika') {
-    //         if ($ttdPimpinanDataIF->isEmpty()) {
-
-    //             $defaultTtdData = ['penanda_tangan' => 'Koordinator Prodi,', 'nama_pimpinan' => 'E.Haodudin', 'ttd_image' => 'ttd.png'];
-    //             return PDF::loadView('template_surat.surat_izin_penelitian_if', compact('data', 'defaultTtdData'))->setPaper('F4', 'portrait');;
-    //         }
-    //         return PDF::loadView('template_surat.surat_izin_penelitian_if', compact('data', 'ttdPimpinanDataIF'))->setPaper('F4', 'portrait');;
-    //     } elseif ($data->prodi === 'Sistem Informasi') {
-    //         if ($ttdPimpinanDataSI->isEmpty()) {
-
-    //             $defaultTtdData = ['penanda_tangan' => 'Koordinator Prodi,', 'nama_pimpinan' => 'Azhari', 'ttd_image' => 'ttd.png'];
-    //             return PDF::loadView('template_surat.surat_izin_penelitian_si', compact('data', 'defaultTtdData'))->setPaper('F4', 'portrait');;
-    //         }
-
-    //         return PDF::loadView('template_surat.surat_izin_penelitian_si', compact('data', 'ttdPimpinanDataSI'))->setPaper('F4', 'portrait');;
-    //     }
-    // }
-
-    private function createPdf($data)
-    {
-        $ttdPimpinanDataIF = TtdSuratIzinPenelitian::where('prodi_pimpinan', 'Informatika')->get();
-        $ttdPimpinanDataSI = TtdSuratIzinPenelitian::where('prodi_pimpinan', 'Sistem Informasi')->get();
-
-        $pdf = null;
-
-        if ($data->prodi === 'Informatika') {
-            if ($ttdPimpinanDataIF->isEmpty()) {
-                $defaultTtdData =
-                    [
-                        'penanda_tangan' => 'a.n Dekan Koord. Program Studi',
-                        'nama_pimpinan' => 'E. Haodudin Nurkifli, M.Cs., Ph.D',
-                        'ttd_image' => 'ttd_if.png',
-                        'nomor_induk' => 'NIP. 198504032021211003'
-                    ];
-                $pdf = PDF::loadView('template_surat.surat_izin_penelitian_if', compact('data', 'defaultTtdData'));
-            } else {
-                $pdf = PDF::loadView('template_surat.surat_izin_penelitian_if', compact('data', 'ttdPimpinanDataIF'));
-            }
-        } elseif ($data->prodi === 'Sistem Informasi') {
-            if ($ttdPimpinanDataSI->isEmpty()) {
-                $defaultTtdData = [
-                    'penanda_tangan' => 'A.n Dekan, Koor. Program Studi,',
-                    'nama_pimpinan' => 'Azhari Ali Ridha, S.Kom., M.M.S.I.', 
-                    'ttd_image' => 'ttd_si.png', 
-                    'nomor_induk' => 'NIDN. 0415098003'
-                ];
-                $pdf = PDF::loadView('template_surat.surat_izin_penelitian_si', compact('data', 'defaultTtdData'));
-            } else {
-                $pdf = PDF::loadView('template_surat.surat_izin_penelitian_si', compact('data', 'ttdPimpinanDataSI'));
-            }
-        }
-
-        // Set paper size to F4
-        $pdf->setPaper('legal', 'portrait');
-
-        return $pdf;
-    }
-
+    
     public function tidaksetujuSuratIzinPenelitian(Request $request, $id)
     {
         $SuratIzinPenelitian = SuratIzinPenelitian::findOrFail($id);

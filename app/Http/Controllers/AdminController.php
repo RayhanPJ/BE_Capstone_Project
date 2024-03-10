@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use App\Events\UserDataInput;
 use App\Models\SuratIzinPenelitian;
 use Illuminate\Support\Facades\Hash;
-use App\Models\TtdSuratIzinPenelitian;
+use App\Models\TtdPimpinan;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Response;
 use Yajra\DataTables\Facades\DataTables;
@@ -136,7 +136,7 @@ class AdminController extends Controller
         ]);
     }
 
-    public function changeTtdSuratIzinPenelitian(Request $request)
+    public function changeTtdPimpinan(Request $request)
     {
         $request->validate([
             'penanda_tangan' => 'required|string',
@@ -151,9 +151,9 @@ class AdminController extends Controller
         $request->ttd_image->storeAs('public/ttd/terbaru', $imageName);
 
         // Sesuaikan kondisi where berdasarkan prodi_pimpinan
-        $ttd = TtdSuratIzinPenelitian::where('prodi_pimpinan', $request->prodi_pimpinan)->first();
+        $ttd = TtdPimpinan::where('prodi_pimpinan', $request->prodi_pimpinan)->first();
 
-        TtdSuratIzinPenelitian::updateOrCreate(
+        TtdPimpinan::updateOrCreate(
             ['prodi_pimpinan' => $request->prodi_pimpinan],
             [
                 'penanda_tangan' => $request->input('penanda_tangan'),

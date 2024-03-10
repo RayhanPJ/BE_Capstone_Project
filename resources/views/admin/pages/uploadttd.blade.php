@@ -8,9 +8,9 @@ Admin Profile
 <div class="row">
     <div class="col-xl-4 col-lg-5 col-md-5">
         <div class="card mb-4">
-            <h5 class="card-header">Upload TTD Surat Izin Penelitian</h5>
+            <h5 class="card-header">Upload TTD Pimpinan</h5>
             <div class="card-body">
-                <form method="post" action="{{ route('change.ttd.suratizinpenelitian') }}" enctype="multipart/form-data">
+                <form method="post" action="{{ route('change.ttdpimpinan') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
                         <div class="mb-3 col-md-12">
@@ -34,7 +34,6 @@ Admin Profile
 
                         </div>
                     </div>
-
                     <div class="row">
                         <div class="mb-3 col-md-12">
                             <label class="form-label" for="nama_pimpinan">Nama Pimpinan</label>
@@ -49,7 +48,6 @@ Admin Profile
                             <label class="form-label" for="nomor_induk">Nomor Induk</label>
                             <div class="input-group input-group-merge">
                                 <input type="text" id="nomor_induk" class="form-control" name="nomor_induk" value="{{ old('nomor_induk')}}" placeholder="Cth: NIDN/NIP. 1990xxxxxxxx" />
-
                             </div>
                         </div>
                     </div>
