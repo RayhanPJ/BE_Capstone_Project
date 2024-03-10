@@ -42,7 +42,7 @@ Home
                         <p class="card-text">
                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque tenetur delectus.
                         </p>
-                        <a href="{{ route('suratizinpenelitian.create', ['id' => auth()->id()]) }}" class="btn btn-secondary">Buat Surat</a>
+                        <a href="{{ route('suratketeranganaktifortupns.create', ['id' => auth()->id()]) }}" class="btn btn-secondary">Buat Surat</a>
                     </div>
                 </div>
             </div>

@@ -9,6 +9,7 @@ use App\Http\Controllers\RegistController;
 use App\Http\Controllers\ForgotPWController;
 use App\Http\Controllers\SuratIzinPenelitianController;
 use App\Http\Controllers\SuratKeteranganAktifController;
+use App\Http\Controllers\SuratKeteranganAktifOrtuPnsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +42,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/suratizinpenelitian', [SuratIzinPenelitianController::class, 'store'])->name('suratizinpenelitian.store');
     Route::get('/suratketeranganaktif/create/{id}', [SuratKeteranganAktifController::class, 'create'])->name('suratketeranganaktif.create');
     Route::post('/suratketeranganaktif', [SuratKeteranganAktifController::class, 'store'])->name('suratketeranganaktif.store');
+    Route::get('/suratketeranganaktifortupns/create/{id}', [SuratKeteranganAktifOrtuPnsController::class, 'create'])->name('suratketeranganaktifortupns.create');
+    Route::post('/suratketeranganaktifortupns', [SuratKeteranganAktifOrtuPnsController::class, 'store'])->name('suratketeranganaktifortupns.store');
 
 
     // riwayat surat

@@ -81,7 +81,7 @@
             </tr>
             <tr>
                 <td>
-                    <font size="3">Nomor : 24/UN64.7/KM/2024</font>
+                    <font size="3">Nomor : </font>
                 </td>
             </tr>
         </table>
@@ -153,43 +153,34 @@
                 </td>
                 <td>:</td>
                 <td>
-                    <font size="3">Gilang Maulana</font>
+                    <font size="3">{{ $data['nama_mhs'] }}</font>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <font size="3">NPM</font>
+                    <font size="3">Program Studi</font>
                 </td>
                 <td>:</td>
                 <td>
-                    <font size="3">2010631170075</font>
+                    <font size="3">S1 - {{ $data['prodi'] }}</font>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <font size="3">Semester</font>
+                    <font size="3">Nomor Pokok</font>
                 </td>
                 <td>:</td>
                 <td>
-                    <font size="3">7 (Tujuh)</font>
+                    <font size="3">{{ $data['npm'] }}</font>
                 </td>
             </tr>
             <tr>
                 <td width="170">
-                    <font size="3"> Fakultas / Program Studi</font>
+                    <font size="3">Semester/Program</font>
                 </td>
                 <td>:</td>
                 <td>
-                    <font size="3">Ilmu Komputer/S1 - Informatika</font>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <font size="3">Tempat, Tanggal Lahir</font>
-                </td>
-                <td>:</td>
-                <td>
-                    <font size="3">14 Mei 2002</font>
+                    <font size="3">{{ $data['semester'] }}/Sarjana (S1)</font>
                 </td>
             </tr>
             <tr>
@@ -198,8 +189,7 @@
                 </td>
                 <td>:</td>
                 <td>
-                    <font size="3">Kp.Kirewok RT/RW 001/001 Desa Cintawargi Kec.Tegalwaru
-                        Kab.Karawang</font>
+                    <font size="3">{{ $data['alamat'] }}</font>
                 </td>
             </tr>
         </table>
@@ -221,7 +211,7 @@
                 </td>
                 <td>:</td>
                 <td>
-                    <font size="3">Enung Nurjanah</font>
+                    <font size="3">{{ $data['nama_ortu'] }}</font>
                 </td>
             </tr>
             <tr>
@@ -230,7 +220,7 @@
                 </td>
                 <td>:</td>
                 <td>
-                    <font size="3">199377878972367</font>
+                    <font size="3">{{ $data['nomor_induk_ortu'] }}</font>
                 </td>
             </tr>
             <tr>
@@ -239,7 +229,7 @@
                 </td>
                 <td>:</td>
                 <td>
-                    <font size="3">IV A/Pembina</font>
+                    <font size="3">{{ $data['jabatan_ortu'] }}</font>
                 </td>
             </tr>
             <tr>
@@ -248,30 +238,10 @@
                 </td>
                 <td>:</td>
                 <td>
-                    <font size="3">SDN Cintalanggeng 1</font>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <font size="3">Tempat, Tanggal Lahir</font>
-                </td>
-                <td>:</td>
-                <td>
-                    <font size="3">14 Mei 2002</font>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <font size="3">Alamat</font>
-                </td>
-                <td>:</td>
-                <td>
-                    <font size="3">Kp.Kirewok RT/RW 001/001 Desa Cintawargi Kec.Tegalwaru
-                        Kab.Karawang</font>
+                    <font size="3">{{ $data['instansi'] }}</font>
                 </td>
             </tr>
         </table>
-
         <br>
         <br>
         <table border="0" width="500">
@@ -304,20 +274,18 @@
             <tr>
                 <td width="340"></td>
                 <td align="left">
-                    <font size="3">Karawang, 04 Maret 2024 </font>
+                    <font size="3">Karawang, {{ \Carbon\Carbon::parse($data['created_at'])->locale('id_ID')->isoFormat('D MMMM Y') }} </font>
                     <br>
-                    <font size="3">
-                        {{ $ttdPimpinanDataIF[0]->penanda_tangan ?? $defaultTtdData['penanda_tangan'] ?? '' }}</font>
+                    <font size="3">{!! nl2br($ttdPimpinanDataWadek[0]->penanda_tangan ?? $defaultTtdData['penanda_tangan'] ?? '') !!}</font>
                     <br>
                     <div class="container">
                         <br>
                         <br>
                         <div class="left">
-                            @if (isset($ttdPimpinanDataIF) && $ttdPimpinanDataIF->isNotEmpty() &&
-                            isset($ttdPimpinanDataIF[0]->ttd_image))
-                            <img src="{{ public_path('storage/ttd/' . $ttdPimpinanDataIF[0]->ttd_image) }}" width="160" alt="">
+                            @if (isset($ttdPimpinanDataWadek) && $ttdPimpinanDataWadek->isNotEmpty() && isset($ttdPimpinanDataWadek[0]->ttd_image))
+                            <img src="{{ public_path('storage/ttd/terbaru/' . $ttdPimpinanDataWadek[0]->ttd_image) }}" width="180" alt="">
                             @else
-                            <img src="{{ public_path('storage/ttd/ttd_stempel.png') }}" width="180" alt="">
+                            <img src="{{ public_path('storage/ttd/'. $defaultTtdData['ttd_image']) }}" width="180" alt="">
                             @endif
                         </div>
                     </div>
@@ -325,13 +293,13 @@
                     <br>
                     <br>
 
-                    <font size="3">{{ $ttdPimpinanDataIF[0]->nama_pimpinan ?? $defaultTtdData['nama_pimpinan'] ?? '' }}
+                    <font size="3">{{ $ttdPimpinanDataWadek[0]->nama_pimpinan ?? $defaultTtdData['nama_pimpinan'] ?? '' }}
                     </font>
-                    {{-- <font size="3">E.Haodudin Nurkifli, S.T., M.Cs., Phd.</font> --}}
+                    {{-- <font size="3">Nina Sulistiyowati, ST., M.Kom.</font> --}}
                     <br>
-                    {{-- <font size="3">NIDN : 003048503</font> --}}
+                    {{-- <font size="3">NIP : 198302092021212006</font> --}}
                     <font size="3">
-                        {{ $ttdPimpinanDataIF[0]->nomor_induk ?? $defaultTtdData['nomor_induk'] ?? 'NIDN : 003048503' }}
+                        {{ $ttdPimpinanDataWadek[0]->nomor_induk ?? $defaultTtdData['nomor_induk'] ?? '' }}
                     </font>
 
                     <br>

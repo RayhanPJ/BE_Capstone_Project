@@ -54,11 +54,12 @@ Admin Profile
 
                     <div class="row">
                         <div class="mb-3 col-md-12">
-                            <label class="form-label" for="prodi_pimpinan">Prodi Pimpinan</label>
+                            <label class="form-label" for="prodi_pimpinan">Pimpinan</label>
                             <div class="input-group input-group-merge">
                                 <select name="prodi_pimpinan" id="select2IconsProdi" class="select2-icons form-select">
                                     <option value="Informatika" {{ old('prodi_pimpinan') == 'Informatika' ? 'selected' : '' }}>Informatika</option>
                                     <option value="Sistem Informasi" {{ old('prodi_pimpinan') == 'Sistem Informasi' ? 'selected' : '' }}>Sistem Informasi</option>
+                                    <option value="Wadek" {{ old('prodi_pimpinan') == 'Wadek' ? 'selected' : '' }}>Wadek</option>
                                 </select>
                             </div>
                         </div>
