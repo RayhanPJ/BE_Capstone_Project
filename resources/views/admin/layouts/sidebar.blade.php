@@ -43,6 +43,26 @@
                                 <div data-i18n="Surat Izin Penelitian">Surat Izin Penelitian</div>
                             </a>
                         </li>
+                        <li class="menu-item {{ request()->is('admin/listdata/suratketeranganaktif') ? 'active' : '' }}">
+                            <a href="{{ route('listdata.suratketeranganaktif') }}" class="menu-link">
+                                <div data-i18n="Surat Keterangan Aktif">Surat Keterangan Aktif</div>
+                            </a>
+                        </li>
+                        <li class="menu-item {{ request()->is('admin/listdata/suratketeranganaktifortupns') ? 'active' : '' }}">
+                            <a href="{{ route('listdata.suratketeranganaktifortupns') }}" class="menu-link">
+                                <div data-i18n="Surat Keterangan Aktif Ortu Pns">Surat Keterangan Aktif Ortu Pns</div>
+                            </a>
+                        </li>
+                        <li class="menu-item {{ request()->is('admin/listdata/suratbebaspustaka') ? 'active' : '' }}">
+                            <a href="{{ route('listdata.suratbebaspustaka') }}" class="menu-link">
+                                <div data-i18n="Surat Bebas Pustaka">Surat Bebas Pustaka</div>
+                            </a>
+                        </li>
+                        <li class="menu-item {{ request()->is('admin/listdata/suratpengajuancuti') ? 'active' : '' }}">
+                            <a href="{{ route('listdata.suratpengajuancuti') }}" class="menu-link">
+                                <div data-i18n="Surat Pengajuan Cuti">Surat Pengajuan Cuti</div>
+                            </a>
+                        </li>
                     </ul>
                 </li>
 

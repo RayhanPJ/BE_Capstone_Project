@@ -23,9 +23,13 @@
         .left {
             width: 1px;
             position: relative;
-            right: 50px;
-            top: -60px;
+            left: 35px;
+            top: -20px;
             float: left;
+        }
+
+        .table2 {
+            margin-top: -30px;
         }
 
         .img-blu {
@@ -64,29 +68,26 @@
                     <hr width="500">
                 </td>
             </tr>
-        </table>
-
-        <br>
-
-        <table border="0" width="500">
             <tr>
-                <td align="right">
-                    <font size="3">Karawang,
-                        {{ \Carbon\Carbon::parse($data['created_at'])->locale('id_ID')->isoFormat('D MMMM Y') }}</font>
+                <td></td>
+                <td style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: right;">
+                    <font size="3">Karawang, {{ \Carbon\Carbon::parse($data['created_at'])->locale('id_ID')->isoFormat('D MMMM Y') }}</font>
                 </td>
             </tr>
         </table>
 
         <br>
 
-        <table border="0" width="500">
+        <br>
+
+        <table border="0" width="500" class="table2">
             <tr>
                 <td>
                     <font size="3">Nomor</font>
                 </td>
                 <td>:</td>
                 <td width="400">
-                    <font size="3">{{ $data->nomor_surat}}</font>
+                    <font size="3">{{ $data['nomor_surat'] }}</font>
                 </td>
             </tr>
             <tr>
@@ -94,7 +95,8 @@
                     <font size="3">Perihal</font>
                 </td>
                 <td>:</td>
-                <td width="400">: <font size="3">Permohonan Izin Penelitian</font>
+                <td width="400">
+                    <font size="3">Surat Pengantar Permohonan Bebas Pustaka</font>
                 </td>
             </tr>
         </table>
@@ -180,18 +182,16 @@
             <tr>
                 <td width="340"></td>
                 <td align="left">
-                    {{-- <font size="3">A.n Dekan, <br> Koor. Program Studi </font> --}}
-                    <font size="3">
-                        {{ $ttdPimpinanDataIF[0]->penanda_tangan ?? $defaultTtdData['penanda_tangan'] ?? '' }}</font>
+                    <font size="3">{!! nl2br($ttdPimpinanDataIF[0]->penanda_tangan ?? $defaultTtdData['penanda_tangan'] ?? '') !!}</font>
                     <br>
                     <div class="container">
                         <br>
                         <br>
                         <div class="left">
                             @if (isset($ttdPimpinanDataIF) && $ttdPimpinanDataIF->isNotEmpty() && isset($ttdPimpinanDataIF[0]->ttd_image))
-                            <img src="{{ public_path('storage/ttd/' . $ttdPimpinanDataIF[0]->ttd_image) }}" width="160" alt="">
+                            <img src="{{ public_path('storage/ttd/terbaru/' . $ttdPimpinanDataIF[0]->ttd_image) }}" width="180" alt="">
                             @else
-                            <img src="{{ public_path('storage/ttd/ttd_stempel.png') }}" width="180" alt="">
+                            <img src="{{ public_path('storage/ttd/'. $defaultTtdData['ttd_image']) }}" width="180" alt="">
                             @endif
                         </div>
                     </div>
@@ -200,10 +200,8 @@
                     <br>
 
                     <font size="3">{{ $ttdPimpinanDataIF[0]->nama_pimpinan ?? $defaultTtdData['nama_pimpinan'] ?? '' }}</font>
-                    {{-- <font size="3">E.Haodudin Nurkifli, S.T., M.Cs., Phd.</font> --}}
                     <br>
-                    {{-- <font size="3">NIDN : 003048503</font> --}}
-                    <font size="3">{{ $ttdPimpinanDataIF[0]->nomor_induk ?? $defaultTtdData['nomor_induk'] ?? 'NIDN : 003048503' }}</font>
+                    <font size="3">{{ $ttdPimpinanDataIF[0]->nomor_induk ?? $defaultTtdData['nomor_induk'] ?? '' }}</font>
 
                     <br>
                     <br>

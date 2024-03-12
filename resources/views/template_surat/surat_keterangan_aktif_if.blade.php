@@ -80,7 +80,7 @@
             </tr>
             <tr>
                 <td>
-                    <font size="3">Nomor : </font>
+                    <font size="3">Nomor : {{ $data['nomor_surat'] }}</font>
                 </td>
             </tr>
         </table>

@@ -33,7 +33,7 @@
                         </div>
                     </li>
                     <li class="dropdown-notifications-list scrollable-container">
-                        <ul class="list-group list-group-flush">
+                        <ul class="list-group list-group-flush" style="max-height: 300px; overflow-y: auto;">
                             @foreach(auth()->user()->unreadnotifications as $notification)
                             <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
                                 <div class="d-flex">
@@ -50,8 +50,16 @@
                                         <a href="
                                          @if($notification->data['jenis_surat'] === 'Surat Izin Penelitian')
                                          {{ route('riwayat-surat-izin-penelitian') }}
+                                         @elseif($notification->data['jenis_surat'] === 'Surat Keterangan Aktif Kuliah')
+                                         {{ route('riwayat-surat-keterangan-aktif') }}
+                                         @elseif($notification->data['jenis_surat'] === 'Surat Keterangan Aktif Kuliah Ortu PNS')
+                                         {{ route('riwayat-surat-keterangan-aktif-ortu-pns') }}
+                                         @elseif($notification->data['jenis_surat'] === 'Surat Bebas Pustaka')
+                                         {{ route('riwayat-surat-bebas-pustaka') }}
+                                         @elseif($notification->data['jenis_surat'] === 'Surat Pengajuan Cuti')
+                                         {{ route('riwayat-surat-pengajuan-cuti') }}
                                          @else
-                                         {{ route('/admin') }}
+                                         {{ route('/home') }}
                                          @endif
                                         " class="text-decoration-none text-dark">
                                             <h6 class="mb-1">Pesan Baru ✉️</h6>

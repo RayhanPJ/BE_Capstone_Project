@@ -8,13 +8,14 @@ use App\Models\TtdPimpinan;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
-use App\Models\SuratKeteranganAktif;
+use App\Models\SuratBebasPustaka;
 use App\Notifications\UserNotifcation;
 use App\Notifications\AdminNotification;
 use PhpOffice\PhpWord\TemplateProcessor;
 
-class SuratKeteranganAktifController extends Controller
+class SuratBebasPustakaController extends Controller
 {
+
     public function create($id)
     {
         $navbarView = view('layouts/navbar');
@@ -22,25 +23,22 @@ class SuratKeteranganAktifController extends Controller
 
         $data = User::where('id', $id)->first();
 
-        return view('pages.formsuratketeranganaktif', [$navbarView, $sidebarView, 'data' => $data]);
+        return view('pages.formsuratbebaspustaka', [$navbarView, $sidebarView, 'data' => $data]);
     }
 
     public function store(Request $request)
     {
-        $data = new SuratKeteranganAktif();
+        $data = new SuratBebasPustaka();
         $data->nama_mhs = Str::title($request->input('nama_mhs'));
         $data->npm = $request->input('npm');
         $data->prodi = $request->input('prodi');
-        $data->semester = $request->input('semester');
-        $data->tgl_lahir = $request->input('tgl_lahir');
-        $data->alamat = Str::title($request->input('alamat'));
 
         $timestamp = now()->timestamp;
-        $fileName = $timestamp . '_Surat_Keterangan_Aktif_Kuliah_' . Str::title($data->nama_mhs) . '_' . $data->npm . '.pdf';
+        $fileName = $timestamp . '_Surat_Bebas_Pustaka_' . Str::title($data->nama_mhs) . '_' . $data->npm . '.pdf';
         $filePath =  $fileName;
 
         $data->file_path = $filePath;
-        $data->jenis_surat = 'Surat Keterangan Aktif Kuliah';
+        $data->jenis_surat = 'Surat Bebas Pustaka';
 
         $data->save();
 
@@ -55,11 +53,11 @@ class SuratKeteranganAktifController extends Controller
             ]));
         }
 
-        $outputPath = storage_path('app\\public\\surat-keterangan-aktif\\' . $filePath);
+        $outputPath = storage_path('app\\public\\surat-bebas-pustaka\\' . $filePath);
         $pdf = $this->createPdf($data);
         $pdf->save($outputPath);
 
-        return redirect()->back()->with('success', 'Surat Keterangan Aktif telah dibuat. Periksa menu Riwayat Surat untuk melihat file surat!');
+        return redirect()->back()->with('success', 'Surat Bebas Pustaka telah dibuat. Periksa menu Riwayat Surat untuk melihat file surat!');
     }
 
     private function createPdf($data)
@@ -73,26 +71,26 @@ class SuratKeteranganAktifController extends Controller
             if ($ttdPimpinanDataIF->isEmpty()) {
                 $defaultTtdData =
                     [
-                        'penanda_tangan' => 'a.n Dekan <br> Koord. Program Studi',
+                        'penanda_tangan' => 'a.n Dekan <br> Koordinator Program Studi Informatika',
                         'nama_pimpinan' => 'E. Haodudin Nurkifli, M.Cs., Ph.D',
-                        'ttd_image' => 'ttd_if.png',
+                        'ttd_image' => 'ttd_hao.png',
                         'nomor_induk' => 'NIP. 198504032021211003'
                     ];
-                $pdf = PDF::loadView('template_surat.surat_keterangan_aktif_if', compact('data', 'defaultTtdData'));
+                $pdf = PDF::loadView('template_surat.surat_bebas_pustaka_if', compact('data', 'defaultTtdData'));
             } else {
-                $pdf = PDF::loadView('template_surat.surat_keterangan_aktif_if', compact('data', 'ttdPimpinanDataIF'));
+                $pdf = PDF::loadView('template_surat.surat_bebas_pustaka_if', compact('data', 'ttdPimpinanDataIF'));
             }
         } elseif ($data->prodi === 'Sistem Informasi') {
             if ($ttdPimpinanDataSI->isEmpty()) {
                 $defaultTtdData = [
-                    'penanda_tangan' => 'A.n Dekan, <br> Koor. Program Studi,',
+                    'penanda_tangan' => 'a.n Dekan <br> Koordinator Program Studi Sistem Informasi',
                     'nama_pimpinan' => 'Azhari Ali Ridha, S.Kom., M.M.S.I.',
-                    'ttd_image' => 'ttd_si.png',
+                    'ttd_image' => 'ttd_azhari.png',
                     'nomor_induk' => 'NIDN. 0415098003'
                 ];
-                $pdf = PDF::loadView('template_surat.surat_keterangan_aktif_si', compact('data', 'defaultTtdData'));
+                $pdf = PDF::loadView('template_surat.surat_bebas_pustaka_si', compact('data', 'defaultTtdData'));
             } else {
-                $pdf = PDF::loadView('template_surat.surat_keterangan_aktif_si', compact('data', 'ttdPimpinanDataSI'));
+                $pdf = PDF::loadView('template_surat.surat_bebas_pustaka_si', compact('data', 'ttdPimpinanDataSI'));
             }
         }
 
@@ -102,25 +100,24 @@ class SuratKeteranganAktifController extends Controller
         return $pdf;
     }
 
-    private function updatePdfContent($SuraKeteranganAktif)
+    private function updatePdfContent($SuraBebasPustaka)
     {
         // Gantilah dengan path file PDF yang sesuai dengan struktur penyimpanan Anda
-        $outputPath = storage_path('app\\public\\surat-keterangan-aktif\\' . $SuraKeteranganAktif->file_path);
+        $outputPath = storage_path('app\\public\\surat-bebas-pustaka\\' . $SuraBebasPustaka->file_path);
 
         // Gunakan dompdf untuk membuat PDF baru dengan informasi yang diperbarui
-        $pdf = $this->createPdf($SuraKeteranganAktif);
+        $pdf = $this->createPdf($SuraBebasPustaka);
 
         // Simpan PDF baru dengan konten yang diperbarui
         $pdf->save($outputPath);
     }
 
-    public function riwayatSuratKeteranganAktif()
+    public function riwayatSuratBebasPustaka()
     {
         $navbarView = view('layouts/navbar');
         $sidebarView = view('layouts/sidebar');
 
-        $data = SuratKeteranganAktif::orderBy('created_at', 'desc')->where('nama_mhs', auth()->user()->name)->get();
-
+        $data = SuratBebasPustaka::orderBy('created_at', 'desc')->where('nama_mhs', auth()->user()->name)->get();
 
         return view('pages.riwayatsurat', [
             'data' => $data,
@@ -129,17 +126,17 @@ class SuratKeteranganAktifController extends Controller
         ]);
     }
 
-    public function setujuiSuratKeteranganAktif(Request $request, $id)
+    public function setujuiSuratBebasPustaka(Request $request, $id)
     {
-        $SuratKeteranganAktif = SuratKeteranganAktif::findOrFail($id);
+        $SuratBebasPustaka = SuratBebasPustaka::findOrFail($id);
 
-        $SuratKeteranganAktif->nomor_surat = $request->input('nomor_surat');
-        $SuratKeteranganAktif->status = 'disetujui';
-        $SuratKeteranganAktif->updated_at = now();
-        $SuratKeteranganAktif->save();
+        $SuratBebasPustaka->nomor_surat = $request->input('nomor_surat');
+        $SuratBebasPustaka->status = 'disetujui';
+        $SuratBebasPustaka->updated_at = now();
+        $SuratBebasPustaka->save();
 
         // ambil nama_mhs saja dalam 1 data objek
-        $nama_mhs = SuratKeteranganAktif::where('nama_mhs', $SuratKeteranganAktif->nama_mhs)
+        $nama_mhs = SuratBebasPustaka::where('nama_mhs', $SuratBebasPustaka->nama_mhs)
             ->pluck('nama_mhs');
 
         $users = User::where('role', 'user')
@@ -150,39 +147,40 @@ class SuratKeteranganAktifController extends Controller
             $user->notify(new UserNotifcation([
                 'user_id' => auth()->user()->id,
                 'name' => auth()->user()->name,
-                'jenis_surat' => 'Surat Keterangan Aktif Kuliah'
+                'jenis_surat' => 'Surat Bebas Pustaka'
             ]));
         }
 
         // Update konten file PDF
-        $this->updatePdfContent($SuratKeteranganAktif);
+        $this->updatePdfContent($SuratBebasPustaka);
 
-        return redirect()->back()->with('success', 'Surat Keterangan Aktif Kuliah telah disetujui!');
+        return redirect()->back()->with('success', 'Surat Bebas Pustaka telah disetujui!');
     }
 
-    public function tidaksetujuSuratKeteranganAktif(Request $request, $id)
+    public function tidaksetujuSuratBebasPustaka(Request $request, $id)
     {
-        $SuratKeteranganAktif = SuratKeteranganAktif::findOrFail($id);
-        $SuratKeteranganAktif->status = 'ditolak';
-        $SuratKeteranganAktif->keterangan = $request->input('text_input');
-        $SuratKeteranganAktif->save();
+        $SuratBebasPustaka = SuratBebasPustaka::findOrFail($id);
+        $SuratBebasPustaka->status = 'ditolak';
+        $SuratBebasPustaka->keterangan = $request->input('text_input');
+        $SuratBebasPustaka->save();
 
-        return redirect()->back()->with('success', 'Surat Keterangan Aktif Kuliah telah ditolak!');
+        return redirect()->back()->with('success', 'Surat Bebas Pustaka telah ditolak!');
     }
 
-    public function cancelsuratKeteranganAktif($id)
+    public function cancelsuratBebasPustaka($id)
     {
-        $SuratKeteranganAktif = SuratKeteranganAktif::find($id);
-        $SuratKeteranganAktif->status = null;
-        $SuratKeteranganAktif->keterangan = null;
-        $SuratKeteranganAktif->save();
+        $SuratBebasPustaka = SuratBebasPustaka::find($id);
+        $SuratBebasPustaka->status = null;
+        $SuratBebasPustaka->keterangan = null;
+        $SuratBebasPustaka->save();
         session()->forget('data_approved_notifications');
         return redirect()->back();
     }
 
-    public function downloadSuratKeteranganAktif($file_path)
+    
+    public function downloadSuratBebasPustaka($file_path)
     {
-        $file = storage_path('app/public/surat-keterangan-aktif/' . $file_path);
+        $file = storage_path('app/public/surat-bebas-pustaka/' . $file_path);
 
         if (file_exists($file)) {
             return response()->download($file);

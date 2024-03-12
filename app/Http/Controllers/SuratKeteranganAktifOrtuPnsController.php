@@ -78,7 +78,7 @@ class SuratKeteranganAktifOrtuPnsController extends Controller
         if ($ttdPimpinanDataWadek->isEmpty()) {
             $defaultTtdData =
                 [
-                    'penanda_tangan' => 'a.n Dekan, Wakil Dekan Bidang Akademik dan Kemahasiswaan',
+                    'penanda_tangan' => 'a.n Dekan, <br> Wakil Dekan Bidang Akademik dan Kemahasiswaan',
                     'nama_pimpinan' => 'Nina Sulistiyowati, ST., M.Kom.',
                     'ttd_image' => 'ttd_wadek.png',
                     'nomor_induk' => 'NIP. 198302092021212006'
@@ -104,5 +104,82 @@ class SuratKeteranganAktifOrtuPnsController extends Controller
 
         // Simpan PDF baru dengan konten yang diperbarui
         $pdf->save($outputPath);
+    }
+
+    public function riwayatSuratKeteranganAktifOrtuPns()
+    {
+        $navbarView = view('layouts/navbar');
+        $sidebarView = view('layouts/sidebar');
+
+        $data = SuratKeteranganAktifOrtuPns::orderBy('created_at', 'desc')->where('nama_mhs', auth()->user()->name)->get();
+
+        return view('pages.riwayatsurat', [
+            'data' => $data,
+            $navbarView,
+            $sidebarView
+        ]);
+    }
+
+    public function setujuiSuratKeteranganAktifOrtuPns(Request $request, $id)
+    {
+        $SuratKeteranganAktifOrtuPns = SuratKeteranganAktifOrtuPns::findOrFail($id);
+
+        $SuratKeteranganAktifOrtuPns->nomor_surat = $request->input('nomor_surat');
+        $SuratKeteranganAktifOrtuPns->status = 'disetujui';
+        $SuratKeteranganAktifOrtuPns->updated_at = now();
+        $SuratKeteranganAktifOrtuPns->save();
+
+        // ambil nama_mhs saja dalam 1 data objek
+        $nama_mhs = SuratKeteranganAktifOrtuPns::where('nama_mhs', $SuratKeteranganAktifOrtuPns->nama_mhs)
+            ->pluck('nama_mhs');
+
+        $users = User::where('role', 'user')
+            ->whereIn('name', $nama_mhs)
+            ->get();
+
+        foreach ($users as $user) {
+            $user->notify(new UserNotifcation([
+                'user_id' => auth()->user()->id,
+                'name' => auth()->user()->name,
+                'jenis_surat' => 'Surat Keterangan Aktif Kuliah Ortu PNS'
+            ]));
+        }
+
+        // Update konten file PDF
+        $this->updatePdfContent($SuratKeteranganAktifOrtuPns);
+
+        return redirect()->back()->with('success', 'Surat Keterangan Aktif Kuliah Ortu PNS telah disetujui!');
+    }
+
+    public function tidaksetujuSuratKeteranganAktifOrtuPns(Request $request, $id)
+    {
+        $SuratKeteranganAktifOrtuPns = SuratKeteranganAktifOrtuPns::findOrFail($id);
+        $SuratKeteranganAktifOrtuPns->status = 'ditolak';
+        $SuratKeteranganAktifOrtuPns->keterangan = $request->input('text_input');
+        $SuratKeteranganAktifOrtuPns->save();
+
+        return redirect()->back()->with('success', 'Surat Keterangan Aktif Kuliah Ortu PNS telah ditolak!');
+    }
+
+    public function cancelsuratKeteranganAktifOrtuPns($id)
+    {
+        $SuratKeteranganAktifOrtuPns = SuratKeteranganAktifOrtuPns::find($id);
+        $SuratKeteranganAktifOrtuPns->status = null;
+        $SuratKeteranganAktifOrtuPns->keterangan = null;
+        $SuratKeteranganAktifOrtuPns->save();
+        session()->forget('data_approved_notifications');
+        return redirect()->back();
+    }
+
+    
+    public function downloadSuratKeteranganAktifOrtuPns($file_path)
+    {
+        $file = storage_path('app/public/surat-keterangan-aktif-ortu-pns/' . $file_path);
+
+        if (file_exists($file)) {
+            return response()->download($file);
+        } else {
+            abort(404, 'File not found');
+        }
     }
 }

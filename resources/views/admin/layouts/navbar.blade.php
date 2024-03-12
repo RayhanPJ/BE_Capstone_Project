@@ -34,7 +34,7 @@
                         </div>
                     </li>
                     <li class="dropdown-notifications-list scrollable-container">
-                        <ul class="list-group list-group-flush">
+                        <ul class="list-group list-group-flush" style="max-height: 300px; overflow-y: auto;">
                             @foreach(auth()->user()->unreadnotifications as $notification)
                             <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
                                 <div class="d-flex">
@@ -51,6 +51,14 @@
                                         <a href="
                                          @if($notification->data['jenis_surat'] === 'Surat Izin Penelitian')
                                          {{ route('listdata.suratizinpenelitian') }}
+                                         @elseif($notification->data['jenis_surat'] === 'Surat Keterangan Aktif Kuliah')
+                                         {{ route('listdata.suratketeranganaktif') }}
+                                         @elseif($notification->data['jenis_surat'] === 'Surat Keterangan Aktif Kuliah Ortu PNS')
+                                         {{ route('listdata.suratketeranganaktifortupns') }}
+                                         @elseif($notification->data['jenis_surat'] === 'Surat Bebas Pustaka')
+                                         {{ route('listdata.suratbebaspustaka') }}
+                                         @elseif($notification->data['jenis_surat'] === 'Surat Pengajuan Cuti')
+                                         {{ route('listdata.suratpengajuancuti') }}
                                          @else
                                          {{ route('home.admin') }}
                                          @endif

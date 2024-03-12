@@ -210,7 +210,6 @@
                     <br>
                     <font size="3">{!! nl2br($ttdPimpinanDataIF[0]->penanda_tangan ?? $defaultTtdData['penanda_tangan'] ?? '') !!}</font>
                     <br>
-
                     <div class="container">
                         <br>
                         <br>

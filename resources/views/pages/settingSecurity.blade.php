@@ -7,7 +7,7 @@ User Settings
 @section('mainContent')
 
 <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light">Pengaturan Akun /</span>
+    <span class="text-muted fw-light">Pengaturan /</span>
     Akun
 </h4>
 
@@ -16,12 +16,12 @@ User Settings
         <ul class="nav nav-pills flex-column flex-md-row mb-4">
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('user.settingAccount', auth()->user()->id) }}"><i class="ti-xs ti ti-users me-1"></i>
-                    Account</a>
+                    Data Diri</a>
             </li>
-             <li class="nav-item">
-                 <a class="nav-link active" href="javascript:void(0);"><i class="ti-xs ti ti-lock me-1"></i>
-                     Keamanan</a>
-             </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="javascript:void(0);"><i class="ti-xs ti ti-lock me-1"></i>
+                    Akun</a>
+            </li>
 
             <li class="nav-item mx-3">
                 {{-- validasi error di session --}}

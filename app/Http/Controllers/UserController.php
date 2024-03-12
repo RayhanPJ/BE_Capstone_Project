@@ -152,4 +152,34 @@ class UserController extends Controller
 
         return redirect()->back();
     }
+
+    // public function downloadSurat($folders, $file_path)
+    // {
+    //     $folders = ['surat-izin-penelitian', 'surat-keterangan-aktif', 'surat-keterangan-aktif-ortu-pns', 'surat-bebas-pustaka', 'surat-pengajuan-cuti'];
+
+    //     $file = storage_path("app/public/{$folders}/{$file_path}");
+
+    //     if (file_exists($file)) {
+    //         return response()->download($file);
+    //     } else {
+    //         abort(404, 'File not found');
+    //     }
+    // }
+
+    public function downloadSurat($folders, $file_path)
+    {
+        $allowedFolders = ['surat-izin-penelitian', 'surat-keterangan-aktif', 'surat-keterangan-aktif-ortu-pns', 'surat-bebas-pustaka', 'surat-pengajuan-cuti'];
+
+        if (!in_array($folders, $allowedFolders)) {
+            abort(404, 'Invalid folder');
+        }
+
+        $file = storage_path("app/public/{$folders}/{$file_path}");
+
+        if (file_exists($file)) {
+            return response()->download($file);
+        } else {
+            abort(404, 'File not found');
+        }
+    }
 }
