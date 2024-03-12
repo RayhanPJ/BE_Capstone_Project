@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\SuratBebasPustaka;
 use PDF;
 use App\Models\User;
 use App\Models\TtdPimpinan;
@@ -81,6 +80,13 @@ class SuratPengajuanCutiController extends Controller
 
         // Use TemplateProcessor to update the Word document with the new content
         $templateProcessor = new TemplateProcessor(public_path('Surat-Pengajuan-Cuti.docx'));
+        $templateProcessor->setValue('nama_mhs', $suratPengajuanCuti->nama_mhs);
+        $templateProcessor->setValue('npm', $suratPengajuanCuti->npm);
+        $templateProcessor->setValue('prodi', $suratPengajuanCuti->prodi);
+        $templateProcessor->setValue('alamat', $suratPengajuanCuti->alamat);
+        $templateProcessor->setValue('no_hp', $suratPengajuanCuti->no_hp);
+        $templateProcessor->setValue('alasan_cuti', $suratPengajuanCuti->alasan_cuti);
+        $templateProcessor->setValue('created_at',  \Carbon\Carbon::parse($suratPengajuanCuti->created_at)->locale('id_ID')->isoFormat('D MMMM Y'));
         $templateProcessor->setValue('nomor_surat', $suratPengajuanCuti->nomor_surat);
         // Add more fields as needed
 
@@ -100,5 +106,36 @@ class SuratPengajuanCutiController extends Controller
             $navbarView,
             $sidebarView
         ]);
+    }
+
+    public function setujuiSuratPengajuanCuti(Request $request, $id)
+    {
+        $SuratPengajuanCuti = SuratPengajuanCuti::findOrFail($id);
+
+        $SuratPengajuanCuti->nomor_surat = $request->input('nomor_surat');
+        $SuratPengajuanCuti->status = 'disetujui';
+        $SuratPengajuanCuti->updated_at = now();
+        $SuratPengajuanCuti->save();
+
+        // ambil nama_mhs saja dalam 1 data objek
+        $nama_mhs = SuratPengajuanCuti::where('nama_mhs', $SuratPengajuanCuti->nama_mhs)
+            ->pluck('nama_mhs');
+
+        $users = User::where('role', 'user')
+            ->whereIn('name', $nama_mhs)
+            ->get();
+
+        foreach ($users as $user) {
+            $user->notify(new UserNotifcation([
+                'user_id' => auth()->user()->id,
+                'name' => auth()->user()->name,
+                'jenis_surat' => 'Surat Pengajuan Cuti'
+            ]));
+        }
+
+        // Update konten file PDF
+        $this->updateWordContent($SuratPengajuanCuti);
+
+        return redirect()->back()->with('success', 'Surat Pengajuan Cuti telah disetujui!');
     }
 }

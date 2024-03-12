@@ -119,4 +119,35 @@ class SuratKeteranganAktifOrtuPnsController extends Controller
             $sidebarView
         ]);
     }
+
+    public function setujuiSuratKeteranganAktifOrtuPns(Request $request, $id)
+    {
+        $SuratKeteranganAktifOrtuPns = SuratKeteranganAktifOrtuPns::findOrFail($id);
+
+        $SuratKeteranganAktifOrtuPns->nomor_surat = $request->input('nomor_surat');
+        $SuratKeteranganAktifOrtuPns->status = 'disetujui';
+        $SuratKeteranganAktifOrtuPns->updated_at = now();
+        $SuratKeteranganAktifOrtuPns->save();
+
+        // ambil nama_mhs saja dalam 1 data objek
+        $nama_mhs = SuratKeteranganAktifOrtuPns::where('nama_mhs', $SuratKeteranganAktifOrtuPns->nama_mhs)
+            ->pluck('nama_mhs');
+
+        $users = User::where('role', 'user')
+            ->whereIn('name', $nama_mhs)
+            ->get();
+
+        foreach ($users as $user) {
+            $user->notify(new UserNotifcation([
+                'user_id' => auth()->user()->id,
+                'name' => auth()->user()->name,
+                'jenis_surat' => 'Surat Keterangan Aktif Kuliah Ortu PNS'
+            ]));
+        }
+
+        // Update konten file PDF
+        $this->updatePdfContent($SuratKeteranganAktifOrtuPns);
+
+        return redirect()->back()->with('success', 'Surat Keterangan Aktif Kuliah Ortu PNS telah disetujui!');
+    }
 }

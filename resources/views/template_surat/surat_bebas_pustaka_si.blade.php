@@ -86,7 +86,7 @@
                 </td>
                 <td>:</td>
                 <td width="400">
-                    <font size="3">{{ $data->nomor_surat}}</font>
+                    <font size="3">{{ $data['nomor_surat'] }}</font>
                 </td>
             </tr>
             <tr>

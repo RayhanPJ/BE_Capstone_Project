@@ -128,4 +128,35 @@ class SuratKeteranganAktifController extends Controller
             $sidebarView
         ]);
     }
+
+    public function setujuiSuratKeteranganAktif(Request $request, $id)
+    {
+        $SuratKeteranganAktif = SuratKeteranganAktif::findOrFail($id);
+
+        $SuratKeteranganAktif->nomor_surat = $request->input('nomor_surat');
+        $SuratKeteranganAktif->status = 'disetujui';
+        $SuratKeteranganAktif->updated_at = now();
+        $SuratKeteranganAktif->save();
+
+        // ambil nama_mhs saja dalam 1 data objek
+        $nama_mhs = SuratKeteranganAktif::where('nama_mhs', $SuratKeteranganAktif->nama_mhs)
+            ->pluck('nama_mhs');
+
+        $users = User::where('role', 'user')
+            ->whereIn('name', $nama_mhs)
+            ->get();
+
+        foreach ($users as $user) {
+            $user->notify(new UserNotifcation([
+                'user_id' => auth()->user()->id,
+                'name' => auth()->user()->name,
+                'jenis_surat' => 'Surat Keterangan Aktif Kuliah'
+            ]));
+        }
+
+        // Update konten file PDF
+        $this->updatePdfContent($SuratKeteranganAktif);
+
+        return redirect()->back()->with('success', 'Surat Keterangan Aktif Kuliah telah disetujui!');
+    }
 }

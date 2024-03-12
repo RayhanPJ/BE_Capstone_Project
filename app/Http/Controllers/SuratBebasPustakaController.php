@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\SuratBebasPustaka;
 use PDF;
 use App\Models\User;
 use App\Models\TtdPimpinan;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
-use App\Models\SuratKeteranganAktif;
+use App\Models\SuratBebasPustaka;
 use App\Notifications\UserNotifcation;
 use App\Notifications\AdminNotification;
 use PhpOffice\PhpWord\TemplateProcessor;
@@ -113,7 +112,7 @@ class SuratBebasPustakaController extends Controller
         $pdf->save($outputPath);
     }
 
-     public function riwayatSuratBebasPustaka()
+    public function riwayatSuratBebasPustaka()
     {
         $navbarView = view('layouts/navbar');
         $sidebarView = view('layouts/sidebar');
@@ -125,5 +124,36 @@ class SuratBebasPustakaController extends Controller
             $navbarView,
             $sidebarView
         ]);
+    }
+
+    public function setujuiSuratBebasPustaka(Request $request, $id)
+    {
+        $SuratBebasPustaka = SuratBebasPustaka::findOrFail($id);
+
+        $SuratBebasPustaka->nomor_surat = $request->input('nomor_surat');
+        $SuratBebasPustaka->status = 'disetujui';
+        $SuratBebasPustaka->updated_at = now();
+        $SuratBebasPustaka->save();
+
+        // ambil nama_mhs saja dalam 1 data objek
+        $nama_mhs = SuratBebasPustaka::where('nama_mhs', $SuratBebasPustaka->nama_mhs)
+            ->pluck('nama_mhs');
+
+        $users = User::where('role', 'user')
+            ->whereIn('name', $nama_mhs)
+            ->get();
+
+        foreach ($users as $user) {
+            $user->notify(new UserNotifcation([
+                'user_id' => auth()->user()->id,
+                'name' => auth()->user()->name,
+                'jenis_surat' => 'Surat Bebas Pustaka'
+            ]));
+        }
+
+        // Update konten file PDF
+        $this->updatePdfContent($SuratBebasPustaka);
+
+        return redirect()->back()->with('success', 'Surat Bebas Pustaka telah disetujui!');
     }
 }
