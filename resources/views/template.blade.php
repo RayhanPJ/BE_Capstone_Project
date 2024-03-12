@@ -9,9 +9,15 @@
     <title>@yield('pageTitle')</title>
 
     <meta name="description" content="" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{{ asset('/template/assets/img/favicon/favicon-1.png') }}" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet" />
 
     <!-- Icons -->
     <link rel="stylesheet" href="{{ asset('/template/assets/vendor/fonts/fontawesome.css') }}" />
@@ -33,14 +39,17 @@
     <link rel="stylesheet" href="{{ asset('/template/assets/vendor/libs/animate-css/animate.css') }}" />
     <link rel="stylesheet" href="{{ asset('/template/assets/vendor/libs/sweetalert2/sweetalert2.css') }}" />
 
-    <!-- Page CSS -->
+    {{-- page CSS --}}
+    <link rel="stylesheet" href="{{ asset('/template/assets/vendor/css/pages/page-profile.css') }}" />
+
+    {{-- my CSS --}}
+    <link rel="stylesheet" href="{{ asset('/template/assets/css/style.css') }}">
 
     <!-- Helpers -->
     <script src="{{ asset('/template/assets/vendor/js/helpers.js') }}"></script>
-
-    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
-    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="{{ asset('/template/assets/js/config.js') }}"></script>
+
+
 </head>
 
 <body>
@@ -50,33 +59,24 @@
             <!-- Menu -->
             @yield('sidebar')
 
-            <!-- / Menu -->
-
             <!-- Layout container -->
             <div class="layout-page">
                 <!-- Navbar -->
                 @yield('navbar')
-                <!-- / Navbar -->
 
                 <!-- Content wrapper -->
                 <div class="content-wrapper">
-                    <!-- Content -->
+                    <div class="container-xxl flex-grow-1">
+                        {{-- <div class="row"> --}}
+                        <!-- Main Content -->
+                        @yield('mainContent')
 
-                    <div class="container-xxl flex-grow-1 container-p-y">
-                        <div class="row">
-                            <!-- Main Content -->
-                            @yield('mainContent')
-                            <!-- /Main Content -->
+                        <!-- Footer -->
+                        @yield('footer')
 
-                            <!-- Footer -->
-                            @yield('footer')
-                            <!-- / Footer -->
-
-                            <div class="content-backdrop fade"></div>
-                        </div>
-                        <!-- Content wrapper -->
+                        <div class="content-backdrop fade"></div>
+                        {{-- </div> --}}
                     </div>
-                    <!-- / Layout page -->
                 </div>
 
                 <!-- Overlay -->
@@ -85,7 +85,6 @@
                 <!-- Drag Target Area To SlideIn Menu On Small Screens -->
                 <div class="drag-target"></div>
             </div>
-            <!-- / Layout wrapper -->
 
             <!-- Core JS -->
             <!-- build:js assets/vendor/js/core.js -->
@@ -111,125 +110,65 @@
             </script>
             <script src="{{ asset('/template/assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.js') }}">
             </script>
+            <script src="{{ asset('/template/assets/vendor/libs/datatables-fixedColumns-bs5/fixedColumns.bootstrap5.js') }}">
+            </script>
 
             <!-- Main JS -->
             <script src="{{ asset('/template/assets/js/main.js') }}"></script>
 
-            <!-- Page Js -->
+            <script src="{{ asset('/template/assets/js/script.js')}}"></script>
 
-            <!-- sweetalert2 -->
+            {{-- notifikasi --}}
             <script>
-                document.getElementById('formSuratTugas').addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    Swal.fire({
-                        title: 'Berhasil!'
-                        , text: 'Data berhasil ditambahkan, silahkan tunggu dan periksa halaman riwayat surat terkait disetujui/ditolak surat yang diajukan.'
-                        , icon: 'success'
-                        , customClass: {
-                            confirmButton: 'btn btn-primary'
+                function cancelSuratTugas(id) {
+                    // Panggil AJAX atau method lainnya untuk membatalkan persetujuan
+                    $.ajax({
+                        url: '/cancelsurattugas/' + id
+                        , type: 'DELETE'
+                        , headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         }
-                        , buttonsStyling: false
-                    }).then(() => {
-                        this.submit();
-                        setTimeout(function() {
-                            window.location.href = '/';
-                        }, 2000);
-                    });
+                        , success: function() {
+                            // Berhasil membatalkan persetujuan, lakukan tindakan yang diperlukan
+                            updateApproveBadge(0);
+                        }
+                    })
+                }
+
+                function updateApproveBadge(count) {
+                    // Ubah kode ini sesuai dengan struktur HTML dan badge Anda
+                    $('#approve-badge').text(count);
+                }
+
+            </script>
+
+            @if (session()->has('success'))
+            <script>
+                Swal.fire({
+                    title: "Berhasil"
+                    , icon: "success"
+                    , text: "{{ session('success') }}"
+                    , showConfirmButton: false
+                    , timer: 2000
+                }).then(() => {
+                    setTimeout(function() {
+                        window.location.href = '/';
+                    }, 2000);
                 });
 
             </script>
+            @endif
 
             <!-- dataTable -->
             <script>
-                $('#myTable').dataTable({});
-
-            </script>
-
-            <!-- select2 -->
-            <script>
-                // select2 prodi
                 $(document).ready(function() {
-                    $('#select2IconsProdi').select2({
-                        templateResult: formatOption
-                        , templateSelection: formatOption
-                    , });
-
-                    // Fungsi untuk mengatur tampilan opsi dengan ikon
-                    function formatOption(option) {
-                        if (!option.id) {
-                            return option.text;
+                    $('#riwayat-surat').DataTable({
+                        paging: true
+                        , searching: true
+                        , fixedColumns: {
+                            leftColumns: 3
+                            , rightColumns: 0
                         }
-
-                        var iconClass = $(option.element).data('icon');
-                        if (iconClass) {
-                            // Jika opsi memiliki data-icon, tambahkan ikon ke dalam teks opsi
-                            return $('<span><i class="' + iconClass + '"></i> ' + option.text + '</span>');
-                        }
-
-                        return option.text;
-                    }
-                });
-
-                // select2 dospem
-                $(document).ready(function() {
-                    $('#select2IconsDospem').select2({
-                        templateResult: formatOption
-                        , templateSelection: formatOption
-                    , });
-
-                    // Fungsi untuk mengatur tampilan opsi dengan ikon
-                    function formatOption(option) {
-                        if (!option.id) {
-                            return option.text;
-                        }
-
-                        var iconClass = $(option.element).data('icon');
-                        if (iconClass) {
-                            // Jika opsi memiliki data-icon, tambahkan ikon ke dalam teks opsi
-                            return $('<span><i class="' + iconClass + '"></i> ' + option.text + '</span>');
-                        }
-
-                        return option.text;
-                    }
-                });
-
-            </script>
-
-            <script>
-                document.addEventListener("DOMContentLoaded", function() {
-                    let inputNumeric = document.querySelectorAll('.numeric-input');
-                    let inputNPM = document.querySelectorAll('.npm');
-                    let inputAlphabet = document.querySelectorAll('.alphabet-input');
-
-                    inputNumeric.forEach(function(input) {
-                        input.addEventListener("input", function() {
-                            // Hapus karakter selain angka
-                            this.value = this.value.replace(/\D/g, '');
-                        });
-                    });
-
-                    inputAlphabet.forEach(function(input) {
-                        input.addEventListener("input", function() {
-                            this.value = this.value.replace(/[^a-zA-Z\s]/g, '');
-                        });
-                    });
-
-                    inputNPM.forEach(function(input) {
-                        input.addEventListener("input", function() {
-                            let inputValue = input.value;
-
-                            // Hapus karakter yang tidak valid
-                            let validValue = inputValue.replace(/[^0-9]/g, '');
-
-                            // Batasi panjang string menjadi 13 karakter
-                            if (validValue.length > 13) {
-                                validValue = validValue.slice(0, 13);
-                            }
-
-                            // Setel nilai input dengan string yang sudah valid
-                            input.value = validValue;
-
-                        });
                     });
                 });
 

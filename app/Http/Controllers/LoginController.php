@@ -36,8 +36,13 @@ class LoginController extends Controller
 
             if ($user->role === 'admin') {
                 return redirect()->route('home.admin');
+<<<<<<< HEAD
             } else {
             return redirect('home');
+=======
+            }else{
+                return redirect()->route('home');
+>>>>>>> surat-bebas-pustaka
             }
         } else {
             Session::flash('error', 'Email atau Password Salah');

@@ -82,24 +82,9 @@
     <script src="{{ asset('/template/assets/js/pages-auth.js') }}"></script>
     <script src="{{ asset('/template/assets/js/form-layouts.js') }}"></script>
 
-    <script>
-        $(document).ready(function() {
-            $("#togglePassword").click(function() {
-                var passwordInput = $("#password");
-                var icon = $(".input-group-text i");
-
-                // Toggle password visibility
-                if (passwordInput.attr("type") === "password") {
-                    passwordInput.attr("type", "text");
-                    icon.removeClass("ti-eye-off").addClass("ti-eye");
-                } else {
-                    passwordInput.attr("type", "password");
-                    icon.removeClass("ti-eye").addClass("ti-eye-off");
-                }
-            });
-        });
-
+    <script src="{{ asset('/template/assets/js/script.js')}}">
     </script>
+
 </body>
 
 </html>

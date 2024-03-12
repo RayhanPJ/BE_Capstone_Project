@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Password;
+use App\Models\User;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Auth\Events\PasswordReset;
 
 
 class ForgotPWController extends Controller
@@ -16,73 +19,50 @@ class ForgotPWController extends Controller
 
     public function sendResetLinkEmail(Request $request)
     {
-        $this->validateEmail($request);
+        $request->validate(['email' => 'required|email']);
 
-        $response = $this->broker()->sendResetLink(
+        $status = Password::sendResetLink(
             $request->only('email')
         );
 
-        return $response == Password::RESET_LINK_SENT
-            ? back()->with('status', trans($response))
-            : back()->withErrors(['email' => trans($response)]);
+        return $status === Password::RESET_LINK_SENT
+            ? back()->with(['status' => __($status)])
+            : back()->withErrors(['email' => __($status)]);
     }
 
-    public function showResetForm($token)
+    public function showResetForm($token, Request $request)
     {
-        return view('auth.reset-pw', ['token' => $token]);
+        $email = $request->input('email');
+        return view('auth.reset-pw', ['token' => $token, 'email' => $email]);
     }
 
     public function reset(Request $request)
     {
-        $this->validateReset($request);
-
-        $response = $this->broker()->reset(
-            $this->credentials($request),
-            function ($user, $password) {
-                $this->resetPassword($user, $password);
-            }
-        );
-
-        return $response == Password::PASSWORD_RESET
-            ? redirect($this->redirectPath())->with('status', trans($response))
-            : back()->withErrors(['email' => trans($response)]);
-    }
-
-    protected function validateEmail(Request $request)
-    {
-        $request->validate(['email' => 'required|email']);
-    }
-
-    protected function validateReset(Request $request)
-    {
         $request->validate([
             'token' => 'required',
             'email' => 'required|email',
-            'password' => 'required|confirmed|min:8',
+            'password' => 'required|min:6|confirmed',
+        ],[
+            'password.required' => 'Password tidak boleh kosong.',
+            'password.confirmed' => 'Password harus sesuai.'
         ]);
-    }
 
-    protected function credentials(Request $request)
-    {
-        return $request->only(
-            'email',
-            'password',
-            'password_confirmation',
-            'token'
+        $status = Password::reset(
+            $request->only('email', 'password', 'password_confirmation', 'token'),
+            function (User $user, string $password) {
+                $user->forceFill([
+                    'password' => Hash::make($password)
+                ])->setRememberToken(Str::random(60));
+
+                $user->save();
+
+                event(new PasswordReset($user));
+            }
         );
-    }
 
-    protected function resetPassword($user, $password)
-    {
-        $user->forceFill([
-            'password' => bcrypt($password),
-            'remember_token' => Str::random(60),
-        ])->save();
+        return $status === Password::PASSWORD_RESET
+            ? redirect()->route('login')->with('status', __($status))
+            : back()->withErrors(['email' => [__($status)]]);
     }
-
-    protected function broker()
-    {
-        return Password::broker();
-    }
-
 }
+
