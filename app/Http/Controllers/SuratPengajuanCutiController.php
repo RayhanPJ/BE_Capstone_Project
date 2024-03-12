@@ -148,4 +148,14 @@ class SuratPengajuanCutiController extends Controller
 
         return redirect()->back()->with('success', 'Surat Pengajuan Cuti telah ditolak!');
     }
+
+    public function cancelsuratPengajuanCuti($id)
+    {
+        $SuratPengajuanCuti = SuratPengajuanCuti::find($id);
+        $SuratPengajuanCuti->status = null;
+        $SuratPengajuanCuti->keterangan = null;
+        $SuratPengajuanCuti->save();
+        session()->forget('data_approved_notifications');
+        return redirect()->back();
+    }
 }

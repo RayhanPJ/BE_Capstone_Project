@@ -169,4 +169,14 @@ class SuratKeteranganAktifController extends Controller
 
         return redirect()->back()->with('success', 'Surat Keterangan Aktif Kuliah telah ditolak!');
     }
+
+    public function cancelsuratKeteranganAktif($id)
+    {
+        $SuratKeteranganAktif = SuratKeteranganAktif::find($id);
+        $SuratKeteranganAktif->status = null;
+        $SuratKeteranganAktif->keterangan = null;
+        $SuratKeteranganAktif->save();
+        session()->forget('data_approved_notifications');
+        return redirect()->back();
+    }
 }

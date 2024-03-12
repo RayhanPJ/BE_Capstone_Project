@@ -166,4 +166,14 @@ class SuratBebasPustakaController extends Controller
 
         return redirect()->back()->with('success', 'Surat Bebas Pustaka telah ditolak!');
     }
+
+    public function cancelsuratBebasPustaka($id)
+    {
+        $SuratBebasPustaka = SuratBebasPustaka::find($id);
+        $SuratBebasPustaka->status = null;
+        $SuratBebasPustaka->keterangan = null;
+        $SuratBebasPustaka->save();
+        session()->forget('data_approved_notifications');
+        return redirect()->back();
+    }
 }
