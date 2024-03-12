@@ -2,15 +2,6 @@
 
 use App\Http\Controllers\Home;
 use Illuminate\Support\Facades\Route;
-<<<<<<< HEAD
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\RegistController;
-use App\Http\Controllers\ForgotPWController;
-use App\Http\Controllers\SuratTugasController;
-use App\Http\Controllers\AdminController;
-
-
-=======
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\LoginController;
@@ -20,7 +11,6 @@ use App\Http\Controllers\SuratBebasPustakaController;
 use App\Http\Controllers\SuratIzinPenelitianController;
 use App\Http\Controllers\SuratKeteranganAktifController;
 use App\Http\Controllers\SuratKeteranganAktifOrtuPnsController;
->>>>>>> surat-bebas-pustaka
 use App\Http\Controllers\SuratPengajuanCutiController;
 
 /*
@@ -34,24 +24,12 @@ use App\Http\Controllers\SuratPengajuanCutiController;
 |
 */
 
-<<<<<<< HEAD
-Route::get('/', [LoginController::class, 'index'])->name('login');
-Route::post('postlogin', [LoginController::class, 'postlogin'])->name('postlogin');
-Route::get('logout', [LoginController::class, 'logout'])->name('logout')->middleware('auth');
-
-Route::get('/home', [Home::class, 'index'])->name('home')->middleware('auth');
-
-Route::get('/register', [RegistController::class, 'index'])->name('regist');
-Route::post('/register', [RegistController::class, 'create'])->name('post_regist');
-
-=======
 // ======== auth ============
 Route::get('/', [LoginController::class, 'index'])->name('login');
 Route::post('postlogin', [LoginController::class, 'postlogin'])->name('postlogin');
 Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/register', [RegistController::class, 'index'])->name('regist');
 Route::post('/register', [RegistController::class, 'create'])->name('post_regist');
->>>>>>> surat-bebas-pustaka
 Route::get('forgotpw', [ForgotPWController::class, 'index'])->name('forgot-pw');
 Route::post('forgotpw', [ForgotPWController::class, 'sendResetLinkEmail'])->name('password.email');
 Route::get('reset-password/{token}', [ForgotPWController::class, 'showResetForm'])->name('password.reset');
@@ -81,7 +59,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/riwayat-surat-pengajuan-cuti', [SuratPengajuanCutiController::class, 'riwayatSuratPengajuanCuti'])->name('riwayat-surat-pengajuan-cuti');
 
     // download surat
-    // Route::get('/download-surat/{file_path}', [SuratIzinPenelitianController::class, 'downloadSuratIzinPenelitian'])->name('download-surat');
     Route::get('/download-surat/{folders}/{file_path}', [UserController::class, 'downloadSurat'])->name('download-surat');
 
     Route::get('/markasreadapprove/{id}', [UserController::class, 'markAsReadApprove'])->name('markasreadapprove');
