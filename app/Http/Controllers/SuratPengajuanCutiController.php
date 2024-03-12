@@ -87,4 +87,18 @@ class SuratPengajuanCutiController extends Controller
         // Save the updated Word document
         $templateProcessor->saveAs($outputPath);
     }
+
+    public function riwayatSuratPengajuanCuti()
+    {
+        $navbarView = view('layouts/navbar');
+        $sidebarView = view('layouts/sidebar');
+
+        $data = SuratPengajuanCuti::orderBy('created_at', 'desc')->where('nama_mhs', auth()->user()->name)->get();
+
+        return view('pages.riwayatsurat', [
+            'data' => $data,
+            $navbarView,
+            $sidebarView
+        ]);
+    }
 }

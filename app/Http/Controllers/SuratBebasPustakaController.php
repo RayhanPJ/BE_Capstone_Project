@@ -112,4 +112,18 @@ class SuratBebasPustakaController extends Controller
         // Simpan PDF baru dengan konten yang diperbarui
         $pdf->save($outputPath);
     }
+
+     public function riwayatSuratBebasPustaka()
+    {
+        $navbarView = view('layouts/navbar');
+        $sidebarView = view('layouts/sidebar');
+
+        $data = SuratBebasPustaka::orderBy('created_at', 'desc')->where('nama_mhs', auth()->user()->name)->get();
+
+        return view('pages.riwayatsurat', [
+            'data' => $data,
+            $navbarView,
+            $sidebarView
+        ]);
+    }
 }

@@ -194,7 +194,7 @@ class SuratIzinPenelitianController extends Controller
         // Menggunakan ucfirst untuk mengubah huruf pertama menjadi besar
         $formattedData = $data->map(function ($item) {
             $item->nama_mhs = ucfirst($item->nama_mhs);
-            $item->judul_skripsi = ucfirst($item->judul_skripsi);
+            $item->judul_penelitian = ucfirst($item->judul_penelitian);
             return $item;
         });
 

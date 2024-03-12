@@ -51,9 +51,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/suratpengajuancuti/create/{id}', [SuratPengajuanCutiController::class, 'create'])->name('suratpengajuancuti.create');
     Route::post('/suratpengajuancuti', [SuratPengajuanCutiController::class, 'store'])->name('suratpengajuancuti.store');
 
-
     // riwayat surat
     Route::get('/riwayat-surat-izin-penelitian', [SuratIzinPenelitianController::class, 'riwayatSuratIzinPenelitian'])->name('riwayat-surat-izin-penelitian');
+    Route::get('/riwayat-surat-keterangan-aktif', [SuratKeteranganAktifController::class, 'riwayatSuratKeteranganAktif'])->name('riwayat-surat-keterangan-aktif');
+    Route::get('/riwayat-surat-keterangan-aktif-ortu-pns', [SuratKeteranganAktifOrtuPnsController::class, 'riwayatSuratKeteranganAktifOrtuPns'])->name('riwayat-surat-keterangan-aktif-ortu-pns');
+    Route::get('/riwayat-surat-bebas-pustaka', [SuratBebasPustakaController::class, 'riwayatSuratBebasPustaka'])->name('riwayat-surat-bebas-pustaka');
+    Route::get('/riwayat-surat-pengajuan-cuti', [SuratPengajuanCutiController::class, 'riwayatSuratPengajuanCuti'])->name('riwayat-surat-pengajuan-cuti');
 
     // download surat
     Route::get('/download-surat/{file_path}', [SuratIzinPenelitianController::class, 'downloadSuratIzinPenelitian'])->name('download-surat');
