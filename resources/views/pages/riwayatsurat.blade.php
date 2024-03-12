@@ -63,8 +63,29 @@ Riwayat Surat
                             @endif
                         </td>
                         <td>
+
+                            @php
+                            if ($d->jenis_surat == 'Surat Izin Penelitian') {
+                            $folder = 'surat-izin-penelitian';
+                            } elseif ($d->jenis_surat == 'Surat Keterangan Aktif Kuliah') {
+                            $folder = 'surat-keterangan-aktif';
+                            }
+                            elseif ($d->jenis_surat == 'Surat Keterangan Aktif Kuliah Ortu PNS') {
+                            $folder = 'surat-keterangan-aktif-ortu-pns';
+                            }
+                            elseif ($d->jenis_surat == 'Surat Bebas Pustaka') {
+                            $folder = 'surat-bebas-pustaka';
+                            }
+                            elseif ($d->jenis_surat == 'Surat Pengajuan Cuti') {
+                            $folder = 'surat-pengajuan-cuti';
+                            }
+                            else {
+                            $folder = '';
+                            }
+                            @endphp
+
                             @if($d->status == 'disetujui')
-                            <a href="{{ route('download-surat', ['file_path' => $d->file_path]) }}" class="badge bg-info rounded-pill me-2">
+                            <a href="{{ route('download-surat', ['folders' => $folder, 'file_path' => $d->file_path]) }}" class="badge bg-info rounded-pill me-2">
                                 Download
                             </a>
                             @elseif($d->status == '')

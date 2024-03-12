@@ -158,4 +158,16 @@ class SuratPengajuanCutiController extends Controller
         session()->forget('data_approved_notifications');
         return redirect()->back();
     }
+
+    
+    public function downloadSuratPengajuanCuti($file_path)
+    {
+        $file = storage_path('app/public/surat-pengajuan-cuti/' . $file_path);
+
+        if (file_exists($file)) {
+            return response()->download($file);
+        } else {
+            abort(404, 'File not found');
+        }
+    }
 }

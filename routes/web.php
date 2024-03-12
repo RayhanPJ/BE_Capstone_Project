@@ -59,7 +59,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/riwayat-surat-pengajuan-cuti', [SuratPengajuanCutiController::class, 'riwayatSuratPengajuanCuti'])->name('riwayat-surat-pengajuan-cuti');
 
     // download surat
-    Route::get('/download-surat/{file_path}', [SuratIzinPenelitianController::class, 'downloadSuratIzinPenelitian'])->name('download-surat');
+    // Route::get('/download-surat/{file_path}', [SuratIzinPenelitianController::class, 'downloadSuratIzinPenelitian'])->name('download-surat');
+    Route::get('/download-surat/{folders}/{file_path}', [UserController::class, 'downloadSurat'])->name('download-surat');
 
     Route::get('/markasreadapprove/{id}', [UserController::class, 'markAsReadApprove'])->name('markasreadapprove');
     Route::get('/user/profile/{id}', [UserController::class, 'profile'])->name('user.profile');
@@ -84,7 +85,7 @@ Route::middleware(['admin'])->group(function () {
 
     Route::get('/markasread/{id}', [AdminController::class, 'markAsRead'])->name('markasread');
 
-    // approve reject surat izin penelitian
+    // approve reject cancel
     Route::post('/setujui-surat-izin-penelitian/{id}', [SuratIzinPenelitianController::class, 'setujuiSuratIzinPenelitian']);
     Route::post('/tidaksetuju-surat-izin-penelitian/{id}', [SuratIzinPenelitianController::class, 'tidaksetujuSuratIzinPenelitian']);
     Route::delete('/cancelsurat-izin-penelitian/{id}', [SuratIzinPenelitianController::class, 'cancelsuratIzinPenelitian']);
@@ -104,7 +105,6 @@ Route::middleware(['admin'])->group(function () {
     Route::post('/setujui-surat-pengajuan-cuti/{id}', [SuratPengajuanCutiController::class, 'setujuiSuratPengajuanCuti']);
     Route::post('/tidaksetuju-surat-pengajuan-cuti/{id}', [SuratPengajuanCutiController::class, 'tidaksetujuSuratPengajuanCuti']);
     Route::delete('/cancelsurat-pengajuan-cuti/{id}', [SuratPengajuanCutiController::class, 'cancelsuratPengajuanCuti']);
-
 
 
     // profil admin

@@ -176,4 +176,16 @@ class SuratBebasPustakaController extends Controller
         session()->forget('data_approved_notifications');
         return redirect()->back();
     }
+
+    
+    public function downloadSuratBebasPustaka($file_path)
+    {
+        $file = storage_path('app/public/surat-bebas-pustaka/' . $file_path);
+
+        if (file_exists($file)) {
+            return response()->download($file);
+        } else {
+            abort(404, 'File not found');
+        }
+    }
 }

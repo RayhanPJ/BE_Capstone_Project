@@ -170,4 +170,16 @@ class SuratKeteranganAktifOrtuPnsController extends Controller
         session()->forget('data_approved_notifications');
         return redirect()->back();
     }
+
+    
+    public function downloadSuratKeteranganAktifOrtuPns($file_path)
+    {
+        $file = storage_path('app/public/surat-keterangan-aktif-ortu-pns/' . $file_path);
+
+        if (file_exists($file)) {
+            return response()->download($file);
+        } else {
+            abort(404, 'File not found');
+        }
+    }
 }
