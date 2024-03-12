@@ -51,6 +51,14 @@
                                         <a href="
                                          @if($notification->data['jenis_surat'] === 'Surat Izin Penelitian')
                                          {{ route('listdata.suratizinpenelitian') }}
+                                         @elseif($notification->data['jenis_surat'] === 'Surat Keterangan Aktif Kuliah')
+                                         {{ route('listdata.suratketeranganaktif') }}
+                                         @elseif($notification->data['jenis_surat'] === 'Surat Keterangan Aktif Kuliah Ortu PNS')
+                                         {{ route('listdata.suratketeranganaktifortupns') }}
+                                         @elseif($notification->data['jenis_surat'] === 'Surat Bebas Pustaka')
+                                         {{ route('listdata.suratbebaspustaka') }}
+                                         @elseif($notification->data['jenis_surat'] === 'Surat Pengajuan Cuti')
+                                         {{ route('listdata.suratpengajuancuti') }}
                                          @else
                                          {{ route('home.admin') }}
                                          @endif

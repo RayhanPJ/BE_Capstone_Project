@@ -48,7 +48,19 @@ List Data Surat
                             @php
                             if ($d->jenis_surat == 'Surat Izin Penelitian') {
                             $folder = 'surat-izin-penelitian';
-                            } else {
+                            } elseif ($d->jenis_surat == 'Surat Keterangan Aktif Kuliah') {
+                            $folder = 'surat-keterangan-aktif';
+                            }
+                            elseif ($d->jenis_surat == 'Surat Keterangan Aktif Kuliah Ortu PNS') {
+                            $folder = 'surat-keterangan-aktif-ortu-pns';
+                            }
+                            elseif ($d->jenis_surat == 'Surat Bebas Pustaka') {
+                            $folder = 'surat-bebas-pustaka';
+                            }
+                            elseif ($d->jenis_surat == 'Surat Pengajuan Cuti') {
+                            $folder = 'surat-pengajuan-cuti';
+                            }
+                            else {
                             $folder = '';
                             }
                             @endphp
@@ -56,14 +68,44 @@ List Data Surat
                                 <i class="fa-solid fa-eye"></i>
                             </a>
 
+                            {{-- approval --}}
                             @if($d instanceof App\Models\SuratIzinPenelitian)
-                            {{-- Aksi dan tautan untuk Surat Izin Penelitian --}}
 
                             @php
                             $setujuiRoute = "/setujui-surat-izin-penelitian/{$d->id}";
                             $tidakSetujuRoute = "/tidaksetuju-surat-izin-penelitian/{$d->id}";
                             $cancelRoute = "/cancelsurat-izin-penelitian/{$d->id}";
                             @endphp
+
+                            @elseif($d instanceof App\Models\SuratKeteranganAktif)
+                            @php
+                            $setujuiRoute = "/setujui-surat-keterangan-aktif/{$d->id}";
+                            $tidakSetujuRoute = "/tidaksetuju-surat-keterangan-aktif/{$d->id}";
+                            $cancelRoute = "/cancelsurat-keterangan-aktif/{$d->id}";
+                            @endphp
+
+                            @elseif($d instanceof App\Models\SuratKeteranganAktifOrtuPns)
+                            @php
+                            $setujuiRoute = "/setujui-surat-keterangan-aktif-ortu-pns/{$d->id}";
+                            $tidakSetujuRoute = "/tidaksetuju-surat-keterangan-aktif-ortu-pns/{$d->id}";
+                            $cancelRoute = "/cancelsurat-keterangan-aktif-ortu-pns/{$d->id}";
+                            @endphp
+
+                            @elseif($d instanceof App\Models\SuratBebasPustaka)
+                            @php
+                            $setujuiRoute = "/setujui-surat-bebas-pustaka/{$d->id}";
+                            $tidakSetujuRoute = "/tidaksetuju-surat-bebas-pustaka/{$d->id}";
+                            $cancelRoute = "/cancelsurat-bebas-pustaka/{$d->id}";
+                            @endphp
+
+                            @elseif($d instanceof App\Models\SuratPengajuanCuti)
+                            @php
+                            $setujuiRoute = "/setujui-surat-pengajuan-cuti/{$d->id}";
+                            $tidakSetujuRoute = "/tidaksetuju-surat-pengajuan-cuti/{$d->id}";
+                            $cancelRoute = "/cancelsurat-pengajuan-cuti/{$d->id}";
+                            @endphp
+
+                            @else
 
                             @endif
 

@@ -72,20 +72,46 @@ Route::middleware(['auth'])->group(function () {
 // ======== admin ============
 Route::middleware(['admin'])->group(function () {
     Route::get('/admin', [AdminController::class, 'home'])->name('home.admin');
-    Route::get('/admin/listdata/suratizinpenelitian', [AdminController::class, 'listdataSuratIzinPenelitian'])->name('listdata.suratizinpenelitian');
     Route::get('/storage/{folders}/{file_path}', [AdminController::class, 'suratPreview'])
-        ->name('surat-preview');
+    ->name('surat-preview');
+
+    // listdata
+    Route::get('/admin/listdata/suratizinpenelitian', [AdminController::class, 'listdataSuratIzinPenelitian'])->name('listdata.suratizinpenelitian');
+    Route::get('/admin/listdata/suratketeranganaktif', [AdminController::class, 'listdataSuratKeteranganAktif'])->name('listdata.suratketeranganaktif');
+    Route::get('/admin/listdata/suratketeranganaktifortupns', [AdminController::class, 'listdataSuratKeteranganAktifOrtuPns'])->name('listdata.suratketeranganaktifortupns');
+    Route::get('/admin/listdata/suratbebaspustaka', [AdminController::class, 'listdataSuratBebasPustaka'])->name('listdata.suratbebaspustaka');
+    Route::get('/admin/listdata/suratpengajuancuti', [AdminController::class, 'listdataSuratPengajuanCuti'])->name('listdata.suratpengajuancuti');
 
     Route::get('/markasread/{id}', [AdminController::class, 'markAsRead'])->name('markasread');
 
-    // For SuratIzinPenelitianController
+    // approve reject surat izin penelitian
     Route::post('/setujui-surat-izin-penelitian/{id}', [SuratIzinPenelitianController::class, 'setujuiSuratIzinPenelitian']);
     Route::post('/tidaksetuju-surat-izin-penelitian/{id}', [SuratIzinPenelitianController::class, 'tidaksetujuSuratIzinPenelitian']);
     Route::delete('/cancelsurat-izin-penelitian/{id}', [SuratIzinPenelitianController::class, 'cancelsuratIzinPenelitian']);
 
+    Route::post('/setujui-surat-keterangan-aktif/{id}', [SuratKeteranganAktifController::class, 'setujuiSuratKeteranganAktif']);
+    Route::post('/tidaksetuju-surat-keterangan-aktif/{id}', [SuratKeteranganAktifController::class, 'tidaksetujuSuratKeteranganAktif']);
+    Route::delete('/cancelsurat-keterangan-aktif/{id}', [SuratKeteranganAktifController::class, 'cancelsuratKeteranganAktif']);
+
+    Route::post('/setujui-surat-keterangan-aktif-ortu-pns/{id}', [SuratKeteranganAktifOrtuPnsController::class, 'setujuiSuratKeteranganAktifOrtuPns']);
+    Route::post('/tidaksetuju-surat-keterangan-aktif-ortu-pns/{id}', [SuratKeteranganAktifOrtuPnsController::class, 'tidaksetujuSuratKeteranganAktifOrtuPns']);
+    Route::delete('/cancelsurat-keterangan-aktif-ortu-pns/{id}', [SuratKeteranganAktifOrtuPnsController::class, 'cancelsuratKeteranganAktifOrtuPns']);
+
+    Route::post('/setujui-surat-bebas-pustaka/{id}', [SuratBebasPustakaController::class, 'setujuiSuratBebasPustaka']);
+    Route::post('/tidaksetuju-surat-bebas-pustaka/{id}', [SuratBebasPustakaController::class, 'tidaksetujuSuratBebasPustaka']);
+    Route::delete('/cancelsurat-bebas-pustaka/{id}', [SuratBebasPustakaController::class, 'cancelsuratBebasPustaka']);
+
+    Route::post('/setujui-surat-pengajuan-cuti/{id}', [SuratPengajuanCutiController::class, 'setujuiSuratPengajuanCuti']);
+    Route::post('/tidaksetuju-surat-pengajuan-cuti/{id}', [SuratPengajuanCutiController::class, 'tidaksetujuSuratPengajuanCuti']);
+    Route::delete('/cancelsurat-pengajuan-cuti/{id}', [SuratPengajuanCutiController::class, 'cancelsuratPengajuanCuti']);
+
+
+
+    // profil admin
     Route::get('/admin/profile/{id}', [AdminController::class, 'profile'])->name('admin.profile');
     Route::post('/admin/profile/{id}', [AdminController::class, 'changePassword'])->name('change.password.admin');
    
+    // change ttd
     Route::get('/admin/upload-ttd/', [AdminController::class, 'formchangeTtd'])->name('form.change.ttd');
     Route::post('/admin/upload-ttd/', [AdminController::class, 'changeTtdPimpinan'])->name('change.ttdpimpinan');
 });

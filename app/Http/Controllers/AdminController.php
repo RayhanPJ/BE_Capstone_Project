@@ -6,15 +6,19 @@ use Carbon\Carbon;
 use App\Models\Ttd;
 use App\Models\User;
 use App\Models\SuratTugas;
+use App\Models\TtdPimpinan;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Events\UserDataInput;
+use App\Models\SuratBebasPustaka;
+use App\Models\SuratPengajuanCuti;
 use App\Models\SuratIzinPenelitian;
+use App\Models\SuratKeteranganAktif;
 use Illuminate\Support\Facades\Hash;
-use App\Models\TtdPimpinan;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Response;
 use Yajra\DataTables\Facades\DataTables;
+use App\Models\SuratKeteranganAktifOrtuPns;
 
 class AdminController extends Controller
 {
@@ -29,26 +33,6 @@ class AdminController extends Controller
         ]);
     }
 
-    public function listdataSuratTugas()
-    {
-        $navbarView = view('admin/layouts/navbar');
-        $sidebarView = view('admin/layouts/sidebar');
-
-        $data = SuratTugas::orderBy('created_at', 'desc')->get();
-
-        // Menggunakan ucfirst untuk mengubah huruf pertama menjadi besar
-        $formattedData = $data->map(function ($item) {
-            $item->nama_mhs = ucfirst($item->nama_mhs);
-            $item->judul_skripsi = ucfirst($item->judul_skripsi);
-            return $item;
-        });
-
-        return view('admin.pages.listdata', [
-            'data' => $formattedData,
-            $navbarView,
-            $sidebarView
-        ]);
-    }
 
     public function listdataSuratIzinPenelitian()
     {
@@ -71,9 +55,62 @@ class AdminController extends Controller
         ]);
     }
 
+    public function listdataSuratKeteranganAktif()
+    {
+        $navbarView = view('admin/layouts/navbar');
+        $sidebarView = view('admin/layouts/sidebar');
+
+        $data = SuratKeteranganAktif::orderBy('created_at', 'desc')->get();
+
+        return view('admin.pages.listdata', [
+            'data' => $data,
+            $navbarView,
+            $sidebarView
+        ]);
+    }
+    public function listdataSuratKeteranganAktifOrtuPns()
+    {
+        $navbarView = view('admin/layouts/navbar');
+        $sidebarView = view('admin/layouts/sidebar');
+
+        $data = SuratKeteranganAktifOrtuPns::orderBy('created_at', 'desc')->get();
+
+        return view('admin.pages.listdata', [
+            'data' => $data,
+            $navbarView,
+            $sidebarView
+        ]);
+    }
+    public function listdataSuratBebasPustaka()
+    {
+        $navbarView = view('admin/layouts/navbar');
+        $sidebarView = view('admin/layouts/sidebar');
+
+        $data = SuratBebasPustaka::orderBy('created_at', 'desc')->get();
+
+        return view('admin.pages.listdata', [
+            'data' => $data,
+            $navbarView,
+            $sidebarView
+        ]);
+    }
+    public function listdataSuratPengajuanCuti()
+    {
+        $navbarView = view('admin/layouts/navbar');
+        $sidebarView = view('admin/layouts/sidebar');
+
+        $data = SuratPengajuanCuti::orderBy('created_at', 'desc')->get();
+
+        return view('admin.pages.listdata', [
+            'data' => $data,
+            $navbarView,
+            $sidebarView
+        ]);
+    }
+
     public function suratPreview($folders, $file_path)
     {
-        $folders = ['surat-tugas', 'surat-izin-penelitian'];
+        $folders = ['surat-izin-penelitian', 'surat-keterangan-aktif', 'surat-keterangan-aktif-ortu-pns', 'surat-bebas-pustaka', 'surat-pengajuan-cuti'];
 
         $path = storage_path("app/public/{$folders}/{$file_path}");
         $iframe = asset($path);
