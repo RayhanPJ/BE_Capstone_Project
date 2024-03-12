@@ -159,4 +159,14 @@ class SuratKeteranganAktifController extends Controller
 
         return redirect()->back()->with('success', 'Surat Keterangan Aktif Kuliah telah disetujui!');
     }
+
+    public function tidaksetujuSuratKeteranganAktif(Request $request, $id)
+    {
+        $SuratKeteranganAktif = SuratKeteranganAktif::findOrFail($id);
+        $SuratKeteranganAktif->status = 'ditolak';
+        $SuratKeteranganAktif->keterangan = $request->input('text_input');
+        $SuratKeteranganAktif->save();
+
+        return redirect()->back()->with('success', 'Surat Keterangan Aktif Kuliah telah ditolak!');
+    }
 }

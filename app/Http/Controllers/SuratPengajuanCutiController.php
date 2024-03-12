@@ -138,4 +138,14 @@ class SuratPengajuanCutiController extends Controller
 
         return redirect()->back()->with('success', 'Surat Pengajuan Cuti telah disetujui!');
     }
+
+    public function tidaksetujuSuratPengajuanCuti(Request $request, $id)
+    {
+        $SuratPengajuanCuti = SuratPengajuanCuti::findOrFail($id);
+        $SuratPengajuanCuti->status = 'ditolak';
+        $SuratPengajuanCuti->keterangan = $request->input('text_input');
+        $SuratPengajuanCuti->save();
+
+        return redirect()->back()->with('success', 'Surat Pengajuan Cuti telah ditolak!');
+    }
 }

@@ -34,7 +34,7 @@
                         </div>
                     </li>
                     <li class="dropdown-notifications-list scrollable-container">
-                        <ul class="list-group list-group-flush">
+                        <ul class="list-group list-group-flush" style="max-height: 300px; overflow-y: auto;">
                             @foreach(auth()->user()->unreadnotifications as $notification)
                             <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
                                 <div class="d-flex">

@@ -156,4 +156,14 @@ class SuratBebasPustakaController extends Controller
 
         return redirect()->back()->with('success', 'Surat Bebas Pustaka telah disetujui!');
     }
+
+    public function tidaksetujuSuratBebasPustaka(Request $request, $id)
+    {
+        $SuratBebasPustaka = SuratBebasPustaka::findOrFail($id);
+        $SuratBebasPustaka->status = 'ditolak';
+        $SuratBebasPustaka->keterangan = $request->input('text_input');
+        $SuratBebasPustaka->save();
+
+        return redirect()->back()->with('success', 'Surat Bebas Pustaka telah ditolak!');
+    }
 }

@@ -150,4 +150,14 @@ class SuratKeteranganAktifOrtuPnsController extends Controller
 
         return redirect()->back()->with('success', 'Surat Keterangan Aktif Kuliah Ortu PNS telah disetujui!');
     }
+
+    public function tidaksetujuSuratKeteranganAktifOrtuPns(Request $request, $id)
+    {
+        $SuratKeteranganAktifOrtuPns = SuratKeteranganAktifOrtuPns::findOrFail($id);
+        $SuratKeteranganAktifOrtuPns->status = 'ditolak';
+        $SuratKeteranganAktifOrtuPns->keterangan = $request->input('text_input');
+        $SuratKeteranganAktifOrtuPns->save();
+
+        return redirect()->back()->with('success', 'Surat Keterangan Aktif Kuliah Ortu PNS telah ditolak!');
+    }
 }
