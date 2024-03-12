@@ -68,6 +68,7 @@ class SuratIzinPenelitianController extends Controller
             $templateProcessor->setValue('npm', $data->npm);
             $templateProcessor->setValue('prodi', $data->prodi);
             $templateProcessor->setValue('judul_penelitian', $data->judul_penelitian);
+             $templateProcessor->setValue('created_at',  \Carbon\Carbon::parse($data->created_at)->locale('id_ID')->isoFormat('D MMMM Y'));
 
             $templateProcessor->saveAs($outputPath);
         } elseif ($data->lingkup === 'Eksternal') {
@@ -91,7 +92,7 @@ class SuratIzinPenelitianController extends Controller
             if ($ttdPimpinanDataIF->isEmpty()) {
                 $defaultTtdData =
                     [
-                        'penanda_tangan' => 'a.n Dekan Koord. Program Studi',
+                        'penanda_tangan' => 'a.n Dekan <br> Koord. Program Studi',
                         'nama_pimpinan' => 'E. Haodudin Nurkifli, M.Cs., Ph.D',
                         'ttd_image' => 'ttd_if.png',
                         'nomor_induk' => 'NIP. 198504032021211003'
@@ -103,7 +104,7 @@ class SuratIzinPenelitianController extends Controller
         } elseif ($data->prodi === 'Sistem Informasi') {
             if ($ttdPimpinanDataSI->isEmpty()) {
                 $defaultTtdData = [
-                    'penanda_tangan' => 'A.n Dekan, Koor. Program Studi,',
+                    'penanda_tangan' => 'A.n Dekan, <br> Koor. Program Studi,',
                     'nama_pimpinan' => 'Azhari Ali Ridha, S.Kom., M.M.S.I.',
                     'ttd_image' => 'ttd_si.png',
                     'nomor_induk' => 'NIDN. 0415098003'

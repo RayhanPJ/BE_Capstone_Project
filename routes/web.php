@@ -7,9 +7,11 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegistController;
 use App\Http\Controllers\ForgotPWController;
+use App\Http\Controllers\SuratBebasPustakaController;
 use App\Http\Controllers\SuratIzinPenelitianController;
 use App\Http\Controllers\SuratKeteranganAktifController;
 use App\Http\Controllers\SuratKeteranganAktifOrtuPnsController;
+use App\Http\Controllers\SuratPengajuanCutiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,6 +46,10 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/suratketeranganaktif', [SuratKeteranganAktifController::class, 'store'])->name('suratketeranganaktif.store');
     Route::get('/suratketeranganaktifortupns/create/{id}', [SuratKeteranganAktifOrtuPnsController::class, 'create'])->name('suratketeranganaktifortupns.create');
     Route::post('/suratketeranganaktifortupns', [SuratKeteranganAktifOrtuPnsController::class, 'store'])->name('suratketeranganaktifortupns.store');
+    Route::get('/suratbebaspustaka/create/{id}', [SuratBebasPustakaController::class, 'create'])->name('suratbebaspustaka.create');
+    Route::post('/suratbebaspustaka', [SuratBebasPustakaController::class, 'store'])->name('suratbebaspustaka.store');
+    Route::get('/suratpengajuancuti/create/{id}', [SuratPengajuanCutiController::class, 'create'])->name('suratpengajuancuti.create');
+    Route::post('/suratpengajuancuti', [SuratPengajuanCutiController::class, 'store'])->name('suratpengajuancuti.store');
 
 
     // riwayat surat

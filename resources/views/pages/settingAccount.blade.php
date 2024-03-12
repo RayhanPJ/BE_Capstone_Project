@@ -16,10 +16,10 @@ User Settings
         <ul class="nav nav-pills flex-column flex-md-row mb-4">
             <li class="nav-item">
                 <a class="nav-link active" href="javascript:void(0);"><i class="ti-xs ti ti-users me-1"></i>
-                    Akun</a>
+                    Data Diri</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('user.settingSecurity', ['id'=> auth()->user()->id]) }}"><i class="ti-xs ti ti-lock me-1"></i> Keamanan</a>
+                <a class="nav-link" href="{{ route('user.settingSecurity', ['id'=> auth()->user()->id]) }}"><i class="ti-xs ti ti-lock me-1"></i> Akun</a>
             </li>
 
             <li class="nav-item mx-3">
