@@ -7,7 +7,7 @@ User Settings
 @section('mainContent')
 
 <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light">Pengaturan Akun /</span>
+    <span class="text-muted fw-light">Pengaturan /</span>
     Akun
 </h4>
 
