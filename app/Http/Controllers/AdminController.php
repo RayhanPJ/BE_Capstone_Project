@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\Ttd;
 use App\Models\User;
+use App\Models\Mahasiswa;
 use App\Models\SuratTugas;
 use App\Models\TtdPimpinan;
 use Illuminate\Support\Str;
@@ -25,11 +26,27 @@ class AdminController extends Controller
 
     public function home()
     {
+        $totalSuratIzinPenelitian = SuratIzinPenelitian::count();
+        $totalSuratKeteranganAktif = SuratKeteranganAktif::count();
+        $totalSuratKeteranganAktifOrtuPns = SuratKeteranganAktifOrtuPns::count();
+        $totalSuratBebasPustaka = SuratBebasPustaka::count();
+        $totalSuratPengajuanCuti = SuratPengajuanCuti::count();
+        $totalMahasiswa = Mahasiswa::count();
+
+        $countAllSurat = $totalSuratIzinPenelitian + $totalSuratKeteranganAktif + $totalSuratKeteranganAktifOrtuPns + $totalSuratBebasPustaka + $totalSuratPengajuanCuti;
+
         $navbarView = view('admin/layouts/navbar');
         $sidebarView = view('admin/layouts/sidebar');
         return view('admin.pages.home', [
             $navbarView,
-            $sidebarView
+            $sidebarView,
+            'totalSuratIzinPenelitian' => $totalSuratIzinPenelitian,
+            'totalSuratKeteranganAktif' => $totalSuratKeteranganAktif,
+            'totalSuratKeteranganAktifOrtuPns' => $totalSuratKeteranganAktifOrtuPns,
+            'totalSuratBebasPustaka' => $totalSuratBebasPustaka,
+            'totalSuratPengajuanCuti' => $totalSuratPengajuanCuti,
+            'totalMahasiswa' => $totalMahasiswa,
+            'countAllSurat' => $countAllSurat,
         ]);
     }
 
